@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Accords et nature des mots (4e)</title>
+<meta name="description" content="a/à, é/er/ez/ait, nature des mots, accord du participe passé et accord sujet-verbe : quiz à formats variés, chasse aux fautes et atelier d'écriture (One Piece, manga, jeux vidéo…).">
+<meta name="themes" content="accords, a/à, participe passé, nature des mots, écriture, 4e">
+<style>
+  :root{
+    --bg:#f3f5f9; --card:#ffffff; --ink:#1b2333; --muted:#5d6779;
+    --primary:#1d3d6b; --primary-soft:#e3eaf5; --accent:#c8402c; --accent-soft:#fbe6e2;
+    --gold:#e3b23c; --gold-soft:#fbf1d6;
+    --ok:#2e9e5b; --ok-soft:#e3f6ea; --ko:#d14343; --ko-soft:#fbe5e5; --line:#dce2ec;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;background:var(--bg);color:var(--ink);font-size:18px;line-height:1.5}
+  header{background:var(--primary);color:#fff;padding:18px 16px 0}
+  .wrap{max-width:880px;margin:0 auto}
+  header a.back{color:#cfdcf0;text-decoration:none;font-size:15px}
+  h1{margin:6px 0 4px;font-size:26px}
+  .sub{margin:0 0 14px;color:#cfdcf0;font-size:16px}
+  .badge{display:inline-block;background:var(--accent);color:#fff;border-radius:999px;padding:2px 10px;font-size:14px;font-weight:600;margin-left:6px;vertical-align:middle}
+  nav{display:flex;gap:6px;flex-wrap:wrap}
+  nav button{border:0;background:rgba(255,255,255,.15);color:#fff;padding:10px 14px;border-radius:10px 10px 0 0;font-size:16px;cursor:pointer;font-weight:600}
+  nav button.on{background:var(--bg);color:var(--primary)}
+  main{padding:18px 16px 40px}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px;margin-bottom:16px;box-shadow:0 1px 3px rgba(0,0,0,.04)}
+  h2{margin:0 0 10px;font-size:21px;color:var(--primary)}
+  h3{margin:16px 0 6px;font-size:18px;color:var(--primary)}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  .box{border-radius:12px;padding:12px 14px}
+  .b1{background:var(--primary-soft)} .b2{background:var(--accent-soft)} .b3{background:var(--gold-soft)}
+  .big{font-size:34px;font-weight:800;line-height:1}
+  .ex{font-style:italic}
+  table{width:100%;border-collapse:collapse;font-size:16px;margin-top:6px}
+  td,th{border:1px solid var(--line);padding:7px 9px;text-align:left;vertical-align:top}
+  th{background:var(--primary-soft)}
+  .tip{background:#fff8d8;border-left:5px solid #f0c400;padding:10px 14px;border-radius:8px;margin-top:12px}
+  .hint{color:var(--muted);font-size:16px}
+  mark{background:var(--gold-soft);border-bottom:3px solid var(--gold);padding:0 3px;border-radius:3px;font-weight:700;color:inherit}
+  /* sélecteur */
+  .sel{display:flex;gap:8px;flex-wrap:wrap;margin:6px 0 12px}
+  .sel label{border:2px solid var(--line);border-radius:999px;padding:6px 14px;cursor:pointer;font-weight:600;user-select:none;font-size:16px}
+  .sel input{display:none}
+  .sel label.on{background:var(--primary);border-color:var(--primary);color:#fff}
+  /* quiz */
+  .q-top{display:flex;justify-content:space-between;align-items:center;color:var(--muted);font-size:15px;margin-bottom:6px;gap:8px;flex-wrap:wrap}
+  .type{background:var(--primary-soft);color:var(--primary);border-radius:999px;padding:2px 10px;font-weight:700;font-size:13px}
+  .bar{height:8px;background:var(--line);border-radius:99px;overflow:hidden;margin-bottom:16px}
+  .bar>i{display:block;height:100%;background:var(--primary);width:0;transition:width .3s}
+  .consigne{color:var(--muted);font-size:16px;margin:0 0 4px}
+  .prompt{font-size:22px;margin:4px 0 18px}
+  .blank{display:inline-block;min-width:54px;border-bottom:3px solid var(--accent);text-align:center;font-weight:700;color:var(--accent)}
+  .inf{color:var(--muted);font-size:17px}
+  .opts{display:flex;gap:10px;flex-wrap:wrap}
+  .opts button{flex:1 1 130px;font-size:19px;padding:12px;border:2px solid var(--line);background:#fff;border-radius:12px;cursor:pointer;font-weight:600;color:var(--ink)}
+  .opts button:hover:not(:disabled){border-color:var(--primary)}
+  .opts button.good{background:var(--ok-soft);border-color:var(--ok);color:var(--ok)}
+  .opts button.bad{background:var(--ko-soft);border-color:var(--ko);color:var(--ko)}
+  .answer{display:flex;gap:10px;flex-wrap:wrap}
+  .answer input{flex:0 1 260px;font-size:24px;padding:8px 12px;border:3px solid var(--line);border-radius:12px;font-weight:700}
+  .answer input:focus{outline:none;border-color:var(--primary)}
+  .answer input.good{border-color:var(--ok);background:var(--ok-soft)}
+  .answer input.bad{border-color:var(--ko);background:var(--ko-soft)}
+  .fb{margin-top:14px;padding:12px 14px;border-radius:10px;display:none}
+  .fb.ok{display:block;background:var(--ok-soft)}
+  .fb.ko{display:block;background:var(--ko-soft)}
+  .btn{border:0;background:var(--primary);color:#fff;font-size:17px;font-weight:600;padding:11px 18px;border-radius:10px;cursor:pointer}
+  .btn.alt{background:#fff;color:var(--primary);border:2px solid var(--primary)}
+  .btn.red{background:var(--accent)}
+  .row{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px;align-items:center}
+  .score{font-size:44px;font-weight:800;color:var(--primary);margin:6px 0}
+  .cats{display:grid;gap:8px;margin:10px 0}
+  .cat{display:grid;grid-template-columns:200px 1fr 60px;gap:10px;align-items:center;font-size:16px}
+  .cat .track{height:12px;background:var(--line);border-radius:99px;overflow:hidden}
+  .cat .track i{display:block;height:100%}
+  .review li{margin-bottom:8px}
+  s{color:var(--ko)}
+  /* chasse aux fautes */
+  .text{font-size:20px;line-height:2.1}
+  .text span.w{cursor:pointer;border-radius:5px;padding:1px 1px}
+  .text span.w:hover{background:#eef2f8}
+  .text span.found{background:var(--ok-soft);color:var(--ok);font-weight:700}
+  .text span.miss{background:var(--ko-soft);animation:shake .3s}
+  .text span.shown{background:var(--accent-soft);font-weight:700}
+  .text span.shown s{margin-right:4px}
+  .counter{display:flex;gap:16px;flex-wrap:wrap;font-weight:600;margin-bottom:10px}
+  .counter .g{color:var(--ok)} .counter .b{color:var(--ko)}
+  @keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-3px)}75%{transform:translateX(3px)}}
+  /* atelier */
+  .themes{display:flex;gap:8px;flex-wrap:wrap;margin:8px 0}
+  .themes button{border:2px solid var(--line);background:#fff;border-radius:999px;padding:7px 14px;font-size:16px;font-weight:600;cursor:pointer;color:var(--ink)}
+  .themes button.on{background:var(--accent);border-color:var(--accent);color:#fff}
+  .prompts{display:grid;gap:8px;margin:10px 0}
+  .prompts button{text-align:left;border:2px solid var(--line);background:#fff;border-radius:12px;padding:10px 14px;font-size:17px;cursor:pointer;color:var(--ink)}
+  .prompts button:hover{border-color:var(--accent)}
+  .sujet{background:var(--primary);color:#fff;border-radius:12px;padding:14px 16px;margin:10px 0}
+  .sujet b{color:var(--gold)}
+  .sujet .defi{margin-top:8px;background:rgba(255,255,255,.12);border-radius:8px;padding:8px 10px;font-size:16px}
+  textarea{width:100%;min-height:300px;font-size:18px;line-height:1.6;padding:12px;border:2px solid var(--line);border-radius:12px;font-family:inherit;resize:vertical}
+  textarea:focus{outline:none;border-color:var(--primary)}
+  .stats{display:flex;gap:14px;flex-wrap:wrap;color:var(--muted);font-size:15px;margin-top:6px}
+  .stats b{color:var(--ink)}
+  .goal-ok{color:var(--ok)!important}
+  .preview{white-space:pre-wrap;font-size:18px;line-height:1.9;border:2px dashed var(--line);border-radius:12px;padding:12px;margin-top:10px}
+  .preview .hl-aa{background:#dce8ff;border-bottom:3px solid #3e6fd8;border-radius:3px;cursor:pointer;padding:0 2px}
+  .preview .hl-er{background:var(--gold-soft);border-bottom:3px solid var(--gold);border-radius:3px;cursor:pointer;padding:0 1px}
+  .preview .hl-ok{background:var(--ok-soft);border-bottom-color:var(--ok)}
+  .legend{display:flex;gap:14px;flex-wrap:wrap;font-size:15px;margin-top:8px}
+  .legend span{padding:1px 6px;border-radius:4px}
+  .check li{list-style:none;margin:4px 0}
+  .check{padding-left:4px}
+  .hide{display:none}
+  @media (max-width:640px){
+    body{font-size:17px}.prompt{font-size:20px}.grid2{grid-template-columns:1fr}
+    .cat{grid-template-columns:1fr 50px}.cat .track{grid-column:1/-1;grid-row:2}
+  }
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <a class="back" href="index.html">← Tous les quiz</a>
+    <h1>Accords et nature des mots <span class="badge">4e</span></h1>
+    <p class="sub">a / à · é / er / ez · nom, verbe ou participe ? · accords du participe passé et du verbe</p>
+    <nav id="tabs">
+      <button data-tab="regles" class="on">📘 Règles</button>
+      <button data-tab="quiz">⚔️ Quiz</button>
+      <button data-tab="fautes">🔍 Chasse aux fautes</button>
+      <button data-tab="atelier">✍️ Atelier d'écriture</button>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <!-- ================= RÈGLES ================= -->
+  <section id="regles">
+    <div class="card">
+      <h2>1. « a » ou « à » ?</h2>
+      <div class="grid2">
+        <div class="box b1"><div class="big">a</div>verbe <b>avoir</b> → on peut dire <b>avait</b>.<br><span class="ex">Luffy <b>a</b> faim → Luffy <b>avait</b> faim ✔</span></div>
+        <div class="box b2"><div class="big">à</div><b>préposition</b> → impossible de dire <b>avait</b>.<br><span class="ex">Il part <b>à</b> l'aventure → <s>avait</s> l'aventure ✘</span></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>2. Nom, infinitif, participe passé ou verbe conjugué ?</h2>
+      <p>Le même son peut s'écrire de plusieurs façons. Il faut d'abord trouver <b>la nature du mot</b>.</p>
+      <table>
+        <tr><th>Nature</th><th>Comment le reconnaître</th><th>Exemple</th></tr>
+        <tr><td><b>Nom</b></td><td>Précédé d'un déterminant (le, un, ce, son…)</td><td>Le <b>marché</b> de l'île</td></tr>
+        <tr><td><b>Infinitif</b> (-er)</td><td>Après une préposition (à, de, pour, sans…) ou un autre verbe. On peut le remplacer par <b>vendre / mordre</b>.</td><td>Ils vont <b>marcher</b> (→ <i>vendre</i>)</td></tr>
+        <tr><td><b>Participe passé</b> (-é)</td><td>Après <b>avoir</b> ou <b>être</b>, ou employé comme adjectif. On peut le remplacer par <b>vendu / mordu</b>.</td><td>Nous avons <b>marché</b> (→ <i>vendu</i>)</td></tr>
+        <tr><td><b>Verbe conjugué</b> (-ez, -ait, -ais…)</td><td>Il a un sujet et il varie avec le temps et la personne.</td><td>Vous <b>marchez</b> · il <b>marchait</b></td></tr>
+      </table>
+      <div class="tip">💡 <b>L'astuce du verbe « vendre »</b> : remplace le verbe en -er par <b>vendre</b>.<br>
+        vendre → <b>-er</b> · vendu → <b>-é</b> (+ accord ?) · vendez → <b>-ez</b> · vendait → <b>-ait</b>.</div>
+    </div>
+
+    <div class="card">
+      <h2>3. Accord du participe passé</h2>
+      <div class="grid2">
+        <div class="box b1"><b>Avec être</b> : accord avec le <b>sujet</b>.<br><span class="ex">Nami est parti<b>e</b>. Les pirates sont arrivé<b>s</b>.</span></div>
+        <div class="box b2"><b>Avec avoir</b> : <b>pas d'accord avec le sujet</b>.<br>Accord avec le <b>COD seulement s'il est placé avant</b>.<br>
+          <span class="ex">Nami a dessiné <u>la carte</u>. (COD après → pas d'accord)<br><u>La carte</u> qu'elle a dessiné<b>e</b>… (COD avant → accord)</span></div>
+      </div>
+      <div class="box b3" style="margin-top:12px"><b>Sans auxiliaire</b> (employé comme adjectif) : accord avec le <b>nom</b>.<br>
+        <span class="ex">Les marins épuisé<b>s</b> · une île abandonné<b>e</b></span></div>
+      <div class="tip">💡 Pour trouver le COD : <b>verbe + qui ? / quoi ?</b> « Qu'a-t-elle dessiné ? → la carte ». Ensuite, regarde s'il est <b>avant</b> ou <b>après</b> le verbe.</div>
+    </div>
+
+    <div class="card">
+      <h2>4. Accord du verbe avec son sujet</h2>
+      <p>Pose la question <b>« Qui est-ce qui ? »</b> devant le verbe. Pièges fréquents :</p>
+      <ul>
+        <li><b>Sujet inversé</b> : Dans la cale <b>se cachent</b> deux passagers. → <i>qui se cache ? deux passagers</i></li>
+        <li><b>Sujet éloigné</b> : Les membres de l'équipage <b>dorment</b>. (le sujet est « les membres », pas « l'équipage »)</li>
+        <li><b>Pronom relatif « qui »</b> : C'est toi qui <b>tiens</b> la barre. (qui = toi → 2e personne)</li>
+        <li><b>« On »</b> : toujours 3e personne du singulier → on <b>va</b>.</li>
+        <li><b>« Chacun »</b> : singulier → chacun des pirates <b>a</b> son rêve.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="quiz" class="hide"><div class="card" id="quizBox"></div></section>
+
+  <!-- ================= CHASSE AUX FAUTES ================= -->
+  <section id="fautes" class="hide">
+    <div class="card">
+      <h2>Chasse aux fautes : « Terre en vue ! »</h2>
+      <p class="hint">Ce récit contient <b id="nbF"></b> fautes (a/à, é/er, accords). Clique sur un mot que tu crois faux : s'il l'est, il se corrige.</p>
+      <div class="counter"><span class="g">✔ Trouvées : <span id="tFound">0</span> / <span id="tTotal"></span></span><span class="b">✘ Clics sur un mot juste : <span id="tMiss">0</span></span></div>
+      <div class="text" id="txt"></div>
+      <div class="row">
+        <button class="btn alt" id="tShow">Voir la correction</button>
+        <button class="btn" id="tReset">Recommencer</button>
+      </div>
+      <p id="tEnd" class="tip hide"></p>
+    </div>
+  </section>
+
+  <!-- ================= ATELIER ================= -->
+  <section id="atelier" class="hide">
+    <div class="card">
+      <h2>✍️ Atelier d'écriture</h2>
+      <p>Choisis un univers qui te plaît, puis un sujet. Chaque sujet a un <b>défi de grammaire</b> : c'est là que tu gagnes des points !</p>
+      <div class="themes" id="themes"></div>
+      <div class="prompts" id="prompts"></div>
+      <div class="row" style="margin-top:4px">
+        <button class="btn red" id="random">🎲 Sujet au hasard</button>
+        <label class="hint">Longueur visée :
+          <select id="goal" style="font-size:16px;padding:4px 6px;border-radius:8px">
+            <option value="150">150 mots</option><option value="250" selected>250 mots</option><option value="400">400 mots</option>
+          </select></label>
+      </div>
+    </div>
+
+    <div class="card hide" id="writeCard">
+      <div class="sujet" id="sujet"></div>
+      <textarea id="draft" placeholder="Écris ton texte ici… (il est sauvegardé automatiquement sur cet ordinateur)"></textarea>
+      <div class="stats"><span>Mots : <b id="wc">0</b> / <span id="wgoal">250</span></span><span>« a » : <b id="ca">0</b></span><span>« à » : <b id="cà">0</b></span><span id="saved"></span></div>
+      <div class="row">
+        <button class="btn" id="relire">🔎 Mode relecture</button>
+        <button class="btn alt" id="dl">💾 Télécharger (.txt)</button>
+        <button class="btn alt" id="copy">📋 Copier</button>
+        <button class="btn alt" id="other">↩ Changer de sujet</button>
+      </div>
+
+      <div id="relecture" class="hide">
+        <h3>Relecture</h3>
+        <p class="hint">Les mots à vérifier sont surlignés. Clique sur chacun pour voir comment le vérifier ; une fois vérifié, il passe au vert.</p>
+        <div class="legend"><span class="preview-like" style="background:#dce8ff">a / à → « avait » ?</span><span style="background:var(--gold-soft)">-é / -er / -ez / -ait → « vendre » ?</span><span style="background:var(--ok-soft)">vérifié ✔</span></div>
+        <div class="preview" id="preview"></div>
+        <p class="tip hide" id="wordTip"></p>
+        <h3>Ma check-list</h3>
+        <ul class="check">
+          <li><label><input type="checkbox"> J'ai testé chaque <b>a / à</b> avec « avait ».</label></li>
+          <li><label><input type="checkbox"> J'ai testé chaque verbe en <b>-é / -er</b> avec « vendre / vendu ».</label></li>
+          <li><label><input type="checkbox"> Avec <b>être</b>, j'ai accordé le participe avec le sujet.</label></li>
+          <li><label><input type="checkbox"> Avec <b>avoir</b>, j'ai cherché si le COD est placé avant.</label></li>
+          <li><label><input type="checkbox"> J'ai trouvé le <b>sujet</b> de chaque verbe conjugué.</label></li>
+          <li><label><input type="checkbox"> J'ai relevé le <b>défi de grammaire</b>.</label></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+</main>
+
+<script>
+const QUIZ_ID = 'accords-4e';
+const NB_Q = 20;
+const $ = id => document.getElementById(id);
+const rnd = n => Math.floor(Math.random()*n);
+const pick = a => a[rnd(a.length)];
+const shuffle = a => { a = a.slice(); for (let i=a.length-1;i>0;i--){const j=rnd(i+1);[a[i],a[j]]=[a[j],a[i]];} return a; };
+const esc = s => String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+const store = {
+  get(k){ try{ return localStorage.getItem(`${QUIZ_ID}_${k}`); }catch(e){ return null; } },
+  set(k,v){ try{ localStorage.setItem(`${QUIZ_ID}_${k}`, v); }catch(e){} }
+};
+
+/* ============ CATÉGORIES ============ */
+const CATS = {
+  aa:  {n:'a / à', c:'#3e6fd8'},
+  eer: {n:'é / er / ez / ait', c:'#e3b23c'},
+  nat: {n:'Nature des mots', c:'#8a4fb3'},
+  pp:  {n:'Accord du participe passé', c:'#c8402c'},
+  sv:  {n:'Accord sujet-verbe', c:'#2e9e5b'}
+};
+const NATURES = ['nom','infinitif','participe passé','verbe conjugué','préposition'];
+
+/* ============ BANQUE DE QUESTIONS ============
+   t: choix (boutons) | nature (mot en {accolades}) | saisie (forme à taper) | vf (phrase correcte ?) */
+const BANK = [
+  // ---- a / à ----
+  {k:'aa',t:'choix',s:"Luffy ___ mangé toute la viande du navire.",o:['a','à'],r:'a',e:"Luffy <b>avait</b> mangé ✔ → verbe avoir."},
+  {k:'aa',t:'choix',s:"Zoro s'entraîne ___ manier trois sabres.",o:['a','à'],r:'à',e:"s'entraîne <s>avait</s> manier ✘ → préposition."},
+  {k:'aa',t:'choix',s:"Le navire ___ voiles noires approche du port.",o:['a','à'],r:'à',e:"Le navire <s>avait</s> voiles noires ✘ → préposition (le navire <i>aux</i> voiles noires)."},
+  {k:'aa',t:'choix',s:"Il ___ fallu trois jours pour traverser la tempête.",o:['a','à'],r:'a',e:"Il <b>avait</b> fallu ✔ → verbe avoir."},
+  {k:'aa',t:'choix',s:"Sanji ___ appris ___ cuisiner sur un bateau-restaurant.",o:['a … a','a … à','à … a','à … à'],r:'a … à',e:"Sanji <b>avait</b> appris ✔ (a) ; appris <s>avait</s> cuisiner ✘ (à)."},
+  {k:'aa',t:'choix',s:"C'est ___ toi de tenir la barre, Nami ___ besoin de repos.",o:['a … a','a … à','à … a','à … à'],r:'à … a',e:"C'est <s>avait</s> toi ✘ (à) ; Nami <b>avait</b> besoin ✔ (a)."},
+  {k:'aa',t:'choix',s:"L'équipage ___ enfin trouvé l'île ___ trésor.",o:['a … a','a … à','à … a','à … à'],r:'a … à',e:"L'équipage <b>avait</b> trouvé ✔ (a) ; l'île <s>avait</s> trésor ✘ (à)."},
+  {k:'aa',t:'vf',s:"Chopper à peur des orages.",ok:false,c:"Chopper <b>a</b> peur des orages.",e:"Chopper <b>avait</b> peur ✔ → verbe avoir, sans accent."},
+  {k:'aa',t:'vf',s:"Ils ont navigué jusqu'à l'aube.",ok:true,e:"jusqu'<b>à</b> s'écrit toujours avec l'accent."},
+
+  // ---- é / er / ez / ait ----
+  {k:'eer',t:'choix',s:"Usopp va ___ une histoire incroyable. (racont…)",o:['raconté','raconter','racontez','racontait'],r:'raconter',e:"Usopp va <b>vendre</b> → infinitif → <b>-er</b>."},
+  {k:'eer',t:'choix',s:"Le capitaine a ___ de lever l'ancre. (décid…)",o:['décidé','décider','décidez','décidait'],r:'décidé',e:"Le capitaine a <b>vendu</b> → participe passé après avoir → <b>-é</b>."},
+  {k:'eer',t:'choix',s:"Ne ___ plus, vous êtes encerclés ! (boug…)",o:['bougé','bouger','bougez','bougeait'],r:'bougez',e:"Ne <b>vendez</b> plus → impératif, 2e personne du pluriel → <b>-ez</b>."},
+  {k:'eer',t:'choix',s:"Il faut ___ la coque avant la nuit. (répar…)",o:['réparé','réparer','réparez','réparait'],r:'réparer',e:"Il faut <b>vendre</b> → infinitif → <b>-er</b>."},
+  {k:'eer',t:'choix',s:"Pendant des heures, Zoro ___ son chemin. (cherch…)",o:['cherché','chercher','cherchez','cherchait'],r:'cherchait',e:"Zoro <b>vendait</b> → verbe conjugué à l'imparfait → <b>-ait</b>."},
+  {k:'eer',t:'choix',s:"Après avoir ___, ils reprirent la mer. (mang…)",o:['mangé','manger','mangez','mangeait'],r:'mangé',e:"Après avoir <b>vendu</b> → participe passé → <b>-é</b>."},
+  {k:'eer',t:'choix',s:"Avant de ___, vérifie les voiles. (part…)",o:['partir','partit','partie','parti'],r:'partir',e:"Après une préposition (de), on met l'<b>infinitif</b> : avant de <b>vendre</b> → partir."},
+  {k:'eer',t:'saisie',s:"Ils ont décidé de ___ l'île au lever du jour.",h:'explorer',r:['explorer'],e:"décidé de <b>vendre</b> → infinitif → explor<b>er</b>."},
+  {k:'eer',t:'saisie',s:"Vous ___ trop lentement, ils vont nous rattraper ! (présent)",h:'ramer',r:['ramez'],e:"Vous → 2e personne du pluriel → ram<b>ez</b>."},
+  {k:'eer',t:'vf',s:"Nami voulait acheté une nouvelle boussole.",ok:false,c:"Nami voulait <b>acheter</b> une nouvelle boussole.",e:"voulait <b>vendre</b> → infinitif → <b>-er</b>."},
+  {k:'eer',t:'vf',s:"Le trésor caché depuis des siècles brillait encore.",ok:true,e:"le trésor <b>vendu</b>… → participe passé employé comme adjectif → <b>-é</b>."},
+
+  // ---- nature des mots ----
+  {k:'nat',t:'nature',s:"Le {marché} de l'île est très animé.",r:'nom',e:"Précédé du déterminant <b>le</b> → nom."},
+  {k:'nat',t:'nature',s:"Demain, ils vont {marcher} jusqu'au village.",r:'infinitif',e:"vont <b>vendre</b> → infinitif."},
+  {k:'nat',t:'nature',s:"Nous avons {marché} toute la nuit.",r:'participe passé',e:"avons <b>vendu</b> → participe passé (avec avoir)."},
+  {k:'nat',t:'nature',s:"Vous {marchez} beaucoup trop vite !",r:'verbe conjugué',e:"Sujet <b>vous</b>, présent → verbe conjugué."},
+  {k:'nat',t:'nature',s:"Le capitaine {a} un chapeau de paille.",r:'verbe conjugué',e:"Le capitaine <b>avait</b> un chapeau → verbe avoir conjugué."},
+  {k:'nat',t:'nature',s:"Ils partent {à} l'aventure.",r:'préposition',e:"On ne peut pas dire « avait » → préposition."},
+  {k:'nat',t:'nature',s:"Le {passé} de Robin reste mystérieux.",r:'nom',e:"Précédé du déterminant <b>le</b> → nom."},
+  {k:'nat',t:'nature',s:"Ses amis l'ont {aidé} sans hésiter.",r:'participe passé',e:"ont <b>vendu</b> → participe passé."},
+  {k:'nat',t:'nature',s:"Chaque soir, Brook {jouait} du violon.",r:'verbe conjugué',e:"Sujet <b>Brook</b>, imparfait → verbe conjugué."},
+  {k:'nat',t:'nature',s:"La {pensée} de Luffy est simple : trouver le trésor.",r:'nom',e:"Précédé du déterminant <b>la</b> → nom (une pensée)."},
+  {k:'nat',t:'nature',s:"Il est temps de {lever} l'ancre.",r:'infinitif',e:"de <b>vendre</b> → infinitif après une préposition."},
+
+  // ---- participe passé ----
+  {k:'pp',t:'saisie',s:"Les pirates sont ___ sur l'île.",h:'arriver',r:['arrivés'],e:"Avec <b>être</b> → accord avec le sujet <i>les pirates</i> (masc. plur.) → arrivé<b>s</b>."},
+  {k:'pp',t:'saisie',s:"Nami est ___ seule en éclaireuse.",h:'partir',r:['partie'],e:"Avec <b>être</b> → accord avec <i>Nami</i> (fém. sing.) → parti<b>e</b>."},
+  {k:'pp',t:'saisie',s:"Robin et Nami sont ___ sur le navire.",h:'rester',r:['restées'],e:"Avec <b>être</b> → sujet féminin pluriel → resté<b>es</b>."},
+  {k:'pp',t:'saisie',s:"Les marins ont ___ les voiles.",h:'hisser',r:['hissé'],e:"Avec <b>avoir</b>, COD <i>les voiles</i> placé <b>après</b> → pas d'accord."},
+  {k:'pp',t:'saisie',s:"La carte que Nami a ___ est très précise.",h:'dessiner',r:['dessinée'],e:"Avec <b>avoir</b>, COD <i>que</i> (= la carte) placé <b>avant</b> → dessiné<b>e</b>."},
+  {k:'pp',t:'saisie',s:"Les sabres que Zoro a ___ sont légendaires.",h:'choisir',r:['choisis'],e:"COD <i>que</i> (= les sabres) placé <b>avant</b> → choisi<b>s</b>."},
+  {k:'pp',t:'saisie',s:"Les îles ___ par l'équipage sont étranges.",h:'découvrir',r:['découvertes'],e:"Sans auxiliaire → accord avec <i>les îles</i> (fém. plur.) → découvert<b>es</b>."},
+  {k:'pp',t:'saisie',s:"Elle a ___ sa boussole dans la tempête.",h:'perdre',r:['perdu'],e:"Avec <b>avoir</b>, COD <i>sa boussole</i> après → pas d'accord."},
+  {k:'pp',t:'saisie',s:"La tempête est enfin ___.",h:'passer',r:['passée'],e:"Avec <b>être</b> → accord avec <i>la tempête</i> → passé<b>e</b>."},
+  {k:'pp',t:'choix',s:"Les vagues ont ___ la coque toute la nuit.",o:['frappé','frappés','frappées','frapper'],r:'frappé',e:"Avec <b>avoir</b> : on n'accorde <b>jamais</b> avec le sujet. COD <i>la coque</i> après → frappé."},
+  {k:'pp',t:'choix',s:"Ces histoires, Usopp les a ___ cent fois.",o:['raconté','racontés','racontées','raconter'],r:'racontées',e:"COD <i>les</i> (= ces histoires, fém. plur.) placé <b>avant</b> → raconté<b>es</b>."},
+  {k:'pp',t:'vf',s:"Les pirates sont arrivé au port.",ok:false,c:"Les pirates sont <b>arrivés</b> au port.",e:"Avec <b>être</b> → accord avec le sujet."},
+  {k:'pp',t:'vf',s:"Nami a dessinée une carte.",ok:false,c:"Nami a <b>dessiné</b> une carte.",e:"Avec <b>avoir</b>, pas d'accord avec le sujet ; COD après → pas d'accord."},
+  {k:'pp',t:'vf',s:"Les trésors qu'ils ont trouvé brillent.",ok:false,c:"Les trésors qu'ils ont <b>trouvés</b> brillent.",e:"COD <i>qu'</i> (= les trésors) placé avant → accord."},
+  {k:'pp',t:'vf',s:"Robin est restée à bord.",ok:true,e:"Avec <b>être</b> → accord avec <i>Robin</i> (féminin)."},
+  {k:'pp',t:'vf',s:"Les matelots, épuisés, s'endorment sur le pont.",ok:true,e:"Sans auxiliaire → accord avec <i>les matelots</i>."},
+
+  // ---- sujet-verbe ----
+  {k:'sv',t:'saisie',s:"Les membres de l'équipage ___ encore.",h:'dormir, présent',r:['dorment'],e:"Qui est-ce qui dort ? <i>Les membres</i> (pluriel) → dorm<b>ent</b>."},
+  {k:'sv',t:'saisie',s:"C'est toi qui ___ la barre.",h:'tenir, présent',r:['tiens'],e:"<i>qui</i> remplace <i>toi</i> → 2e pers. sing. → tien<b>s</b>."},
+  {k:'sv',t:'saisie',s:"Dans la cale ___ deux passagers clandestins.",h:'se cacher, présent',r:['se cachent'],e:"Sujet inversé : qui se cache ? <i>deux passagers</i> → se cach<b>ent</b>."},
+  {k:'sv',t:'saisie',s:"Luffy et moi ___ demain.",h:'partir, présent',r:['partons'],e:"Luffy et moi = <b>nous</b> → part<b>ons</b>."},
+  {k:'sv',t:'saisie',s:"Chacun des pirates ___ son propre rêve.",h:'avoir, présent',r:['a'],e:"<i>Chacun</i> est singulier → il <b>a</b>."},
+  {k:'sv',t:'saisie',s:"Les vagues que le vent ___ sont énormes.",h:'soulever, présent',r:['soulève'],e:"Qui est-ce qui soulève ? <i>le vent</i> (pas « les vagues ») → soulèv<b>e</b>."},
+  {k:'sv',t:'saisie',s:"On ___ enfin trouver ce trésor !",h:'aller, présent',r:['va'],e:"<i>On</i> → 3e pers. du singulier → on <b>va</b>."},
+  {k:'sv',t:'vf',s:"Chacun des marins ont un rôle précis.",ok:false,c:"Chacun des marins <b>a</b> un rôle précis.",e:"<i>Chacun</i> est singulier."},
+  {k:'sv',t:'vf',s:"Le bruit des canons effraient les mouettes.",ok:false,c:"Le bruit des canons <b>effraie</b> les mouettes.",e:"Qui est-ce qui effraie ? <i>le bruit</i> (singulier), pas « les canons »."},
+  {k:'sv',t:'vf',s:"Vous devez lever l'ancre immédiatement.",ok:true,e:"Vous dev<b>ez</b> + infinitif lev<b>er</b> ✔."}
+];
+
+/* ============ ONGLETS ============ */
+document.querySelectorAll('#tabs button').forEach(b => b.onclick = () => {
+  document.querySelectorAll('#tabs button').forEach(x => x.classList.toggle('on', x===b));
+  ['regles','quiz','fautes','atelier'].forEach(id => $(id).classList.toggle('hide', id!==b.dataset.tab));
+  if (b.dataset.tab==='quiz' && !$('quizBox').dataset.ready) quizIntro();
+});
+
+/* ============ QUIZ PROTÉIFORME ============ */
+const box = $('quizBox');
+let qs, qi, score, wrong, locked, perCat, cats;
+const norm = s => s.toLowerCase().replace(/[’`]/g,"'").replace(/\s+/g,' ').replace(/[.!?]+$/,'').trim();
+const TYPE_LABEL = {choix:'Choisis', nature:'Nature du mot', saisie:'Écris la bonne forme', vf:'Correct ou fautif ?'};
+
+function quizIntro(){
+  box.dataset.ready = 1;
+  const best = parseInt(store.get('best'))||0;
+  box.innerHTML = `<h2>Quiz : ${NB_Q} questions, 4 formats</h2>
+    <p>Choisir, écrire la bonne forme, trouver la nature d'un mot, repérer les phrases fautives… Les formats changent à chaque question !</p>
+    <p class="hint">Thèmes à travailler :</p>
+    <div class="sel" id="catSel">${Object.entries(CATS).map(([k,c])=>`<label class="on"><input type="checkbox" value="${k}" checked>${c.n}</label>`).join('')}</div>
+    <p class="hint">Meilleur score : ${best} / ${NB_Q}</p>
+    <div class="row"><button class="btn" id="go">À l'abordage ! ⚔️</button></div>`;
+  box.querySelectorAll('#catSel label').forEach(l => l.onclick = e => {
+    e.preventDefault(); const c = l.querySelector('input');
+    if (c.checked && box.querySelectorAll('#catSel input:checked').length===1) return;
+    c.checked = !c.checked; l.classList.toggle('on', c.checked);
+  });
+  $('go').onclick = () => { cats = [...box.querySelectorAll('#catSel input:checked')].map(c=>c.value); start(); };
+}
+function build(){
+  // tirage équilibré : on pioche à tour de rôle dans chaque thème choisi
+  const pools = cats.map(k => shuffle(BANK.filter(q => q.k===k)));
+  const out = []; let p = 0;
+  while (out.length < NB_Q && pools.some(x => x.length)){
+    const pool = pools[p % pools.length]; if (pool.length) out.push(pool.pop()); p++;
+  }
+  return shuffle(out);
+}
+function start(){
+  qs = build(); qi = 0; score = 0; wrong = [];
+  perCat = {}; cats.forEach(k => perCat[k] = {ok:0,n:0});
+  show();
+}
+function sentence(q){
+  if (q.t==='nature') return esc(q.s).replace(/\{(.+?)\}/, '<mark>$1</mark>');
+  if (q.t==='vf') return `« ${esc(q.s)} »`;
+  let s = esc(q.s).replace('___','<span class="blank">?</span>');
+  if (q.t==='saisie') s += ` <span class="inf">(${esc(q.h)})</span>`;
+  return s;
+}
+function show(){
+  locked = false; const q = qs[qi];
+  let body;
+  if (q.t==='saisie') body = `<form class="answer" id="f"><input id="in" type="text" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="Ta réponse"><button class="btn">Valider</button></form>`;
+  else {
+    q.opts = q.t==='choix' ? q.o : q.t==='nature' ? NATURES : ['✔ Correcte','✘ Fautive'];
+    q.ans  = q.t==='choix' ? q.r : q.t==='nature' ? q.r : (q.ok ? '✔ Correcte' : '✘ Fautive');
+    body = `<div class="opts">${q.opts.map(o=>`<button>${esc(o)}</button>`).join('')}</div>`;
+  }
+  const consigne = {choix:'Choisis la bonne réponse :', nature:'Quelle est la nature du mot surligné ?', saisie:'Écris le verbe entre parenthèses à la bonne forme :', vf:'Cette phrase est-elle correctement écrite ?'}[q.t];
+  box.innerHTML = `
+    <div class="q-top"><span>Question ${qi+1} / ${qs.length} · <span class="type">${TYPE_LABEL[q.t]}</span></span><span>${CATS[q.k].n} · Score : ${score}</span></div>
+    <div class="bar"><i style="width:${qi/qs.length*100}%"></i></div>
+    <p class="consigne">${consigne}</p>
+    <div class="prompt">${sentence(q)}</div>${body}
+    <div class="fb" id="fb"></div>
+    <div class="row hide" id="next"><button class="btn">${qi+1<qs.length?'Question suivante →':'Voir mon score'}</button></div>`;
+  $('next').querySelector('button').onclick = next;
+  if (q.t==='saisie'){
+    const inp = $('in'); inp.focus();
+    $('f').onsubmit = e => { e.preventDefault(); if (locked) return next();
+      const v = inp.value; if (!v.trim()) return;
+      inp.readOnly = true; const ok = q.r.some(r => norm(r)===norm(v));
+      inp.classList.add(ok?'good':'bad'); done(ok, q.r[0]); };
+  } else {
+    box.querySelectorAll('.opts button').forEach((b,k) => b.onclick = () => {
+      const btns = box.querySelectorAll('.opts button'); btns.forEach(x => x.disabled = true);
+      const ok = q.opts[k]===q.ans;
+      btns.forEach((x,j) => { if (q.opts[j]===q.ans) x.classList.add('good'); else if (j===k) x.classList.add('bad'); });
+      done(ok, q.ans);
+    });
+  }
+}
+function done(ok, answer){
+  locked = true; const q = qs[qi];
+  perCat[q.k].n++; if (ok){ score++; perCat[q.k].ok++; }
+  let corr = '';
+  if (q.t==='vf' && !q.ok) corr = `<br>Correction : ${q.c}`;
+  if (!ok && q.t==='saisie') corr = `<br>Il fallait écrire : <b>${esc(answer)}</b>`;
+  if (!ok) wrong.push(recap(q));
+  const fb = $('fb'); fb.className = 'fb ' + (ok?'ok':'ko');
+  fb.innerHTML = (ok ? '✔ <b>Bravo !</b>' : '✘ <b>Pas tout à fait…</b>') + corr + '<br>' + q.e;
+  $('next').classList.remove('hide'); $('next').querySelector('button').focus();
+}
+function recap(q){
+  if (q.t==='vf') return q.ok ? `« ${esc(q.s)} » était <b>correcte</b>.` : `${q.c}`;
+  if (q.t==='nature') return `${esc(q.s).replace(/\{(.+?)\}/,'<b>$1</b>')} → <b>${q.r}</b>`;
+  const a = q.t==='saisie' ? q.r[0] : q.r;
+  const parts = a.split(' … ');
+  let s = esc(q.s).replace(/ \((?:[^)]*…)\)$/,'');
+  parts.forEach(p => s = s.replace('___', `<b>${esc(p)}</b>`));
+  return s;
+}
+function next(){ qi++; qi<qs.length ? show() : end(); }
+function end(){
+  const old = parseInt(store.get('best'))||0, best = Math.max(old, score); store.set('best', best);
+  const pct = score/qs.length;
+  const msg = pct===1 ? 'Parfait, digne d\'un roi ! 👑' : pct>=0.8 ? 'Très bien ! 🌟' : pct>=0.5 ? 'Pas mal, continue ! 💪' : 'Relis les règles et retente ta chance 📘';
+  const rows = Object.entries(perCat).filter(([,v])=>v.n).map(([k,v]) => {
+    const p = v.ok/v.n;
+    return `<div class="cat"><span>${CATS[k].n}</span><span class="track"><i style="width:${p*100}%;background:${p>=.8?'var(--ok)':p>=.5?'var(--gold)':'var(--ko)'}"></i></span><b>${v.ok}/${v.n}</b></div>`;
+  }).join('');
+  const weak = Object.entries(perCat).filter(([,v])=>v.n && v.ok/v.n<.7).map(([k])=>CATS[k].n);
+  box.innerHTML = `<h2>Quiz terminé</h2>
+    <div class="score">${score} / ${qs.length}</div><p><b>${msg}</b><br>Meilleur score : ${best} / ${qs.length}</p>
+    <h3>Résultats par thème</h3><div class="cats">${rows}</div>
+    ${weak.length ? `<p class="tip">🎯 À retravailler : <b>${weak.join(', ')}</b>. Relis la règle, puis relance un quiz sur ce seul thème.</p>` : ''}
+    ${wrong.length ? `<h3>Corrections à recopier</h3><ul class="review">${wrong.map(w=>`<li>${w}</li>`).join('')}</ul>` : ''}
+    <div class="row"><button class="btn" id="again">Rejouer (nouvelles questions)</button><button class="btn alt" id="chg">Changer de thèmes</button></div>`;
+  $('again').onclick = start; $('chg').onclick = quizIntro;
+}
+
+/* ============ CHASSE AUX FAUTES ============ */
+const TEXTE = "Le soleil se levait [a|à] peine quand la vigie [à|a] crié : « Terre en vue ! » Tout l'équipage s'est [précipiter|précipité] sur le pont. Les marins, [épuisé|épuisés] par trois jours de tempête, [regardait|regardaient] l'île avec espoir. Nami [à|a] aussitôt sorti sa carte. « Nous [allont|allons] accoster derrière ces rochers, [a|à] l'abri du vent. » Le capitaine, lui, voulait déjà [sauté|sauter] [a|à] l'eau. Les provisions que Sanji avait [préparé|préparées] [était|étaient] presque [épuisé|épuisées]. Zoro, qui [dormé|dormait] encore, s'est [réveiller|réveillé] en sursaut. « Vous [venais|venez] ? On [vas|va] enfin trouver le trésor ! » Robin et Nami sont [descendu|descendues] les premières. Les pirates sont [partit|partis] [a|à] l'aventure, sans savoir ce qui les [attendaient|attendait].";
+let tFound, tMiss, tTotal;
+function buildText(){
+  tFound = 0; tMiss = 0; tTotal = 0;
+  const txt = $('txt'); txt.innerHTML = '';
+  const re = /\[([^|\]]+)\|([^\]]+)\]/g; let last = 0, m;
+  const addPlain = str => str.split(/(\s+)/).forEach(tok => {
+    if (!tok) return;
+    if (/^\s+$/.test(tok) || /^[.,;:!?«»]+$/.test(tok)) { txt.appendChild(document.createTextNode(tok)); return; }
+    const s = document.createElement('span'); s.className = 'w'; s.textContent = tok;
+    s.onclick = () => { if (s.dataset.done) return; tMiss++; upd(); s.classList.remove('miss'); void s.offsetWidth; s.classList.add('miss'); setTimeout(()=>s.classList.remove('miss'),600); };
+    txt.appendChild(s);
+  });
+  while ((m = re.exec(TEXTE))) {
+    addPlain(TEXTE.slice(last, m.index));
+    const s = document.createElement('span'); s.className = 'w err'; s.textContent = m[1]; s.dataset.ok = m[2]; s.dataset.bad = m[1];
+    s.onclick = () => { if (s.dataset.done) return; s.dataset.done = 1; s.textContent = s.dataset.ok; s.classList.add('found'); tFound++; upd(); };
+    txt.appendChild(s); tTotal++; last = re.lastIndex;
+  }
+  addPlain(TEXTE.slice(last));
+  $('nbF').textContent = tTotal; $('tTotal').textContent = tTotal; $('tEnd').classList.add('hide'); upd();
+}
+function upd(){
+  $('tFound').textContent = tFound; $('tMiss').textContent = tMiss;
+  if (tFound === tTotal) {
+    const e = $('tEnd'); e.classList.remove('hide');
+    e.innerHTML = `🏴‍☠️ Toutes les fautes sont trouvées ! (${tMiss} clic${tMiss>1?'s':''} sur des mots justes)<br>✍️ Pour finir : choisis 5 corrections et explique chacune avec la bonne règle.`;
+  }
+}
+$('tShow').onclick = () => document.querySelectorAll('#txt .err').forEach(s => {
+  if (s.dataset.done) return; s.dataset.done = 1;
+  s.innerHTML = `<s>${esc(s.dataset.bad)}</s>${esc(s.dataset.ok)}`; s.classList.add('shown');
+});
+$('tReset').onclick = buildText;
+buildText();
+
+/* ============ ATELIER D'ÉCRITURE ============ */
+const THEMES = {
+  'One Piece 🏴‍☠️': [
+    "Tu rejoins l'équipage du Chapeau de paille pour une journée. Raconte ton arrivée à bord et ta première mission.",
+    "Invente un nouveau fruit du démon : son nom, son pouvoir, son point faible. Puis raconte le jour où un pirate l'a mangé.",
+    "Écris la page du journal de bord de Nami au lendemain d'une terrible tempête.",
+    "L'équipage découvre une île que personne n'a jamais vue. Décris-la et raconte ce qui s'y passe.",
+    "Zoro s'est encore perdu ! Raconte son aventure… de son point de vue à lui.",
+    "Invente ton propre équipage de pirates : le nom du navire, le drapeau, et les membres avec leurs rêves."
+  ],
+  'Manga & anime 📚': [
+    "Crée ton propre héros de manga : son rêve, son pouvoir, son rival. Écris la scène de leur premier combat.",
+    "Ton manga préféré a une suite secrète : raconte le premier chapitre.",
+    "Tu te réveilles dans l'univers de ton anime préféré. Que fais-tu en premier ?",
+    "Écris le combat final entre deux personnages de mangas différents. Qui gagne, et pourquoi ?"
+  ],
+  'Jeux vidéo 🎮': [
+    "Raconte une partie épique comme si c'était un roman d'aventure.",
+    "Invente un jeu vidéo : son monde, son héros, sa quête et son boss final.",
+    "Le personnage que tu joues découvre qu'il est dans un jeu. Il t'écrit une lettre."
+  ],
+  'Aventure 🗺️': [
+    "Tu trouves sur la plage une bouteille contenant une carte au trésor. Raconte.",
+    "Décris un combat naval en plein orage, comme si tu y étais.",
+    "Perdu sur une île déserte avec trois objets de ton choix : raconte tes trois premiers jours."
+  ],
+  'Science-fiction 🚀': [
+    "En 2150, ton collège est sur Mars. Raconte une journée de cours.",
+    "Un robot devient ton meilleur ami. Raconte votre rencontre.",
+    "Une porte vers un monde parallèle s'ouvre dans ta chambre. Tu la franchis…"
+  ],
+  'Sport ⚽': [
+    "Raconte la dernière minute d'un match décisif, seconde par seconde.",
+    "Tu deviens entraîneur de ton équipe préférée pour un match. Raconte."
+  ],
+  'Sujet libre ✨': [
+    "Écris sur ce qui te plaît : une histoire, un souvenir, une critique de ton manga préféré…"
+  ]
+};
+const DEFIS = [
+  "Utilise au moins <b>3 fois « a »</b> et <b>3 fois « à »</b>.",
+  "Écris au moins <b>4 verbes au passé composé avec être</b> (attention à l'accord avec le sujet !).",
+  "Place au moins <b>2 COD avant un participe passé avec avoir</b> (ex. : « la carte qu'il a trouvée »).",
+  "Utilise au moins <b>4 infinitifs en -er</b> après une préposition (pour, sans, de, à…).",
+  "Écris un <b>dialogue</b> d'au moins 6 répliques avec des verbes conjugués avec <b>vous</b> (-ez).",
+  "Emploie au moins <b>3 participes passés comme adjectifs</b> (ex. : « les marins épuisés »).",
+  "Utilise au moins <b>2 sujets inversés</b> (ex. : « Sur le pont se tenaient les pirates »)."
+];
+let theme = Object.keys(THEMES)[0], current = null;
+
+function renderThemes(){
+  $('themes').innerHTML = Object.keys(THEMES).map(t => `<button class="${t===theme?'on':''}">${t}</button>`).join('');
+  $('themes').querySelectorAll('button').forEach(b => b.onclick = () => { theme = b.textContent; renderThemes(); });
+  $('prompts').innerHTML = THEMES[theme].map((p,i) => `<button data-i="${i}">${esc(p)}</button>`).join('');
+  $('prompts').querySelectorAll('button').forEach(b => b.onclick = () => choose(theme, THEMES[theme][+b.dataset.i]));
+}
+function choose(th, sujet, defi){
+  current = { th, sujet, defi: defi || pick(DEFIS) };
+  store.set('sujet', JSON.stringify(current));
+  showWrite();
+}
+function showWrite(scroll=true){
+  $('writeCard').classList.remove('hide');
+  $('sujet').innerHTML = `<b>${esc(current.th)}</b><br>${esc(current.sujet)}<div class="defi">🎯 <b>Défi de grammaire :</b> ${current.defi}</div>`;
+  if (scroll) $('writeCard').scrollIntoView({behavior:'smooth'});
+  stats();
+}
+$('random').onclick = () => { const th = pick(Object.keys(THEMES).filter(t=>!t.startsWith('Sujet libre'))); choose(th, pick(THEMES[th])); };
+$('other').onclick = () => { $('atelier').scrollIntoView({behavior:'smooth'}); };
+$('goal').onchange = () => { store.set('goal', $('goal').value); stats(); };
+
+const draft = $('draft');
+let saveT;
+function stats(){
+  const t = draft.value;
+  const words = (t.match(/[A-Za-zÀ-ÿœŒæÆ0-9]+(?:['’-][A-Za-zÀ-ÿœŒ]+)*/g) || []).length;
+  const goal = +$('goal').value;
+  $('wc').textContent = words; $('wgoal').textContent = goal;
+  $('wc').classList.toggle('goal-ok', words >= goal);
+  $('ca').textContent = (t.match(/(^|[^A-Za-zÀ-ÿ'’])a(?![A-Za-zÀ-ÿ'’])/g)||[]).length;
+  $('cà').textContent = (t.match(/(^|[^A-Za-zÀ-ÿ'’])[àÀ](?![A-Za-zÀ-ÿ'’])/g)||[]).length;
+}
+draft.oninput = () => {
+  stats(); clearTimeout(saveT);
+  saveT = setTimeout(() => { store.set('draft', draft.value); $('saved').textContent = '✔ sauvegardé'; setTimeout(()=>$('saved').textContent='',1500); }, 600);
+  if (!$('relecture').classList.contains('hide')) $('relecture').classList.add('hide');
+};
+
+/* ---- Mode relecture ---- */
+const NOT_VERB = new Set(['mer','hier','cher','fier','super','hiver','enfer','fer','ver','vrai','mai','quai','balai','délai','essai','été','thé','café','clé','côté','idée','année','armée','épée','fée','marée','journée','soirée','entrée','pensée','arrivée','fumée','assez','nez','chez','jamais','mais','frais','anglais','français','palais','relais','japonais','épais','dé','pied','premier','dernier','entier','léger','danger','sorcier','chevalier','guerrier']);
+const TIPS = {
+  aa: "<b>a ou à ?</b> Remplace par <b>avait</b>.<br>Ça marche → <b>a</b> (verbe avoir). Ça ne veut rien dire → <b>à</b>.",
+  er: "<b>-é, -er, -ez ou -ait ?</b> Remplace par <b>vendre</b> :<br>vendre → <b>-er</b> · vendu → <b>-é</b> (accord ? être → sujet ; avoir → COD placé avant ?) · vendez → <b>-ez</b> · vendait → <b>-ait</b>.<br>Si ce n'est pas un verbe (nom, adjectif…), vérifie juste le genre et le nombre."
+};
+$('relire').onclick = () => {
+  const t = draft.value; if (!t.trim()) return;
+  const parts = t.split(/([A-Za-zÀ-ÿœŒæÆ]+)/);
+  $('preview').innerHTML = parts.map(p => {
+    if (!/^[A-Za-zÀ-ÿœŒæÆ]+$/.test(p)) return esc(p);
+    const w = p.toLowerCase();
+    if (w==='a' || w==='à') return `<span class="hl-aa" data-k="aa">${esc(p)}</span>`;
+    if (w.length>3 && !NOT_VERB.has(w) && /(é|ée|és|ées|er|ez|ait|aient|ais)$/.test(w)) return `<span class="hl-er" data-k="er">${esc(p)}</span>`;
+    return esc(p);
+  }).join('');
+  const n = $('preview').querySelectorAll('[data-k]').length;
+  $('relecture').classList.remove('hide');
+  $('relecture').querySelector('.hint').innerHTML = `<b>${n}</b> mot${n>1?'s':''} à vérifier sont surlignés. Clique sur chacun pour voir comment le vérifier ; il passe alors au vert. Corrige ensuite ton texte au-dessus.`;
+  $('preview').querySelectorAll('[data-k]').forEach(s => s.onclick = () => {
+    s.classList.add('hl-ok');
+    const tip = $('wordTip'); tip.classList.remove('hide');
+    tip.innerHTML = `Mot : <b>« ${esc(s.textContent)} »</b><br>${TIPS[s.dataset.k]}`;
+  });
+  $('wordTip').classList.add('hide');
+  $('relecture').scrollIntoView({behavior:'smooth'});
+};
+$('dl').onclick = () => {
+  const head = current ? `Sujet : ${current.sujet}\nDéfi : ${current.defi.replace(/<[^>]+>/g,'')}\n\n` : '';
+  const blob = new Blob([head + draft.value], {type:'text/plain;charset=utf-8'});
+  const a = document.createElement('a'); a.href = URL.createObjectURL(blob);
+  a.download = `mon_texte_${new Date().toISOString().slice(0,10)}.txt`; a.click();
+  setTimeout(()=>URL.revokeObjectURL(a.href), 1000);
+};
+$('copy').onclick = async () => {
+  try { await navigator.clipboard.writeText(draft.value); $('saved').textContent = '✔ copié'; }
+  catch(e){ draft.select(); document.execCommand && document.execCommand('copy'); $('saved').textContent = '✔ copié'; }
+  setTimeout(()=>$('saved').textContent='',1500);
+};
+
+/* restauration du brouillon */
+(function restore(){
+  const g = store.get('goal'); if (g) $('goal').value = g;
+  const d = store.get('draft'); if (d) draft.value = d;
+  try { const s = JSON.parse(store.get('sujet')); if (s && s.sujet) { current = s; showWrite(false); } } catch(e){}
+  renderThemes(); stats();
+})();
+</script>
+</body>
+</html>

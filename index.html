@@ -3,134 +3,350 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Mes quiz</title>
-<meta name="description" content="Tous les quiz de français, de maths et d'histoire.">
+<title>Level Up</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%2323342d'/%3E%3Cpath d='M32 11 L51 34 H40 V53 H24 V34 H13 Z' fill='%23f5d76e'/%3E%3C/svg%3E">
+<meta name="description" content="Level Up : quiz et exercices de français, de maths et d'histoire, CM2 et 4e.">
+<meta name="theme-color" content="#23342d">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,800&family=Caveat:wght@600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
-  :root{--bg:#f4f7fb;--card:#fff;--ink:#1f2a37;--muted:#5b6b7d;--primary:#1f7a6d;--primary-soft:#e2f3ef;--accent:#e8833a;--line:#dde4ec}
+  :root{
+    --paper:#fbfaf6; --line:#dde8f4; --line2:#b9d1ea; --margin:#e9a3a3;
+    --ink:#1d2433; --muted:#5f6878; --card:#ffffff; --border:#e6e2d8;
+    --board:#23342d; --board2:#1b2823; --chalk:#f4f1e8; --chalk-y:#f5d76e; --wood:#8a5a32;
+    --fr:#2c4fa3; --fr-soft:#e6ecfa; --ma:#1f8a5b; --ma-soft:#e2f5ec; --hi:#b5562b; --hi-soft:#fbeadf;
+    --xp:#f5b83d; --xp2:#ff7a59; --shadow:0 1px 2px rgba(30,30,40,.06),0 8px 24px -12px rgba(30,30,40,.18);
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --paper:#141823; --line:#1f2737; --line2:#28334a; --margin:#5a2f38;
+      --ink:#eceef4; --muted:#a3abbb; --card:#1b2130; --border:#2a3245;
+      --board:#16211c; --board2:#101813;
+      --fr-soft:#1f2a47; --ma-soft:#16302a; --hi-soft:#3a2418; --fr:#8aa8ff; --ma:#5fd09c; --hi:#f0a27a;
+      --shadow:0 1px 2px rgba(0,0,0,.3),0 10px 30px -14px rgba(0,0,0,.6);
+    }
+  }
   *{box-sizing:border-box}
-  body{margin:0;font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;background:var(--bg);color:var(--ink);line-height:1.5}
-  header{background:var(--primary);color:#fff;padding:26px 16px}
-  .wrap{max-width:960px;margin:0 auto}
-  h1{margin:0;font-size:30px}
-  header p{margin:4px 0 0;color:#d8f1ec}
-  main{padding:20px 16px 40px}
-  .tools{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:18px;align-items:center}
-  .tools input{flex:1 1 220px;font-size:17px;padding:10px 12px;border:2px solid var(--line);border-radius:10px}
-  .chip{border:2px solid var(--line);background:#fff;border-radius:999px;padding:6px 12px;font-size:15px;cursor:pointer;color:var(--ink)}
-  .chip.on{background:var(--primary);border-color:var(--primary);color:#fff}
-  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:14px}
-  a.card{display:flex;flex-direction:column;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px;text-decoration:none;color:inherit;box-shadow:0 1px 3px rgba(0,0,0,.04);transition:transform .15s,box-shadow .15s}
-  a.card:hover{transform:translateY(-2px);box-shadow:0 6px 16px rgba(0,0,0,.08)}
-  .card h2{margin:0 0 6px;font-size:19px;color:var(--primary)}
-  .card p{margin:0 0 10px;color:var(--muted);font-size:15px;flex:1}
-  .tags{display:flex;gap:6px;flex-wrap:wrap}
-  .tag{background:var(--primary-soft);color:var(--primary);border-radius:999px;padding:2px 9px;font-size:13px;font-weight:600}
-  .tag.new{background:var(--accent);color:#fff}
-  .file{font-size:12px;color:#9aa7b5;margin-top:8px}
-  .empty{color:var(--muted)}
+  html,body{margin:0}
+  body{
+    font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;color:var(--ink);line-height:1.5;
+    background-color:var(--paper);
+    /* papier Seyès : lignes fines tous les 8 px, ligne forte tous les 32 px */
+    background-image:
+      linear-gradient(to bottom, transparent 31px, var(--line2) 31px, var(--line2) 32px),
+      linear-gradient(to bottom, transparent 7px, var(--line) 7px, var(--line) 8px);
+    background-size:100% 32px, 100% 8px;
+  }
+  .wrap{max-width:1040px;margin:0 auto;padding:0 16px}
+
+  /* ============ TABLEAU NOIR ============ */
+  .hero{position:relative;background:radial-gradient(120% 140% at 20% 0%, #2f463c 0%, var(--board) 45%, var(--board2) 100%);
+    color:var(--chalk);border-bottom:10px solid var(--wood);box-shadow:inset 0 -3px 0 rgba(0,0,0,.25), 0 6px 0 -2px #6b4424;overflow:hidden}
+  .hero::before{content:"";position:absolute;inset:0;opacity:.07;pointer-events:none;
+    background-image:radial-gradient(#fff 1px, transparent 1.2px);background-size:5px 5px}
+  .hero .wrap{position:relative;padding-top:26px;padding-bottom:26px}
+  .brand{display:flex;align-items:center;gap:14px}
+  .logo{width:56px;height:56px;border-radius:16px;background:linear-gradient(145deg,var(--chalk-y),#ffb84d);
+    display:grid;place-items:center;box-shadow:0 6px 18px -6px rgba(245,215,110,.7);flex:none}
+  .logo svg{width:30px;height:30px}
+  h1{font-family:Fraunces,Georgia,serif;font-weight:800;font-size:clamp(36px,7vw,58px);line-height:1;margin:0;letter-spacing:-.5px}
+  h1 .up{color:var(--chalk-y)}
+  .tagline{font-family:Caveat,cursive;font-size:clamp(22px,4vw,28px);color:#e9e4d4;margin:10px 0 0;transform:rotate(-1deg);transform-origin:left}
+  .tagline u{text-decoration-color:var(--chalk-y);text-decoration-thickness:2px;text-underline-offset:4px}
+
+  .stats{display:grid;grid-template-columns:1.6fr 1fr 1fr;gap:12px;margin-top:22px}
+  .stat{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:16px;padding:12px 14px;backdrop-filter:blur(4px)}
+  .stat small{display:block;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:#bfc9bf}
+  .stat b{font-family:Fraunces,serif;font-size:26px;line-height:1.2}
+  .lvl{display:flex;justify-content:space-between;align-items:baseline;gap:8px}
+  .lvl .rank{font-family:Caveat,cursive;font-size:24px;color:var(--chalk-y)}
+  .xpbar{height:12px;border-radius:99px;background:rgba(255,255,255,.12);overflow:hidden;margin-top:8px}
+  .xpbar i{display:block;height:100%;width:0;border-radius:99px;background:linear-gradient(90deg,var(--xp),var(--xp2));
+    box-shadow:0 0 14px rgba(255,170,80,.6);transition:width 1s cubic-bezier(.2,.8,.2,1)}
+  .xpnext{font-size:13px;color:#c9d2c9;margin-top:4px}
+
+  /* ============ BARRE D'OUTILS ============ */
+  main{padding:22px 0 50px}
+  .resume{display:none;align-items:center;gap:12px;background:var(--card);border:1px solid var(--border);border-radius:16px;
+    padding:10px 14px;margin-bottom:16px;box-shadow:var(--shadow);text-decoration:none;color:inherit}
+  .resume.show{display:flex}
+  .resume .hand{font-family:Caveat,cursive;font-size:22px;color:var(--hi)}
+  .resume b{flex:1}
+  .resume .go{font-weight:700;color:var(--fr)}
+  .toolbar{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-bottom:18px}
+  .seg{display:inline-flex;background:var(--card);border:1px solid var(--border);border-radius:14px;padding:4px;box-shadow:var(--shadow)}
+  .seg button{border:0;background:transparent;color:var(--muted);font:600 15px Inter,sans-serif;padding:8px 14px;border-radius:10px;cursor:pointer}
+  .seg button.on{background:var(--ink);color:var(--paper)}
+  .search{flex:1 1 220px;display:flex;align-items:center;gap:8px;background:var(--card);border:1px solid var(--border);border-radius:14px;padding:0 12px;box-shadow:var(--shadow)}
+  .search input{flex:1;border:0;background:transparent;color:var(--ink);font:16px Inter,sans-serif;padding:11px 0;outline:none}
+  .subjects{display:flex;gap:8px;flex-wrap:wrap}
+  .subj{border:2px solid transparent;border-radius:999px;padding:7px 14px;font:600 15px Inter,sans-serif;cursor:pointer;color:var(--ink);background:var(--card);box-shadow:var(--shadow)}
+  .subj[data-s="fr"].on{border-color:var(--fr);background:var(--fr-soft);color:var(--fr)}
+  .subj[data-s="ma"].on{border-color:var(--ma);background:var(--ma-soft);color:var(--ma)}
+  .subj[data-s="hi"].on{border-color:var(--hi);background:var(--hi-soft);color:var(--hi)}
+
+  /* ============ SECTIONS + CARTES ============ */
+  .section-title{display:flex;flex-wrap:wrap;align-items:baseline;gap:2px 10px;margin:26px 0 12px}
+  .section-title h2{font-family:Fraunces,serif;font-size:26px;margin:0;white-space:nowrap}
+  .section-title .hand{font-family:Caveat,cursive;font-size:22px;color:var(--muted)}
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:16px}
+  .card{position:relative;display:flex;flex-direction:column;background:var(--card);border:1px solid var(--border);border-radius:18px;
+    padding:18px 18px 16px 24px;text-decoration:none;color:inherit;box-shadow:var(--shadow);overflow:hidden;
+    transition:transform .2s ease, box-shadow .2s ease;animation:rise .5s both}
+  .card::before{content:"";position:absolute;left:0;top:0;bottom:0;width:7px;background:var(--c)}
+  .card:hover{transform:translateY(-4px) rotate(-.3deg);box-shadow:0 2px 4px rgba(0,0,0,.06),0 18px 34px -16px rgba(0,0,0,.3)}
+  .card:focus-visible{outline:3px solid var(--c);outline-offset:3px}
+  .card[data-s="fr"]{--c:var(--fr);--cs:var(--fr-soft)} .card[data-s="ma"]{--c:var(--ma);--cs:var(--ma-soft)} .card[data-s="hi"]{--c:var(--hi);--cs:var(--hi-soft)}
+  .top{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+  .ico{width:42px;height:42px;border-radius:12px;display:grid;place-items:center;font-size:22px;background:var(--cs);flex:none}
+  .subjname{font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--c)}
+  .lvls{margin-left:auto;display:flex;gap:4px}
+  .lv{font-size:12px;font-weight:700;border:1.5px solid var(--border);border-radius:8px;padding:1px 7px;color:var(--muted)}
+  .card h3{font-family:Fraunces,serif;font-size:21px;line-height:1.2;margin:0 0 6px}
+  .card p{margin:0 0 14px;color:var(--muted);font-size:15px;flex:1}
+  .foot{display:flex;align-items:center;gap:10px;border-top:1px dashed var(--border);padding-top:12px}
+  .prog{flex:1;font-size:13px;color:var(--muted);display:flex;align-items:center;gap:8px}
+  .ring{--p:0;width:34px;height:34px;border-radius:50%;flex:none;
+    background:conic-gradient(var(--c) calc(var(--p)*1%), var(--border) 0);display:grid;place-items:center}
+  .ring::after{content:"";width:24px;height:24px;border-radius:50%;background:var(--card)}
+  .play{font-weight:700;color:var(--card);background:var(--c);border-radius:12px;padding:8px 14px;font-size:15px;white-space:nowrap}
+  .stamp{position:absolute;top:14px;right:-36px;transform:rotate(35deg);background:var(--hi);color:#fff;font:700 12px Inter,sans-serif;
+    letter-spacing:.1em;padding:4px 40px;box-shadow:0 2px 6px rgba(0,0,0,.2)}
+  .done-mark{font-family:Caveat,cursive;font-size:22px;color:var(--ma);transform:rotate(-6deg)}
+  .empty{font-family:Caveat,cursive;font-size:26px;color:var(--muted);text-align:center;padding:30px 0}
+  footer{text-align:center;color:var(--muted);font-size:14px;padding:10px 0 30px}
+  footer .hand{font-family:Caveat,cursive;font-size:22px;display:block;color:var(--hi)}
+  @keyframes rise{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+  @media (prefers-reduced-motion: reduce){.card{animation:none}.xpbar i{transition:none}}
+  @media (max-width:640px){
+    .stats{grid-template-columns:1fr 1fr}.stats .stat:first-child{grid-column:1/-1}
+    .seg button{padding:8px 11px}
+    .section-title h2{font-size:22px}
+    .resume .go{display:none}
+  }
+  @media (min-width:900px){ main .wrap{border-left:2px solid var(--margin);padding-left:28px} }
 </style>
 </head>
 <body>
-<header><div class="wrap">
-  <h1>📚 Mes quiz</h1>
-  <p>Français, maths et histoire — choisis un quiz !</p>
-</div></header>
 
-<main class="wrap">
-  <div class="tools">
-    <input id="q" type="search" placeholder="Rechercher (ex. homophones, tables, dictée…)">
-    <span id="chips"></span>
+<header class="hero">
+  <div class="wrap">
+    <div class="brand">
+      <div class="logo" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 3 L20 12 H15.5 V21 H8.5 V12 H4 Z" fill="#23342d"/></svg></div>
+      <div>
+        <h1>Level <span class="up">Up</span></h1>
+      </div>
+    </div>
+    <p class="tagline">Un peu chaque jour, <u>beaucoup</u> chaque année.</p>
+
+    <div class="stats" aria-live="polite">
+      <div class="stat">
+        <div class="lvl"><div><small>Niveau</small><b id="lvNum">1</b></div><span class="rank" id="lvName">Débutant</span></div>
+        <div class="xpbar" role="progressbar" aria-label="Progression vers le niveau suivant" aria-valuemin="0" aria-valuemax="100" id="xpBarWrap"><i id="xpBar"></i></div>
+        <div class="xpnext" id="xpNext"></div>
+      </div>
+      <div class="stat"><small>Points XP</small><b id="xpTot">0</b></div>
+      <div class="stat"><small>Série</small><b id="streak">1 🔥</b></div>
+    </div>
   </div>
-  <div class="grid" id="grid"></div>
-  <p class="empty" id="empty" hidden>Aucun quiz ne correspond.</p>
+</header>
+
+<main>
+  <div class="wrap">
+    <a class="resume" id="resume" href="#"><span class="hand">Reprendre →</span><b id="resumeTitle"></b><span class="go">Continuer</span></a>
+
+    <div class="toolbar">
+      <div class="seg" id="levelSeg" role="group" aria-label="Classe">
+        <button data-l="all" class="on">Tous</button><button data-l="CM2">CM2</button><button data-l="4e">4e</button>
+      </div>
+      <label class="search"><span aria-hidden="true">🔎</span><input id="q" type="search" placeholder="Chercher un quiz : tables, passé simple, a/à…" aria-label="Rechercher un quiz"></label>
+    </div>
+    <div class="subjects" id="subjects">
+      <button class="subj" data-s="fr">✒️ Français</button>
+      <button class="subj" data-s="ma">📐 Maths</button>
+      <button class="subj" data-s="hi">🏛️ Histoire</button>
+    </div>
+
+    <div id="sections"></div>
+    <p class="empty" id="empty" hidden>Aucun quiz ne correspond… essaie un autre mot !</p>
+  </div>
 </main>
 
+<footer><span class="hand">Bon courage, et amuse-toi bien !</span>Level Up · Français · Maths · Histoire — CM2 &amp; 4e</footer>
+
 <script>
-/* Catalogue de base : ajoute une ligne ici pour chaque nouveau quiz.
-   Sur GitHub Pages, la page lit aussi le <title>, la description et les thèmes
-   de chaque fichier, et découvre automatiquement les .html non listés. */
+/* ===== Catalogue : ajoute une ligne pour chaque nouveau quiz =====
+   id = identifiant utilisé par le quiz pour enregistrer les scores (sert au calcul des XP).
+   Sur GitHub Pages, la page lit aussi le <title>, la description et les thèmes de chaque fichier,
+   et découvre automatiquement les .html non listés. */
 const CATALOGUE = [
-  {file:'a_ou_a.html', title:'« a » ou « à » + mots de la dictée (CM2)',
+  {file:'a_ou_a.html', id:'a-ou-a-1', title:'« a » ou « à » + mots de la dictée',
    desc:"Choisir entre a (verbe avoir) et à (préposition), réviser les mots de la dictée « L'amphithéâtre de Nîmes » et corriger un texte.",
    themes:['homophones','a/à','dictée','CM2']},
-  {file:'chasse_au_son_e.html', title:'Chasse au son « é » — série 1',
+  {file:'chasse_au_son_e.html', id:'son-e-1', title:'Chasse au son « é » — série 1',
    desc:'Choisir la bonne terminaison du son « é » : règle, quiz et texte à corriger.', themes:['son é','CM2','4e']},
-  {file:'chasse_au_son_e_2.html', title:'Chasse au son « é » — série 2',
+  {file:'chasse_au_son_e_2.html', id:'son-e-2', title:'Chasse au son « é » — série 2',
    desc:'Nouvelle série sur le son « é ».', themes:['son é','CM2','4e']},
-  {file:'homophones.html', title:'Homophones grammaticaux',
-   desc:'N1 : a/à, et/est, son/sont, on/ont, ou/où — N2 : ce/se, ces/ses/c\'est/s\'est, leur/leurs, peu/peut, la/là/l\'a…',
+  {file:'homophones.html', id:'homophones-1', title:'Homophones grammaticaux',
+   desc:"N1 : a/à, et/est, son/sont, on/ont, ou/où — N2 : ce/se, ces/ses/c'est/s'est, leur/leurs, peu/peut, la/là/l'a…",
    themes:['homophones','CM2','4e']},
-  {file:'tables_6_10.html', title:'Tables de multiplication de 6 à 10',
-   desc:'Apprendre et réviser les tables de 6, 7, 8, 9 et 10 : tables et astuces, quiz de 20 questions, facteur manquant et défi chrono.',
+  {file:'tables_6_10.html', id:'tables-6-10', title:'Tables de multiplication de 6 à 10',
+   desc:'Apprendre et réviser les tables de 6, 7, 8, 9 et 10 : astuces, quiz, facteur manquant et défi chrono.',
    themes:['maths','tables de multiplication','CM2']},
-  {file:'histoire_temps_romains.html', title:'Se repérer dans le temps + chiffres romains (CM2)',
-   desc:'Histoire : la frise chronologique, les 5 grandes périodes, avant/après J.-C., les siècles et les chiffres romains.',
+  {file:'histoire_temps_romains.html', id:'histoire-temps-1', title:'Se repérer dans le temps + chiffres romains',
+   desc:'La frise chronologique, les 5 grandes périodes, avant/après J.-C., les siècles et les chiffres romains.',
    themes:['histoire','frise','chiffres romains','CM2']},
-  {file:'accords_4e.html', title:'Accords et nature des mots (4e)',
-   desc:"a/à, é/er/ez/ait, nature des mots, accord du participe passé et accord sujet-verbe : quiz à formats variés, chasse aux fautes et atelier d'écriture (One Piece, manga, jeux vidéo…).",
+  {file:'accords_4e.html', id:'accords-4e', title:'Accords et nature des mots',
+   desc:"a/à, é/er/ez/ait, nature des mots, accords du participe passé et du verbe : quiz, chasse aux fautes et atelier d'écriture.",
    themes:['accords','a/à','participe passé','nature des mots','écriture','4e']},
-  {file:'imparfait_passe_simple.html', title:'Imparfait et passé simple (4e)',
-   desc:"Conjuguer, choisir entre imparfait et passé simple, transformer un récit au présent ou au passé composé (subjonctif signalé), corriger des textes et écrire la suite d'un récit.",
+  {file:'imparfait_passe_simple.html', id:'imp-ps-4e', title:'Imparfait et passé simple',
+   desc:"Conjuguer, choisir le bon temps, transformer un récit (subjonctif signalé), corriger des textes et écrire la suite d'une histoire.",
    themes:['conjugaison','imparfait','passé simple','subjonctif','écriture','4e'], isNew:true}
 ];
 
-const grid = document.getElementById('grid');
+const $ = id => document.getElementById(id);
+const esc = s => String(s ?? '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+const LS = {
+  get(k){ try{ return localStorage.getItem(k); }catch(e){ return null; } },
+  set(k,v){ try{ localStorage.setItem(k,v); }catch(e){} },
+  keys(){ try{ return Object.keys(localStorage); }catch(e){ return []; } }
+};
+
+/* ===== Matière, niveau, icône ===== */
+const SUBJ = { fr:{n:'Français', i:'✒️'}, ma:{n:'Maths', i:'📐'}, hi:{n:'Histoire', i:'🏛️'} };
+const subjectOf = q => q.themes.includes('maths') ? 'ma' : q.themes.includes('histoire') ? 'hi' : 'fr';
+const levelsOf = q => ['CM2','4e'].filter(l => q.themes.includes(l));
+const ICONS = [['tables','✖️'],['romain','🏛️'],['frise','⏳'],['passé simple','⏱️'],['imparfait','⏱️'],['conjugaison','🔁'],['accords','🔗'],['son é','🔊'],['dictée','📝'],['homophones','👯'],['écriture','✍️']];
+const iconOf = q => (ICONS.find(([k]) => q.themes.some(t => t.includes(k))) || [0, SUBJ[subjectOf(q)].i])[1];
+
+/* ===== XP : calculés à partir des meilleurs scores enregistrés par chaque quiz ===== */
+const IGNORE = /(goal|draft|sujet|suCur|suites|frise_best)$/;
+function xpOf(id){
+  if (!id) return {xp:0, played:false};
+  let xp = 0, played = false;
+  LS.keys().filter(k => k.includes(id) && !IGNORE.test(k)).forEach(k => {
+    const v = LS.get(k) || ''; played = true;
+    if (/^\d+$/.test(v)) xp += Math.min(+v, 100);
+    else if (/^\d+\/\d+$/.test(v)) xp += +v.split('/')[0];
+    else if (/^\[.*\]$/.test(v)) { try { xp += JSON.parse(v).length * 5; } catch(e){} }
+  });
+  if (LS.keys().some(k => k.includes(id) && /frise_best$/.test(k))) { played = true; xp += 10; }
+  return {xp, played};
+}
+const RANKS = ['Débutant','Apprenti','Curieux','Explorateur','Aventurier','Stratège','Expert','Champion','Maître','Légende'];
+const XP_PER_LEVEL = 60;
+
+/* ===== Série de jours ===== */
+function streak(){
+  const today = new Date().toISOString().slice(0,10);
+  let days = []; try { days = JSON.parse(LS.get('levelup_days') || '[]'); } catch(e){}
+  if (!days.includes(today)) days.push(today);
+  days = days.slice(-60); LS.set('levelup_days', JSON.stringify(days));
+  let n = 0, d = new Date();
+  while (days.includes(d.toISOString().slice(0,10))) { n++; d.setDate(d.getDate()-1); }
+  return n;
+}
+
+/* ===== État ===== */
 let quizzes = CATALOGUE.map(q => ({...q}));
-let activeTheme = null;
+let level = LS.get('levelup_level') || 'all';
+let subjects = new Set();
+
+function renderStats(){
+  const total = quizzes.reduce((s,q) => s + xpOf(q.id).xp, 0);
+  const lv = Math.floor(total / XP_PER_LEVEL) + 1, into = total % XP_PER_LEVEL;
+  $('lvNum').textContent = lv;
+  $('lvName').textContent = RANKS[Math.min(lv-1, RANKS.length-1)];
+  $('xpTot').textContent = total;
+  requestAnimationFrame(() => { $('xpBar').style.width = (into / XP_PER_LEVEL * 100) + '%'; });
+  $('xpBarWrap').setAttribute('aria-valuenow', Math.round(into / XP_PER_LEVEL * 100));
+  $('xpNext').textContent = `Encore ${XP_PER_LEVEL - into} XP pour passer niveau ${lv+1}`;
+  const s = streak();
+  $('streak').textContent = `${s} jour${s>1?'s':''} 🔥`;
+}
+
+function card(q, k){
+  const s = subjectOf(q), {xp, played} = xpOf(q.id);
+  const pct = Math.min(100, Math.round(xp / 60 * 100));
+  return `<a class="card" data-s="${s}" href="${esc(q.file)}" data-file="${esc(q.file)}" data-title="${esc(q.title)}" style="animation-delay:${k*50}ms">
+    ${q.isNew && !played ? '<span class="stamp">NOUVEAU</span>' : ''}
+    <div class="top"><span class="ico" aria-hidden="true">${iconOf(q)}</span><span class="subjname">${SUBJ[s].n}</span>
+      <span class="lvls">${levelsOf(q).map(l=>`<span class="lv">${l}</span>`).join('')}</span></div>
+    <h3>${esc(q.title)}</h3>
+    <p>${esc(q.desc || '')}</p>
+    <div class="foot">
+      <span class="prog"><span class="ring" style="--p:${played ? Math.max(pct,8) : 0}"></span>
+        ${played ? (pct >= 100 ? '<span class="done-mark">Bravo, maîtrisé !</span>' : `<span><b>${xp} XP</b> gagnés</span>`) : '<span>Pas encore joué</span>'}</span>
+      <span class="play">${played ? 'Rejouer' : 'Jouer'} →</span>
+    </div>
+  </a>`;
+}
 
 function render(){
-  const term = document.getElementById('q').value.trim().toLowerCase();
+  const term = $('q').value.trim().toLowerCase();
   const list = quizzes
-    .filter(q => !activeTheme || q.themes.includes(activeTheme))
-    .filter(q => !term || (q.title+' '+q.desc+' '+q.themes.join(' ')).toLowerCase().includes(term))
-    .sort((a,b) => a.file.localeCompare(b.file));
-  grid.innerHTML = list.map(q => `
-    <a class="card" href="${q.file}">
-      <h2>${q.title}</h2>
-      <p>${q.desc || ''}</p>
-      <div class="tags">${q.isNew ? '<span class="tag new">nouveau</span>' : ''}${q.themes.map(t=>`<span class="tag">${t}</span>`).join('')}</div>
-      <div class="file">${q.file}</div>
-    </a>`).join('');
-  document.getElementById('empty').hidden = list.length > 0;
-  const all = [...new Set(quizzes.flatMap(q => q.themes))].sort((a,b)=>a.localeCompare(b));
-  document.getElementById('chips').innerHTML = all.map(t => `<button class="chip ${t===activeTheme?'on':''}" data-t="${t}">${t}</button>`).join(' ');
-  document.querySelectorAll('.chip').forEach(c => c.onclick = () => { activeTheme = activeTheme===c.dataset.t ? null : c.dataset.t; render(); });
+    .filter(q => level==='all' || levelsOf(q).includes(level))
+    .filter(q => !subjects.size || subjects.has(subjectOf(q)))
+    .filter(q => !term || (q.title+' '+(q.desc||'')+' '+q.themes.join(' ')).toLowerCase().includes(term));
+  const order = ['fr','ma','hi'];
+  const groups = order.map(s => [s, list.filter(q => subjectOf(q)===s)]).filter(([,l]) => l.length);
+  const notes = {fr:'orthographe, grammaire, conjugaison', ma:'calcul et tables', hi:'repères et dates'};
+  let k = 0;
+  $('sections').innerHTML = groups.map(([s,l]) => `
+    <div class="section-title"><h2>${SUBJ[s].i} ${SUBJ[s].n}</h2><span class="hand">${notes[s]} · ${l.length} quiz</span></div>
+    <div class="grid">${l.map(q => card(q, k++)).join('')}</div>`).join('');
+  $('empty').hidden = list.length > 0;
+  document.querySelectorAll('.card').forEach(c => c.addEventListener('click', () =>
+    LS.set('levelup_last', JSON.stringify({file:c.dataset.file, title:c.dataset.title}))));
 }
-document.getElementById('q').oninput = render;
-render();
 
-/* Lit title / description / themes d'un fichier du site */
+function renderResume(){
+  let last = null; try { last = JSON.parse(LS.get('levelup_last')); } catch(e){}
+  if (!last || !last.file) return;
+  $('resume').href = last.file; $('resumeTitle').textContent = last.title; $('resume').classList.add('show');
+}
+
+/* ===== Contrôles ===== */
+document.querySelectorAll('#levelSeg button').forEach(b => {
+  b.classList.toggle('on', b.dataset.l === level);
+  b.onclick = () => { level = b.dataset.l; LS.set('levelup_level', level);
+    document.querySelectorAll('#levelSeg button').forEach(x => x.classList.toggle('on', x===b)); render(); };
+});
+document.querySelectorAll('.subj').forEach(b => b.onclick = () => {
+  const s = b.dataset.s; subjects.has(s) ? subjects.delete(s) : subjects.add(s);
+  b.classList.toggle('on', subjects.has(s)); render();
+});
+$('q').oninput = render;
+
+renderStats(); renderResume(); render();
+
+/* ===== Sur GitHub Pages : infos réelles des fichiers + découverte automatique ===== */
 async function readMeta(file){
   const r = await fetch(file); if (!r.ok) throw 0;
   const doc = new DOMParser().parseFromString(await r.text(), 'text/html');
   const meta = n => doc.querySelector(`meta[name="${n}"]`)?.content || '';
-  return { title: doc.title, desc: meta('description'),
-           themes: meta('themes').split(',').map(s=>s.trim()).filter(Boolean) };
+  return { title: doc.title, desc: meta('description'), themes: meta('themes').split(',').map(s=>s.trim()).filter(Boolean) };
 }
-
 (async () => {
-  if (location.protocol === 'file:') return;           // ouverture locale : catalogue seul
-  // 1) Mettre à jour les fiches du catalogue avec les infos réelles des fichiers
+  if (location.protocol === 'file:') return;
   await Promise.all(quizzes.map(async q => {
-    try { const m = await readMeta(q.file); if (m.title) q.title = m.title; if (m.desc) q.desc = m.desc; if (m.themes.length) q.themes = m.themes; } catch(e){}
+    try { const m = await readMeta(q.file); if (m.desc) q.desc = m.desc; if (m.themes.length) q.themes = m.themes; } catch(e){}
   }));
   render();
-  // 2) Découverte automatique des autres .html via l'API GitHub
-  const host = location.hostname;
-  if (!host.endsWith('.github.io')) return;
+  const host = location.hostname; if (!host.endsWith('.github.io')) return;
   const owner = host.split('.')[0];
   const seg = location.pathname.split('/').filter(Boolean)[0];
   const repo = (seg && !seg.endsWith('.html')) ? seg : `${owner}.github.io`;
   try {
-    const r = await fetch(`https://api.github.com/repos/${owner}/${repo}/contents/`);
-    if (!r.ok) return;
+    const r = await fetch(`https://api.github.com/repos/${owner}/${repo}/contents/`); if (!r.ok) return;
     const files = (await r.json()).filter(f => f.type==='file' && f.name.endsWith('.html') && f.name!=='index.html');
     const known = new Set(quizzes.map(q => q.file));
     const extra = await Promise.all(files.filter(f => !known.has(f.name)).map(async f => {
-      try { const m = await readMeta(f.name); return {file:f.name, title:m.title||f.name, desc:m.desc, themes:m.themes}; }
+      try { const m = await readMeta(f.name); return {file:f.name, title:(m.title||f.name).replace(/\s*\((CM2|4e)\)\s*$/,''), desc:m.desc, themes:m.themes}; }
       catch(e){ return {file:f.name, title:f.name, desc:'', themes:[]}; }
     }));
-    quizzes = quizzes.concat(extra); render();
+    if (extra.length) { quizzes = quizzes.concat(extra); renderStats(); render(); }
   } catch(e){}
 })();
 </script>

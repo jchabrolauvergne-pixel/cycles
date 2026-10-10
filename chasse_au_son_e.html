@@ -1,0 +1,213 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="-é, -er, -ez, -ée, -és, -ées… et -ai / -ais. Deux niveaux : CM2 et 4e.">
+<meta name="themes" content="Accords, Conjugaison">
+<title>Chasse au son « é »</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;700&family=Patrick+Hand&display=swap">
+<style>
+:root{
+  --paper:#f4f6fb; --card:#ffffff; --ink:#18264a; --muted:#5b6788; --line:#d8deec;
+  --blue:#2b54c9; --blue-soft:#e4ebfc; --hl:#ffe46b; --ok:#1d8757; --ok-soft:#dff3e8;
+  --ko:#c9303d; --ko-soft:#fbe3e5; --shadow:0 1px 2px rgba(24,38,74,.06),0 6px 20px rgba(24,38,74,.06);
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --paper:#111827; --card:#1a2336; --ink:#e7ecf8; --muted:#9aa6c4; --line:#2e3a55;
+  --blue:#7d9cf5; --blue-soft:#24325a; --hl:#8a7419; --ok:#5fd09a; --ok-soft:#173a2b;
+  --ko:#ff7d88; --ko-soft:#43202a; --shadow:none;}}
+:root[data-theme="dark"]{
+  --paper:#111827; --card:#1a2336; --ink:#e7ecf8; --muted:#9aa6c4; --line:#2e3a55;
+  --blue:#7d9cf5; --blue-soft:#24325a; --hl:#8a7419; --ok:#5fd09a; --ok-soft:#173a2b;
+  --ko:#ff7d88; --ko-soft:#43202a; --shadow:none;}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.55 Lexend,system-ui,sans-serif;padding-inline:16px;padding-block:20px 48px}
+.wrap{max-width:760px;margin:0 auto;display:flex;flex-direction:column;gap:20px}
+header h1{font-size:clamp(1.7rem,5vw,2.4rem);line-height:1.1;margin:0;letter-spacing:-.01em;text-wrap:balance}
+header h1 .e{background:var(--hl);padding:0 .15em;border-radius:4px;color:var(--ink)}
+header p{margin:.4rem 0 0;color:var(--muted)}
+.bar{display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between}
+.seg{display:inline-flex;background:var(--card);border:1px solid var(--line);border-radius:999px;padding:4px;gap:2px;flex-wrap:wrap}
+.seg button{border:0;background:transparent;color:var(--muted);font:500 .92rem Lexend,sans-serif;padding:.45rem .9rem;border-radius:999px;cursor:pointer}
+.seg button[aria-pressed="true"]{background:var(--blue);color:#fff}
+:root[data-theme="dark"] .seg button[aria-pressed="true"]{color:#0f1830}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .seg button[aria-pressed="true"]{color:#0f1830}}
+button:focus-visible{outline:3px solid var(--hl);outline-offset:2px}
+.panel{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:22px;box-shadow:var(--shadow)}
+.note{font-family:"Patrick Hand",cursive;font-size:1.2rem;color:var(--ko)}
+/* règle */
+.rules{display:grid;gap:14px}
+.rule{border-left:4px solid var(--blue);padding:4px 0 4px 14px}
+.rule h3{margin:0 0 4px;font-size:1.05rem}
+.rule p{margin:0;color:var(--ink)}
+.rule .ex{display:block;margin-top:4px;color:var(--muted);font-size:.93rem}
+b.k{background:var(--hl);color:var(--ink);padding:0 .2em;border-radius:3px;font-weight:700}
+/* quiz */
+.qhead{display:flex;justify-content:space-between;align-items:center;gap:10px;color:var(--muted);font-size:.9rem}
+.progress{height:6px;background:var(--line);border-radius:6px;overflow:hidden;margin:10px 0 22px}
+.progress i{display:block;height:100%;background:var(--blue);transition:width .3s}
+.sentence{font-size:clamp(1.25rem,4vw,1.6rem);line-height:1.45;margin:0 0 22px;text-wrap:pretty}
+.blank{display:inline-block;min-width:2.4em;border-bottom:3px solid var(--blue);text-align:center;color:var(--blue);font-weight:700}
+.blank.ok{color:var(--ok);border-color:var(--ok)} .blank.ko{color:var(--ko);border-color:var(--ko)}
+.opts{display:flex;flex-wrap:wrap;gap:10px}
+.opt{font:700 1.25rem Lexend,sans-serif;min-width:84px;padding:.6rem 1rem;border-radius:12px;border:2px solid var(--line);background:var(--card);color:var(--ink);cursor:pointer;transition:transform .1s,border-color .15s}
+.opt:hover:not(:disabled){border-color:var(--blue);transform:translateY(-1px)}
+.opt.ok{background:var(--ok-soft);border-color:var(--ok);color:var(--ok)}
+.opt.ko{background:var(--ko-soft);border-color:var(--ko);color:var(--ko)}
+.opt:disabled{cursor:default}
+.fb{margin-top:18px;padding:12px 14px;border-radius:10px;display:flex;gap:10px;align-items:flex-start}
+.fb.ok{background:var(--ok-soft)} .fb.ko{background:var(--ko-soft)}
+.fb strong{white-space:nowrap}
+.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}
+.btn{font:500 1rem Lexend,sans-serif;padding:.65rem 1.2rem;border-radius:10px;border:0;background:var(--blue);color:#fff;cursor:pointer}
+.btn.ghost{background:transparent;color:var(--blue);border:2px solid var(--blue)}
+:root[data-theme="dark"] .btn:not(.ghost){color:#0f1830}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .btn:not(.ghost){color:#0f1830}}
+.score{font-size:3rem;font-weight:700;line-height:1;font-variant-numeric:tabular-nums}
+.score small{font-size:1.2rem;color:var(--muted)}
+.review{list-style:none;padding:0;margin:16px 0 0;display:grid;gap:10px}
+.review li{padding:10px 12px;border-radius:10px;background:var(--ko-soft)}
+.review li span{display:block;color:var(--muted);font-size:.9rem}
+/* texte */
+.text{font-size:1.2rem;line-height:2.1}
+.w{cursor:pointer;border-radius:4px;padding:1px 2px}
+.w:hover{background:var(--blue-soft)}
+.w.sel{background:var(--hl);color:var(--ink)}
+.w.found{background:var(--ok-soft);color:var(--ok);text-decoration:line-through}
+.w.miss{background:var(--ko-soft);color:var(--ko);text-decoration:underline wavy}
+.w.wrong{outline:2px dashed var(--ko)}
+.corr{font-family:"Patrick Hand",cursive;color:var(--ko);font-size:1.25rem;margin-left:2px}
+.hint{color:var(--muted);font-size:.93rem;margin:0 0 12px}
+.best{color:var(--muted);font-size:.9rem}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+.back{color:var(--blue);text-decoration:none;font-size:.95rem}
+.back:hover{text-decoration:underline}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <a class="back" href="index.html">← Tous les quiz</a>
+  <header>
+    <h1>Chasse au son « <span class="e">é</span> »</h1>
+    <p>-é, -er, -ez, -ée, -és, -ées… choisis la bonne terminaison.</p>
+  </header>
+
+  <div class="bar">
+    <div class="seg" role="group" aria-label="Niveau">
+      <button id="lv1" aria-pressed="true" data-lv="1">Niveau 1 · CM2</button>
+      <button id="lv2" aria-pressed="false" data-lv="2">Niveau 2 · 4e</button>
+    </div>
+    <div class="seg" role="group" aria-label="Activité">
+      <button id="m-regle" data-m="regle" aria-pressed="false">La règle</button>
+      <button id="m-quiz" data-m="quiz" aria-pressed="true">Quiz</button>
+      <button id="m-texte" data-m="texte" aria-pressed="false">Texte à corriger</button>
+    </div>
+  </div>
+
+  <section class="panel" id="view" aria-live="polite"></section>
+</div>
+
+<script>
+const DATA = {"n1": [{"s": "Je vais mang___ une pomme.", "o": ["é", "er", "ez"], "a": "er", "e": "Je vais mordre une pomme → infinitif → -er."}, {"s": "Il a mang___ une pomme.", "o": ["é", "er", "ez"], "a": "é", "e": "Il a mordu une pomme → participe passé → -é."}, {"s": "Vous mang___ trop vite !", "o": ["é", "er", "ez"], "a": "ez", "e": "Avec « vous », le verbe conjugué se termine par -ez."}, {"s": "Il faut arros___ les plantes.", "o": ["é", "er", "ez"], "a": "er", "e": "Il faut mordre → infinitif → -er."}, {"s": "Nous allons jou___ dehors.", "o": ["é", "er", "ez"], "a": "er", "e": "Nous allons mordre → infinitif → -er."}, {"s": "Tu as gagn___ la course !", "o": ["é", "er", "ez"], "a": "é", "e": "Tu as mordu → participe passé → -é."}, {"s": "Pouvez-vous ferm___ la fenêtre ?", "o": ["é", "er", "ez"], "a": "er", "e": "« Pouvez » est déjà conjugué avec vous ; le 2e verbe est à l'infinitif (pouvez-vous mordre)."}, {"s": "Ferm___ la porte, s'il vous plaît.", "o": ["é", "er", "ez"], "a": "ez", "e": "C'est un ordre donné à « vous » (impératif) → -ez."}, {"s": "J'ai commenc___ mes devoirs.", "o": ["é", "er", "ez"], "a": "é", "e": "J'ai mordu → participe passé → -é."}, {"s": "Je commence à dessin___.", "o": ["é", "er", "ez"], "a": "er", "e": "Après « à », « de », « pour », « sans » : infinitif → -er."}, {"s": "Pour gagn___, il faut s'entraîner.", "o": ["é", "er", "ez"], "a": "er", "e": "Après « pour » : infinitif (pour mordre) → -er."}, {"s": "Il est parti sans parl___.", "o": ["é", "er", "ez"], "a": "er", "e": "Après « sans » : infinitif (sans mordre) → -er."}, {"s": "Vous chant___ très bien.", "o": ["é", "er", "ez"], "a": "ez", "e": "Avec « vous » → -ez."}, {"s": "La porte est ferm___.", "o": ["é", "ée", "és", "ées"], "a": "ée", "e": "Qui est fermée ? La porte : féminin singulier → -ée."}, {"s": "Les enfants sont fatigu___.", "o": ["é", "ée", "és", "ées"], "a": "és", "e": "Qui est fatigué ? Les enfants : masculin pluriel → -és."}, {"s": "Les fleurs sont fan___.", "o": ["é", "ée", "és", "ées"], "a": "ées", "e": "Les fleurs : féminin pluriel → -ées."}, {"s": "Mon frère est arriv___ en retard.", "o": ["é", "ée", "és", "ées"], "a": "é", "e": "Mon frère : masculin singulier → -é."}, {"s": "Ma sœur est tomb___ dans la cour.", "o": ["é", "ée", "és", "ées"], "a": "ée", "e": "Avec « être », on accorde avec le sujet : ma sœur → -ée."}, {"s": "J'aime les gâteaux sucr___.", "o": ["é", "ée", "és", "ées"], "a": "és", "e": "Des gâteaux : masculin pluriel → -és."}, {"s": "Maman coupe des pommes pel___.", "o": ["é", "ée", "és", "ées"], "a": "ées", "e": "Des pommes : féminin pluriel → -ées."}, {"s": "Il a trouv___ un chat perdu.", "o": ["é", "er", "ez"], "a": "é", "e": "Il a mordu → participe passé → -é."}, {"s": "Tu dois rang___ ta chambre.", "o": ["é", "er", "ez"], "a": "er", "e": "Tu dois mordre → infinitif → -er."}], "n2": [{"s": "Ils ont achet___ une maison.", "o": ["é", "ée", "és", "ées"], "a": "é", "e": "Avoir + COD placé APRÈS (une maison) → pas d'accord."}, {"s": "La maison qu'ils ont achet___ est grande.", "o": ["é", "ée", "és", "ées"], "a": "ée", "e": "COD « qu' » = la maison, placé AVANT avoir → accord : -ée."}, {"s": "J'ai envoy___ les lettres hier.", "o": ["é", "ée", "és", "ées"], "a": "é", "e": "COD après le verbe → pas d'accord."}, {"s": "Les lettres que j'ai envoy___ sont arrivées.", "o": ["é", "ée", "és", "ées"], "a": "ées", "e": "« que » = les lettres, COD placé avant → -ées."}, {"s": "Les photos ? Je les ai regard___ hier.", "o": ["é", "ée", "és", "ées"], "a": "ées", "e": "« les » = les photos, COD placé avant → -ées."}, {"s": "Les exercices que tu as termin___ sont justes.", "o": ["é", "ée", "és", "ées"], "a": "és", "e": "« que » = les exercices (masc. pl.), placé avant → -és."}, {"s": "Combien de livres as-tu emprunt___ ?", "o": ["é", "ée", "és", "ées"], "a": "és", "e": "COD « combien de livres » placé avant → -és."}, {"s": "Les enfants ? Leur mère les a appel___ pour dîner.", "o": ["é", "ée", "és", "ées"], "a": "és", "e": "« les » = les enfants, COD avant → -és."}, {"s": "Elles ont beaucoup travaill___.", "o": ["é", "ée", "és", "ées"], "a": "é", "e": "Avoir, pas de COD → jamais d'accord avec le sujet."}, {"s": "Elles sont rentr___ tôt.", "o": ["é", "ée", "és", "ées"], "a": "ées", "e": "Être → accord avec le sujet « elles » → -ées."}, {"s": "Les tables ont été nettoy___.", "o": ["é", "ée", "és", "ées"], "a": "ées", "e": "Voix passive (été) → accord avec le sujet « les tables »."}, {"s": "Elle s'est coup___ avec un couteau.", "o": ["é", "ée", "és", "ées"], "a": "ée", "e": "Verbe pronominal : elle a coupé qui ? « s' » = elle, placé avant → -ée."}, {"s": "Elle s'est coup___ le doigt.", "o": ["é", "ée", "és", "ées"], "a": "é", "e": "Elle a coupé quoi ? le doigt, placé APRÈS → pas d'accord."}, {"s": "Après avoir mang___, ils sont sortis.", "o": ["é", "er", "ez"], "a": "é", "e": "« avoir » + participe passé (infinitif passé) → -é."}, {"s": "Il était épuisé d'avoir tant march___.", "o": ["é", "er", "ez"], "a": "é", "e": "« avoir marché » : participe passé → -é."}, {"s": "Vous avez décid___ ?", "o": ["é", "er", "ez"], "a": "é", "e": "Piège : « avez » est l'auxiliaire, le 2e verbe est un participe passé (vous avez mordu)."}, {"s": "Vous décid___ vite.", "o": ["é", "er", "ez"], "a": "ez", "e": "Un seul verbe, conjugué avec vous → -ez."}, {"s": "Ce jour-là, j'entr___ dans la pièce et je vis la lettre.", "o": ["ai", "ais"], "a": "ai", "e": "Action brève au passé simple (« je vis ») → -ai."}, {"s": "Quand j'étais petit, je parl___ souvent à mon chien.", "o": ["ai", "ais"], "a": "ais", "e": "Habitude dans le passé → imparfait → -ais (tu parlais)."}, {"s": "Demain, je chanter___ à la fête.", "o": ["ai", "ais"], "a": "ai", "e": "Futur : remplace par « tu » → tu chanteras → -ai."}, {"s": "Si j'avais le temps, je chanter___ plus souvent.", "o": ["ai", "ais"], "a": "ais", "e": "Conditionnel (si…) : tu chanterais → -ais."}, {"s": "Il écout___ la radio pendant que sa mère cuisinait.", "o": ["ait", "é", "er"], "a": "ait", "e": "Action en cours dans le passé → imparfait → -ait (il mordait)."}], "t1": {"text": "Hier, mon frère et moi sommes [allé|allés] au parc. Nous voulions [jouée|jouer] au ballon. Maman nous a dit : « [Rentrer|Rentrez] avant six heures ! » J'ai lancé le ballon très fort et il est tombé dans l'étang. Maman était [fâché|fâchée]. Il a fallu [demandé|demander] de l'aide.", "corr": [["allé", "allés", "Être → accord avec « mon frère et moi » (masculin pluriel)."], ["jouée", "jouer", "Nous voulions mordre → infinitif."], ["Rentrer", "Rentrez", "Ordre donné à « vous » → -ez."], ["fâché", "fâchée", "Maman : féminin singulier → -ée."], ["demandé", "demander", "Il a fallu mordre → infinitif."]]}, "t2": {"text": "La lettre que Julien avait [posté|postée] la semaine dernière est enfin arrivée. Sa grand-mère l'avait [espéré|espérée] longtemps. Quand elle l'a [trouvé|trouvée] dans sa boîte, elle s'est mise à pleurer. Les photos qu'il avait [glissé|glissées] dans l'enveloppe l'ont beaucoup touchée. Le lendemain, elle l'appela : « Tu m'as tellement [manquer|manqué] ! Vous viendrez me voir cet été ? » Julien et sa sœur ont promis de passer.", "corr": [["posté", "postée", "« que » = la lettre, COD placé avant avoir."], ["espéré", "espérée", "« l' » = la lettre, COD placé avant."], ["trouvé", "trouvée", "« l' » = la lettre, COD placé avant."], ["glissé", "glissées", "« qu' » = les photos (fém. pl.), COD placé avant."], ["manquer", "manqué", "Tu m'as mordu → participe passé (« m' » est COI : pas d'accord)."]]}};
+const RULES = {"1": [["é ou er ?", "Remplace le verbe par <b class='k'>mordre</b> / <b class='k'>mordu</b>. Si tu entends « mordu » → <b class='k'>-é</b>. Si tu entends « mordre » → <b class='k'>-er</b>.", "Il a mangé (il a mordu) · Il va manger (il va mordre)"], ["Après une préposition", "Après <b class='k'>à, de, pour, sans</b> ou après un verbe conjugué (je vais, il faut, tu dois…), le verbe reste à l'infinitif : <b class='k'>-er</b>.", "Je commence à dessiner · Tu dois ranger"], ["Avec « vous »", "Si le sujet est <b class='k'>vous</b> et qu'il n'y a qu'un seul verbe : <b class='k'>-ez</b>.", "Vous chantez · Fermez la porte !"], ["Avec « être » ou devant un nom", "Le mot en -é s'accorde comme un adjectif. Demande-toi <b class='k'>qui est … ?</b> puis ajoute <b class='k'>e</b> (féminin) et/ou <b class='k'>s</b> (pluriel).", "La porte est fermée · Les enfants sont fatigués · des pommes pelées"]], "2": [["é, er ou ez ?", "Test <b class='k'>mordu / mordre</b> ; « vous » + un seul verbe → <b class='k'>-ez</b>. Attention : <i>vous avez décidé</i> (avez = auxiliaire).", "Vous décidez · Vous avez décidé · Vous allez décider"], ["Participe passé avec être", "Il s'accorde <b class='k'>avec le sujet</b> (y compris à la voix passive).", "Elles sont rentrées · Les tables ont été nettoyées"], ["Participe passé avec avoir", "Jamais d'accord avec le sujet. Il s'accorde avec le <b class='k'>COD seulement s'il est placé avant</b> : que, l', les, combien de…", "Ils ont acheté une maison · La maison qu'ils ont achetée"], ["Verbes pronominaux", "Cherche le COD : <i>elle a coupé qui/quoi ?</i> S'il est placé avant (se = elle) → accord ; s'il est après → pas d'accord.", "Elle s'est coupée · Elle s'est coupé le doigt"], ["-ai ou -ais ?", "Remplace <i>je</i> par <b class='k'>tu</b>. Tu chanteras → futur <b class='k'>-ai</b> ; tu chanterais → conditionnel <b class='k'>-ais</b>. Au passé : action brève → passé simple <b class='k'>-ai</b> ; habitude ou décor → imparfait <b class='k'>-ais</b>.", "Demain je chanterai · Si je pouvais, je chanterais"]]};
+const CFG = {"id": "son-e-1", "op": "-", "errWhat": "sur le son «&nbsp;é&nbsp;»"};
+let level=1, mode="quiz", quiz=null, texteState=null;
+const $=s=>document.querySelector(s), view=$("#view");
+const store={get(k){try{return localStorage.getItem(CFG.id+":"+k)}catch(e){return null}},set(k,v){try{localStorage.setItem(CFG.id+":"+k,v)}catch(e){}}};
+const esc=s=>s.replace(/[&<>]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;"}[c]));
+function shuffle(a){a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
+function setPressed(sel,attr,val){document.querySelectorAll(sel).forEach(b=>b.setAttribute("aria-pressed",String(b.dataset[attr]==val)))}
+
+document.querySelectorAll("[data-lv]").forEach(b=>b.onclick=()=>{level=+b.dataset.lv;setPressed("[data-lv]","lv",level);store.set("lv",level);start()});
+document.querySelectorAll("[data-m]").forEach(b=>b.onclick=()=>{mode=b.dataset.m;setPressed("[data-m]","m",mode);start()});
+
+function start(){ if(mode==="regle")renderRules(); else if(mode==="quiz")newQuiz(); else newTexte(); }
+
+function renderRules(){
+  view.innerHTML=`<div class="rules">${RULES[level].map(r=>`<div class="rule"><h3>${r[0]}</h3><p>${r[1]}<span class="ex">${r[2]}</span></p></div>`).join("")}</div>
+  <div class="actions"><button class="btn" id="go-quiz">M'entraîner</button></div>`;
+  $("#go-quiz").onclick=()=>{mode="quiz";setPressed("[data-m]","m",mode);newQuiz()};
+}
+
+function newQuiz(){
+  const bank=DATA["n"+level];
+  quiz={items:shuffle(bank).slice(0,10),i:0,score:0,errors:[]};
+  renderQ();
+}
+function renderQ(){
+  const q=quiz.items[quiz.i], n=quiz.items.length;
+  const [before,after]=q.s.split("___");
+  view.innerHTML=`<div class="qhead"><span>Question ${quiz.i+1} / ${n}</span><span>Score : ${quiz.score}</span></div>
+   <div class="progress"><i style="width:${quiz.i/n*100}%"></i></div>
+   <p class="sentence">${esc(before)}<span class="blank" id="blank">?</span>${esc(after)}</p>
+   <div class="opts">${q.o.map((o,k)=>`<button class="opt" id="opt${k}" data-v="${esc(o)}">${CFG.op}${esc(o)}</button>`).join("")}</div>
+   <div id="fbzone"></div>`;
+  view.querySelectorAll(".opt").forEach(b=>b.onclick=()=>answer(b));
+}
+function answer(b){
+  const q=quiz.items[quiz.i], v=b.dataset.v, good=v===q.a, blank=$("#blank");
+  view.querySelectorAll(".opt").forEach(x=>{x.disabled=true;if(x.dataset.v===q.a)x.classList.add("ok")});
+  if(good){quiz.score++}else{b.classList.add("ko");quiz.errors.push({q,v})}
+  blank.textContent=q.a; blank.classList.add(good?"ok":"ko");
+  const last=quiz.i===quiz.items.length-1;
+  $("#fbzone").innerHTML=`<div class="fb ${good?"ok":"ko"}"><strong>${good?"Bravo !":"Pas tout à fait."}</strong><span>${esc(q.e)}</span></div>
+   <div class="actions"><button class="btn" id="next">${last?"Voir mon score":"Question suivante"}</button></div>`;
+  const nx=$("#next"); nx.focus(); nx.onclick=()=>{ if(last)renderEnd(); else {quiz.i++;renderQ()} };
+}
+function renderEnd(){
+  const n=quiz.items.length, k="best"+level, prev=+(store.get(k)||0);
+  if(quiz.score>prev)store.set(k,quiz.score);
+  const best=Math.max(prev,quiz.score);
+  const msg=quiz.score===n?"Parfait, aucune faute !":quiz.score>=8?"Très bien, encore un petit effort.":quiz.score>=5?"C'est en bonne voie. Relis la règle puis recommence.":"Relis la règle et réessaie, tu vas progresser.";
+  view.innerHTML=`<div class="score">${quiz.score}<small> / ${n}</small></div>
+   <p class="note">${msg}</p><p class="best">Meilleur score au niveau ${level} : ${best} / ${n}</p>
+   ${quiz.errors.length?`<h3 style="margin:18px 0 0">À revoir</h3><ul class="review">${quiz.errors.map(({q,v})=>`<li><b>${esc(q.s.replace("___",q.a))}</b> <span>Tu as choisi ${CFG.op}${esc(v)} · ${esc(q.e)}</span></li>`).join("")}</ul>`:""}
+   <div class="actions"><button class="btn" id="again">Nouvelle série</button><button class="btn ghost" id="torule">Revoir la règle</button></div>`;
+  $("#again").onclick=newQuiz;
+  $("#torule").onclick=()=>{mode="regle";setPressed("[data-m]","m",mode);renderRules()};
+}
+
+const MK=/\[([^|\]]+)\|([^\]]+)\]/;
+function newTexte(){
+  const t=DATA["t"+level];
+  const tokens=t.text.split(/( +)/);
+  texteState={t,checked:false};
+  let n=0;
+  const html=tokens.map(tok=>{
+    if(/^ +$/.test(tok))return tok;
+    const m=tok.match(MK); let attr="", shown=tok;
+    if(m){ shown=tok.replace(MK,m[1]); attr=` data-err="${n}" data-fix="${esc(m[2])}"`; n++; }
+    return `<span class="w"${attr} tabindex="0" role="button">${esc(shown)}</span>`;
+  }).join("");
+  view.innerHTML=`<p class="hint">Ce texte contient <b>${t.corr.length} erreurs</b> ${CFG.errWhat}. Clique sur les mots fautifs, puis vérifie.</p>
+   <p class="text" id="txt">${html}</p>
+   <div class="actions"><button class="btn" id="check">Vérifier</button><button class="btn ghost" id="reset">Recommencer</button></div><div id="tfb"></div>`;
+  view.querySelectorAll(".w").forEach(w=>{
+    const tog=()=>{if(!texteState.checked)w.classList.toggle("sel")};
+    w.onclick=tog; w.onkeydown=e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();tog()}};
+  });
+  $("#reset").onclick=newTexte;
+  $("#check").onclick=()=>{
+    if(texteState.checked)return; texteState.checked=true;
+    let found=0,wrong=0;
+    view.querySelectorAll(".w").forEach(w=>{
+      const isErr=w.dataset.err!==undefined, sel=w.classList.contains("sel");
+      w.classList.remove("sel");
+      if(isErr){ w.classList.add(sel?"found":"miss"); if(sel)found++;
+        w.insertAdjacentHTML("afterend",`<span class="corr">${w.dataset.fix}</span>`); }
+      else if(sel){w.classList.add("wrong");wrong++}
+    });
+    $("#tfb").innerHTML=`<div class="fb ${found===t.corr.length&&!wrong?"ok":"ko"}"><strong>${found} / ${t.corr.length}</strong><span>erreurs trouvées${wrong?` · ${wrong} mot${wrong>1?"s":""} correct${wrong>1?"s":""} marqué${wrong>1?"s":""} à tort (pointillés)`:""}.</span></div>
+     <ul class="review" style="margin-top:12px">${t.corr.map(c=>`<li style="background:var(--blue-soft)"><b>${esc(c[0])} → ${esc(c[1])}</b><span>${esc(c[2])}</span></li>`).join("")}</ul>`;
+  };
+}
+
+const saved=+(store.get("lv")||1); if(saved===2){level=2;setPressed("[data-lv]","lv",2)}
+start();
+</script>
+
+</body>
+</html>

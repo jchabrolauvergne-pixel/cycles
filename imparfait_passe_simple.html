@@ -1,0 +1,863 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Imparfait et passé simple (4e)</title>
+<meta name="description" content="Conjuguer, choisir entre imparfait et passé simple, transformer un récit au présent ou au passé composé (subjonctif signalé), corriger des textes et écrire la suite d'un récit.">
+<meta name="themes" content="conjugaison, imparfait, passé simple, subjonctif, écriture, 4e">
+<style>
+  :root{
+    --bg:#f4f3f8; --card:#ffffff; --ink:#1f1d2b; --muted:#615d74;
+    --primary:#4b3a8c; --primary-soft:#ece8f8; --imp:#2f7f8a; --imp-soft:#dff1f3;
+    --ps:#c8402c; --ps-soft:#fbe6e2; --subj:#b07a10; --subj-soft:#fbf0d4;
+    --ok:#2e9e5b; --ok-soft:#e3f6ea; --ko:#d14343; --ko-soft:#fbe5e5; --line:#dfdcea;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;background:var(--bg);color:var(--ink);font-size:18px;line-height:1.5}
+  header{background:var(--primary);color:#fff;padding:18px 16px 0}
+  .wrap{max-width:900px;margin:0 auto}
+  header a.back{color:#ddd6f5;text-decoration:none;font-size:15px}
+  h1{margin:6px 0 4px;font-size:26px}
+  .sub{margin:0 0 14px;color:#ddd6f5;font-size:16px}
+  .badge{display:inline-block;background:var(--ps);color:#fff;border-radius:999px;padding:2px 10px;font-size:14px;font-weight:600;margin-left:6px;vertical-align:middle}
+  nav{display:flex;gap:5px;flex-wrap:wrap}
+  nav button{border:0;background:rgba(255,255,255,.15);color:#fff;padding:9px 12px;border-radius:10px 10px 0 0;font-size:15px;cursor:pointer;font-weight:600}
+  nav button.on{background:var(--bg);color:var(--primary)}
+  main{padding:18px 16px 40px}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px;margin-bottom:16px;box-shadow:0 1px 3px rgba(0,0,0,.04)}
+  h2{margin:0 0 10px;font-size:21px;color:var(--primary)}
+  h3{margin:16px 0 6px;font-size:18px;color:var(--primary)}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  .box{border-radius:12px;padding:12px 14px}
+  .bimp{background:var(--imp-soft)} .bps{background:var(--ps-soft)} .bsubj{background:var(--subj-soft)}
+  table{width:100%;border-collapse:collapse;font-size:16px;margin-top:6px}
+  td,th{border:1px solid var(--line);padding:6px 8px;text-align:left;vertical-align:top}
+  th{background:var(--primary-soft)}
+  .tip{background:#fff8d8;border-left:5px solid #f0c400;padding:10px 14px;border-radius:8px;margin-top:12px}
+  .hint{color:var(--muted);font-size:16px}
+  .t-imp{color:var(--imp);font-weight:700} .t-ps{color:var(--ps);font-weight:700} .t-subj{color:var(--subj);font-weight:700}
+  /* frise emplois */
+  .plan{position:relative;margin:14px 0 6px;height:74px}
+  .plan .bg{position:absolute;left:0;right:0;top:8px;height:22px;background:var(--imp-soft);border:2px solid var(--imp);border-radius:8px;font-size:13px;color:var(--imp);font-weight:700;padding-left:8px;line-height:18px}
+  .plan .pt{position:absolute;top:38px;width:22px;height:22px;border-radius:50%;background:var(--ps);color:#fff;font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center}
+  /* conjugueur */
+  .conjbar{display:flex;gap:8px;flex-wrap:wrap}
+  .conjbar input{font-size:18px;padding:8px 10px;border:2px solid var(--line);border-radius:10px;flex:1 1 200px}
+  .conjout{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:10px}
+  .conjout .box div{font-size:17px}
+  .conjout b.h{display:block;margin-bottom:4px}
+  /* sélecteurs */
+  .sel{display:flex;gap:8px;flex-wrap:wrap;margin:6px 0 12px}
+  .sel label{border:2px solid var(--line);border-radius:999px;padding:6px 14px;cursor:pointer;font-weight:600;user-select:none;font-size:16px}
+  .sel input{display:none}
+  .sel label.on{background:var(--primary);border-color:var(--primary);color:#fff}
+  /* quiz */
+  .q-top{display:flex;justify-content:space-between;align-items:center;color:var(--muted);font-size:15px;margin-bottom:6px;gap:8px;flex-wrap:wrap}
+  .bar{height:8px;background:var(--line);border-radius:99px;overflow:hidden;margin-bottom:16px}
+  .bar>i{display:block;height:100%;background:var(--primary);width:0;transition:width .3s}
+  .prompt{font-size:22px;margin:4px 0 16px}
+  .pill{display:inline-block;border-radius:999px;padding:2px 12px;font-weight:700;font-size:16px;margin:0 2px}
+  .p-imp{background:var(--imp-soft);color:var(--imp)} .p-ps{background:var(--ps-soft);color:var(--ps)} .p-mix{background:var(--primary-soft);color:var(--primary)}
+  .blank{display:inline-block;min-width:60px;border-bottom:3px solid var(--primary);text-align:center;font-weight:700;color:var(--primary)}
+  .opts{display:flex;gap:10px;flex-wrap:wrap}
+  .opts button{flex:1 1 160px;font-size:20px;padding:12px;border:2px solid var(--line);background:#fff;border-radius:12px;cursor:pointer;font-weight:600;color:var(--ink)}
+  .opts button:hover:not(:disabled){border-color:var(--primary)}
+  .opts button.good{background:var(--ok-soft);border-color:var(--ok);color:var(--ok)}
+  .opts button.bad{background:var(--ko-soft);border-color:var(--ko);color:var(--ko)}
+  .answer{display:flex;gap:10px;flex-wrap:wrap}
+  .answer input{flex:0 1 280px;font-size:24px;padding:8px 12px;border:3px solid var(--line);border-radius:12px;font-weight:700}
+  input.good{border-color:var(--ok)!important;background:var(--ok-soft)}
+  input.bad{border-color:var(--ko)!important;background:var(--ko-soft)}
+  input:focus{outline:none;border-color:var(--primary)}
+  .fb{margin-top:14px;padding:12px 14px;border-radius:10px;display:none}
+  .fb.ok{display:block;background:var(--ok-soft)}
+  .fb.ko{display:block;background:var(--ko-soft)}
+  .fb .mini{display:grid;grid-template-columns:repeat(3,1fr);gap:2px 14px;font-size:16px;margin-top:6px}
+  .btn{border:0;background:var(--primary);color:#fff;font-size:17px;font-weight:600;padding:11px 18px;border-radius:10px;cursor:pointer}
+  .btn.alt{background:#fff;color:var(--primary);border:2px solid var(--primary)}
+  .row{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px;align-items:center}
+  .score{font-size:44px;font-weight:800;color:var(--primary);margin:6px 0}
+  .review li{margin-bottom:6px}
+  s{color:var(--ko)}
+  /* transformation */
+  .src{background:var(--primary-soft);border-radius:10px;padding:10px 14px;font-size:19px;margin-bottom:12px}
+  .src b{color:var(--primary)}
+  .tr{font-size:20px;line-height:2.6}
+  .slot{display:inline-flex;flex-direction:column;align-items:center;vertical-align:top;line-height:1.2;margin:0 2px}
+  .slot input{font-size:19px;padding:4px 8px;border:2px solid var(--line);border-radius:8px;font-weight:700;text-align:center}
+  .slot small{font-size:12px;font-weight:700;margin-top:2px;border-radius:6px;padding:0 6px}
+  .slot small.imp{background:var(--imp-soft);color:var(--imp)} .slot small.ps{background:var(--ps-soft);color:var(--ps)}
+  .slot small.any{background:var(--primary-soft);color:var(--primary)} .slot small.subj{background:var(--subj);color:#fff}
+  .corr li{margin:4px 0}
+  /* textes à corriger */
+  .text{font-size:20px;line-height:2.1}
+  .text span.w{cursor:pointer;border-radius:5px;padding:1px 1px}
+  .text span.w:hover{background:#efedf6}
+  .text span.found{background:var(--ok-soft);color:var(--ok);font-weight:700}
+  .text span.miss{background:var(--ko-soft);animation:shake .3s}
+  .text span.shown{background:var(--ps-soft);font-weight:700}
+  .text span.shown s{margin-right:4px}
+  .counter{display:flex;gap:16px;flex-wrap:wrap;font-weight:600;margin-bottom:10px}
+  .counter .g{color:var(--ok)} .counter .b{color:var(--ko)}
+  .why{min-height:1.5em}
+  @keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-3px)}75%{transform:translateX(3px)}}
+  .tabs2{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px}
+  .tabs2 button{border:2px solid var(--line);background:#fff;border-radius:999px;padding:5px 12px;font-size:15px;font-weight:600;cursor:pointer;color:var(--ink)}
+  .tabs2 button.on{background:var(--primary);border-color:var(--primary);color:#fff}
+  .tabs2 button.done::after{content:" ✔";color:var(--ok)}
+  .tabs2 button.on.done::after{color:#bff0cf}
+  /* écrire la suite */
+  .debut{font-size:20px;background:var(--primary-soft);border-left:5px solid var(--primary);padding:12px 16px;border-radius:8px;font-style:italic}
+  .contrainte{margin:10px 0;font-weight:600}
+  textarea{width:100%;min-height:130px;font-size:19px;line-height:1.6;padding:12px;border:2px solid var(--line);border-radius:12px;font-family:inherit;resize:vertical}
+  textarea:focus{outline:none;border-color:var(--primary)}
+  .found-v{display:flex;gap:8px;flex-wrap:wrap;margin-top:6px}
+  .found-v span{border-radius:999px;padding:2px 10px;font-size:15px;font-weight:700}
+  .modele{background:#f7f6fb;border:1px dashed var(--primary);border-radius:10px;padding:10px 14px;font-style:italic;margin-top:10px}
+  .hide{display:none}
+  @media (max-width:640px){
+    body{font-size:17px}.prompt{font-size:20px}.grid2,.conjout{grid-template-columns:1fr}
+    .fb .mini{grid-template-columns:1fr 1fr}.tr{font-size:18px}
+  }
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <a class="back" href="index.html">← Tous les quiz</a>
+    <h1>Imparfait et passé simple <span class="badge">4e</span></h1>
+    <p class="sub">Conjuguer · choisir le bon temps · transformer un récit · corriger · écrire la suite</p>
+    <nav id="tabs">
+      <button data-tab="regles" class="on">📘 Règles</button>
+      <button data-tab="conj">🔁 Conjuguer</button>
+      <button data-tab="choix">⚖️ Imp. ou p. s. ?</button>
+      <button data-tab="transfo">🔄 Transformer</button>
+      <button data-tab="corriger">🔍 Corriger</button>
+      <button data-tab="suite">✍️ Écrire la suite</button>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <!-- ================= RÈGLES ================= -->
+  <section id="regles">
+    <div class="card">
+      <h2>1. Quand employer l'imparfait ou le passé simple ?</h2>
+      <p>Dans un récit au passé, les deux temps travaillent <b>ensemble</b> :</p>
+      <div class="plan">
+        <div class="bg">IMPARFAIT : le décor, ce qui dure…</div>
+        <div class="pt" style="left:18%">1</div><div class="pt" style="left:46%">2</div><div class="pt" style="left:74%">3</div>
+      </div>
+      <p class="hint" style="margin-top:0">Les points rouges = les <b>actions au passé simple</b> qui se succèdent sur ce fond.</p>
+      <div class="grid2">
+        <div class="box bimp"><b class="t-imp">Imparfait</b> = l'<b>arrière-plan</b><br>
+          description, décor, portrait · action qui <b>dure</b> · <b>habitude</b> (chaque jour, souvent, toujours, d'habitude…)<br>
+          <i>Le ciel <b>était</b> gris. Chaque matin, Luffy <b>mangeait</b> trois assiettes.</i></div>
+        <div class="box bps"><b class="t-ps">Passé simple</b> = le <b>premier plan</b><br>
+          action <b>ponctuelle</b>, <b>soudaine</b>, terminée · actions qui <b>s'enchaînent</b> et font avancer l'histoire (soudain, tout à coup, un jour, ce jour-là…)<br>
+          <i>Soudain, le mât <b>céda</b>. Zoro <b>dégaina</b> et <b>attaqua</b>.</i></div>
+      </div>
+      <div class="tip">💡 Astuce : <b>« Quand… soudain »</b>. <i>Nous <b>naviguions</b> (ça dure) depuis trois jours quand une île <b>apparut</b> (ça arrive d'un coup).</i></div>
+    </div>
+
+    <div class="card">
+      <h2>2. Former l'imparfait</h2>
+      <p>Radical du verbe au <b>présent avec « nous »</b> + <b>-ais, -ais, -ait, -ions, -iez, -aient</b> (pour tous les verbes !)</p>
+      <table>
+        <tr><th>nous … (présent)</th><th>Imparfait</th></tr>
+        <tr><td>nous chant<i>ons</i></td><td>je chant<b>ais</b>, nous chant<b>ions</b></td></tr>
+        <tr><td>nous finiss<i>ons</i></td><td>je finiss<b>ais</b>, ils finiss<b>aient</b></td></tr>
+        <tr><td>nous pren<i>ons</i> · nous voy<i>ons</i> · nous fais<i>ons</i></td><td>je pren<b>ais</b> · je voy<b>ais</b> · je fais<b>ais</b></td></tr>
+      </table>
+      <div class="tip">⚠️ Seule exception : <b>être</b> → j'<b>étais</b>.<br>
+        -cer / -ger : je commen<b>ç</b>ais, je mang<b>e</b>ais (mais nous commencions, nous mangions).<br>
+        -ier : nous cri<b>ions</b>, vous cri<b>iez</b> (deux i !).</div>
+    </div>
+
+    <div class="card">
+      <h2>3. Former le passé simple : 4 familles</h2>
+      <table>
+        <tr><th>Famille</th><th>Terminaisons</th><th>Quels verbes ?</th><th>Exemple</th></tr>
+        <tr><td><b>-a</b></td><td>-ai, -as, -a, -âmes, -âtes, -èrent</td><td>tous les verbes en <b>-er</b> (et <b>aller</b>)</td><td>il chant<b>a</b>, ils chant<b>èrent</b></td></tr>
+        <tr><td><b>-i</b></td><td>-is, -is, -it, -îmes, -îtes, -irent</td><td>2e groupe, et beaucoup du 3e : faire, dire, voir, prendre, mettre, partir, écrire, répondre…</td><td>il fin<b>it</b>, il f<b>it</b>, il v<b>it</b></td></tr>
+        <tr><td><b>-u</b></td><td>-us, -us, -ut, -ûmes, -ûtes, -urent</td><td>être, avoir, pouvoir, vouloir, savoir, devoir, courir, lire, boire, croire, connaître, vivre, recevoir…</td><td>il f<b>ut</b>, il e<b>ut</b>, il cour<b>ut</b></td></tr>
+        <tr><td><b>-in</b></td><td>-ins, -ins, -int, -înmes, -întes, -inrent</td><td><b>venir, tenir</b> et leurs familles (revenir, devenir, obtenir…)</td><td>il v<b>int</b>, ils t<b>inrent</b></td></tr>
+      </table>
+      <div class="tip">⚠️ <b>Pièges</b>
+        <ul style="margin:4px 0 0;padding-left:20px">
+          <li>3e pers. du singulier des verbes en -er : <b>pas de t</b> → il chant<b>a</b> (pas « chantat »).</li>
+          <li><b>Je</b> : passé simple <b>-ai</b> (je mangeai) ≠ imparfait <b>-ais</b> (je mangeais).</li>
+          <li><b>Nous / vous</b> : accent circonflexe → nous chant<b>â</b>mes, vous f<b>î</b>tes, nous e<b>û</b>mes.</li>
+          <li>il cour<b>ut</b> (passé simple) ≠ il cour<b>ra</b> (futur).</li>
+          <li>Au singulier, beaucoup de verbes ont la <b>même forme au présent et au passé simple</b> : il finit, il dit, il surgit… C'est le reste du texte qui indique le temps.</li>
+        </ul></div>
+    </div>
+
+    <div class="card">
+      <h2>4. ⚠️ Et le subjonctif ?</h2>
+      <div class="box bsubj">
+        <p style="margin-top:0">Le <b class="t-subj">subjonctif</b> s'emploie après certaines expressions : <b>il faut que, vouloir que, bien que, pour que, avant que, craindre que, ordonner que…</b></p>
+        <p>Quand on met un récit au passé, <b>le verbe principal change</b> (il faut → il <b>fallait</b>), mais <b>le subjonctif reste au subjonctif présent</b> : on ne le met <b>ni à l'imparfait, ni au passé simple</b>.</p>
+        <p style="margin-bottom:0"><i>Il <b>faut</b> que nous <b>partions</b>. → Il <b>fallait</b> que nous <b>partions</b>.<br>
+          Nami <b>veut</b> que tout soit prêt. → Nami <b>voulait</b> que tout <b>soit</b> prêt. (et pas « <s>était</s> »)</i></p>
+      </div>
+      <p class="hint">Dans les exercices, chaque subjonctif est toujours signalé par l'étiquette <span class="pill" style="background:var(--subj);color:#fff">⚠ subjonctif</span>. (L'imparfait du subjonctif, « qu'il partît », existe mais il est réservé aux textes très soutenus.)</p>
+    </div>
+
+    <div class="card">
+      <h2>5. Le conjugueur</h2>
+      <p class="hint">Tape un verbe à l'infinitif pour voir son imparfait et son passé simple.</p>
+      <div class="conjbar"><input id="cjIn" list="cjList" placeholder="ex. venir, courir, manger…" autocomplete="off"><button class="btn" id="cjGo">Conjuguer</button></div>
+      <datalist id="cjList"></datalist>
+      <div id="cjOut"></div>
+    </div>
+  </section>
+
+  <section id="conj" class="hide"><div class="card" id="conjBox"></div></section>
+  <section id="choix" class="hide"><div class="card" id="choixBox"></div></section>
+  <section id="transfo" class="hide"><div class="card" id="trBox"></div></section>
+
+  <!-- ================= CORRIGER ================= -->
+  <section id="corriger" class="hide">
+    <div class="card">
+      <h2>Textes à corriger</h2>
+      <p class="hint">8 textes courts. Chacun contient des fautes de conjugaison ou de choix de temps (et parfois un subjonctif mal employé). Clique sur un mot que tu crois faux : s'il l'est, il se corrige et l'explication s'affiche.</p>
+      <div class="tabs2" id="txtTabs"></div>
+      <h3 id="txtTitle"></h3>
+      <div class="counter"><span class="g">✔ Trouvées : <span id="tFound">0</span> / <span id="tTotal"></span></span><span class="b">✘ Clics sur un mot juste : <span id="tMiss">0</span></span></div>
+      <div class="text" id="txt"></div>
+      <p class="tip why" id="why">Clique sur les mots fautifs…</p>
+      <div class="row">
+        <button class="btn alt" id="tShow">Voir la correction</button>
+        <button class="btn" id="tReset">Recommencer</button>
+        <button class="btn" id="tNext">Texte suivant →</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= ÉCRIRE LA SUITE ================= -->
+  <section id="suite" class="hide">
+    <div class="card">
+      <h2>✍️ Écris la suite</h2>
+      <p class="hint">Lis le début, puis écris <b>une ou deux phrases</b> pour continuer l'histoire en respectant la consigne. Le vérificateur repère les verbes à l'imparfait et au passé simple (il peut se tromper : relis-toi quand même !).</p>
+      <div class="row" style="margin-top:0"><span class="hint">Début <b id="suNum"></b> / <span id="suTot"></span></span>
+        <button class="btn alt" id="suPrev">←</button><button class="btn alt" id="suRand">🎲 Au hasard</button><button class="btn alt" id="suNext">→</button></div>
+      <p class="debut" id="suDebut"></p>
+      <p class="contrainte" id="suCons"></p>
+      <textarea id="suText" placeholder="Écris ta suite ici (1 ou 2 phrases)…"></textarea>
+      <div class="row">
+        <button class="btn" id="suCheck">Vérifier</button>
+        <button class="btn alt" id="suModel">Voir une suite possible</button>
+        <button class="btn alt" id="suDl">💾 Télécharger toutes mes suites</button>
+      </div>
+      <div id="suRes"></div>
+      <div class="modele hide" id="suModele"></div>
+    </div>
+  </section>
+</main>
+
+<script>
+const QUIZ_ID = 'imp-ps-4e';
+const $ = id => document.getElementById(id);
+const rnd = n => Math.floor(Math.random()*n);
+const pick = a => a[rnd(a.length)];
+const shuffle = a => { a = a.slice(); for (let i=a.length-1;i>0;i--){const j=rnd(i+1);[a[i],a[j]]=[a[j],a[i]];} return a; };
+const esc = s => String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+const store = {
+  get(k){ try{ return localStorage.getItem(`${QUIZ_ID}_${k}`); }catch(e){ return null; } },
+  set(k,v){ try{ localStorage.setItem(`${QUIZ_ID}_${k}`, v); }catch(e){} }
+};
+const norm = s => s.toLowerCase().replace(/[’`]/g,"'").replace(/\s+/g,' ').replace(/[.!?,]+$/,'').trim();
+
+/* =====================================================
+   MOTEUR DE CONJUGAISON (imparfait + passé simple)
+   ===================================================== */
+const END_IMP = ['ais','ais','ait','ions','iez','aient'];
+const END_PS = {
+  a: ['ai','as','a','âmes','âtes','èrent'],
+  i: ['is','is','it','îmes','îtes','irent'],
+  u: ['us','us','ut','ûmes','ûtes','urent'],
+  in:['ins','ins','int','înmes','întes','inrent']
+};
+// infinitif : [radical imparfait, radical passé simple, famille]
+const IRR = {
+  'être':['ét','f','u'], 'avoir':['av','e','u'], 'faire':['fais','f','i'], 'dire':['dis','d','i'], 'voir':['voy','v','i'],
+  'prendre':['pren','pr','i'], 'apprendre':['appren','appr','i'], 'comprendre':['compren','compr','i'], 'surprendre':['surpren','surpr','i'], 'reprendre':['repren','repr','i'],
+  'mettre':['mett','m','i'], 'promettre':['promett','prom','i'], 'permettre':['permett','perm','i'], 'remettre':['remett','rem','i'],
+  'venir':['ven','v','in'], 'revenir':['reven','rev','in'], 'devenir':['deven','dev','in'], 'parvenir':['parven','parv','in'], 'tenir':['ten','t','in'], 'retenir':['reten','ret','in'], 'obtenir':['obten','obt','in'], 'soutenir':['souten','sout','in'],
+  'pouvoir':['pouv','p','u'], 'vouloir':['voul','voul','u'], 'savoir':['sav','s','u'], 'devoir':['dev','d','u'],
+  'partir':['part','part','i'], 'repartir':['repart','repart','i'], 'sortir':['sort','sort','i'], 'sentir':['sent','sent','i'], 'dormir':['dorm','dorm','i'], 'endormir':['endorm','endorm','i'], 'servir':['serv','serv','i'], 'mentir':['ment','ment','i'],
+  'courir':['cour','cour','u'], 'accourir':['accour','accour','u'], 'parcourir':['parcour','parcour','u'], 'secourir':['secour','secour','u'],
+  'lire':['lis','l','u'], 'écrire':['écriv','écriv','i'], 'décrire':['décriv','décriv','i'], 'croire':['croy','cr','u'], 'vivre':['viv','véc','u'], 'survivre':['surviv','survéc','u'],
+  'naître':['naiss','naqu','i'], 'mourir':['mour','mour','u'], 'recevoir':['recev','reç','u'], 'apercevoir':['apercev','aperç','u'], 'décevoir':['décev','déç','u'],
+  'connaître':['connaiss','conn','u'], 'reconnaître':['reconnaiss','reconn','u'], 'paraître':['paraiss','par','u'], 'apparaître':['apparaiss','appar','u'], 'disparaître':['disparaiss','dispar','u'],
+  'répondre':['répond','répond','i'], 'entendre':['entend','entend','i'], 'descendre':['descend','descend','i'], 'attendre':['attend','attend','i'], 'perdre':['perd','perd','i'],
+  'rendre':['rend','rend','i'], 'vendre':['vend','vend','i'], 'tendre':['tend','tend','i'], 'défendre':['défend','défend','i'], 'mordre':['mord','mord','i'], 'fondre':['fond','fond','i'], 'interrompre':['interromp','interromp','i'],
+  'ouvrir':['ouvr','ouvr','i'], 'offrir':['offr','offr','i'], 'découvrir':['découvr','découvr','i'], 'couvrir':['couvr','couvr','i'], 'souffrir':['souffr','souffr','i'],
+  'boire':['buv','b','u'], 'conduire':['conduis','conduis','i'], 'construire':['construis','construis','i'], 'détruire':['détruis','détruis','i'], 'produire':['produis','produis','i'],
+  'craindre':['craign','craign','i'], 'peindre':['peign','peign','i'], 'éteindre':['éteign','éteign','i'], 'atteindre':['atteign','atteign','i'], 'rejoindre':['rejoign','rejoign','i'], 'plaindre':['plaign','plaign','i'],
+  'rire':['ri','r','i'], 'sourire':['souri','sour','i'], 'suivre':['suiv','suiv','i'], 'poursuivre':['poursuiv','poursuiv','i'], 'battre':['batt','batt','i'], 'combattre':['combatt','combatt','i'], 'abattre':['abatt','abatt','i'],
+  'asseoir':['assey','ass','i'], 'falloir':['fall','fall','u'], 'pleuvoir':['pleuv','pl','u'], 'fuir':['fuy','fu','i'], 's\'enfuir':['enfuy','enfu','i'],
+  'cueillir':['cueill','cueill','i'], 'accueillir':['accueill','accueill','i'], 'vaincre':['vainqu','vainqu','i'], 'convaincre':['convainqu','convainqu','i'],
+  'taire':['tais','t','u'], 'plaire':['plais','pl','u'], 'valoir':['val','val','u'], 'résoudre':['résolv','résol','u']
+};
+const G2 = new Set(['finir','choisir','saisir','bondir','surgir','réussir','grandir','obéir','rougir','remplir','réfléchir','agir','punir','envahir','trahir','jaillir','nourrir','guérir','avertir','rugir','applaudir','atterrir','franchir','ralentir','vieillir','pâlir','blêmir','frémir','gémir','bâtir','unir','établir','accomplir','retentir','surgir','envahir','fournir','ravir','divertir','engloutir','étourdir','resplendir','vomir','éblouir','assombrir','noircir','blanchir','éclaircir','adoucir','durcir','raccourcir','élargir','épanouir','évanouir','enrichir','appauvrir','approfondir','arrondir','aplatir','alourdir','alunir','aboutir','retentir']);
+// verbes en -er utiles au repérage dans l'atelier d'écriture
+const ER_LIST = ('aimer appeler arriver attaquer avancer bavarder briller briser brûler cacher calmer casser chanter chercher commencer compter couper crier danser décider déclarer dégainer déjeuner demander dépasser descendre? dessiner deviner donner écouter éclater effrayer embrasser emporter entrer envoyer espérer essayer étonner éviter expliquer fermer frapper gagner garder glisser grimper habiter hisser hurler ignorer jeter jouer lancer laisser laver lever manger manquer marcher marquer monter montrer nager naviguer noter observer oublier parler passer payer penser pleurer plonger porter poser pousser préparer présenter prêter quitter raconter ramasser ramer ranger rattraper reculer refuser regarder remarquer rentrer réparer respirer rester retourner retrouver réveiller rêver rouler sauter sauver sembler sonner souffler soupirer tirer tomber toucher tourner travailler traverser trembler trouver tuer utiliser voler voyager allumer appuyer arrêter approcher accrocher débarquer décrocher dévorer emmener entraîner éclairer écraser enfermer enlever envoler étouffer frissonner grogner hésiter illuminer installer lâcher mener murmurer nettoyer pénétrer pencher piller plier poursuivre? pêcher récupérer répéter résister retentir? saluer secouer serrer siffler soulever surveiller téléphoner tenter terminer trébucher tromper') .split(' ').filter(v => v.endsWith('er'));
+
+function analyse(inf){
+  let pron = false, base = inf.trim().toLowerCase();
+  if (base.startsWith('se ')) { pron = true; base = base.slice(3); }
+  else if (base.startsWith("s'")) { pron = true; base = base.slice(2); }
+  if (IRR[base]) return {pron, base, imp:IRR[base][0], ps:IRR[base][1], fam:IRR[base][2], g:3};
+  if (IRR["s'"+base]) { const r = IRR["s'"+base]; return {pron:true, base, imp:r[0], ps:r[1], fam:r[2], g:3}; }
+  if (G2.has(base)) return {pron, base, imp:base.slice(0,-1)+'ss', ps:base.slice(0,-2), fam:'i', g:2};
+  if (base.endsWith('er')) return {pron, base, imp:base.slice(0,-2), ps:base.slice(0,-2), fam:'a', g:1};
+  return null;
+}
+function join1(stem, end){           // -cer / -ger devant a, â, o
+  if (/^[aâo]/.test(end)) { if (stem.endsWith('g')) return stem+'e'+end; if (stem.endsWith('c')) return stem.slice(0,-1)+'ç'+end; }
+  return stem + end;
+}
+function conj(inf, p, tense){        // p : 0..5 (je, tu, il, nous, vous, ils)
+  const a = analyse(inf); if (!a) return null;
+  let f;
+  if (tense === 'imp') f = a.g===1 ? join1(a.imp, END_IMP[p]) : a.imp + END_IMP[p];
+  else f = a.g===1 ? join1(a.ps, END_PS.a[p]) : a.ps + END_PS[a.fam][p];
+  if (a.pron) f = (/^[aeiouyéèêâîôûh]/.test(f) ? "s'" : 'se ') + f;   // 3e personne seulement
+  return f;
+}
+const PRON = ['je','tu','il','nous','vous','ils'];
+const PRON_ALT = [['je'],['tu'],['il','elle','on'],['nous'],['vous'],['ils','elles']];
+const REFL = ['me','te','se','nous','vous','se'];
+function withPron(p, f, prn){
+  prn = prn || PRON[p];
+  if (prn === 'je' && /^[aeiouyéèêâîôûh]/.test(f)) return "j'" + f;
+  return prn + ' ' + f;
+}
+function table(inf, tense){
+  const a = analyse(inf), impers = ['falloir','pleuvoir'].includes(a && a.base);
+  const ps = impers ? [2] : [0,1,2,3,4,5];
+  return ps.map(p => {
+    let f = conj(a.pron ? a.base : inf, p, tense);
+    if (a.pron) f = (/^[aeiouyéèêâîôûh]/.test(f) && p!==3 && p!==4 ? REFL[p].slice(0,1)+"'" : REFL[p]+' ') + f;
+    return withPron(p, f);
+  });
+}
+
+/* ============ CONJUGUEUR (onglet Règles) ============ */
+const ALL_VERBS = [...new Set([...Object.keys(IRR).map(v=>v.replace("s'",'')), ...G2, ...ER_LIST, 'aller'])].sort((a,b)=>a.localeCompare(b));
+$('cjList').innerHTML = ALL_VERBS.map(v=>`<option value="${v}">`).join('');
+function showConj(){
+  const v = $('cjIn').value.trim().toLowerCase(); if (!v) return;
+  const a = analyse(v);
+  if (!a) { $('cjOut').innerHTML = `<p class="tip">Je ne connais pas ce verbe. Vérifie l'orthographe de l'infinitif.</p>`; return; }
+  const fam = {a:'famille -a', i:'famille -i', u:'famille -u', in:'famille -in'}[a.fam];
+  $('cjOut').innerHTML = `<div class="conjout">
+    <div class="box bimp"><b class="h t-imp">Imparfait</b>${table(v,'imp').map(l=>`<div>${l}</div>`).join('')}</div>
+    <div class="box bps"><b class="h t-ps">Passé simple <span class="hint">(${fam})</span></b>${table(v,'ps').map(l=>`<div>${l}</div>`).join('')}</div></div>`;
+}
+$('cjGo').onclick = showConj;
+$('cjIn').onkeydown = e => { if (e.key==='Enter') showConj(); };
+
+/* ============ ONGLETS ============ */
+const SETUP = {};
+document.querySelectorAll('#tabs button').forEach(b => b.onclick = () => {
+  document.querySelectorAll('#tabs button').forEach(x => x.classList.toggle('on', x===b));
+  ['regles','conj','choix','transfo','corriger','suite'].forEach(id => $(id).classList.toggle('hide', id!==b.dataset.tab));
+  if (SETUP[b.dataset.tab] && !SETUP[b.dataset.tab].done) { SETUP[b.dataset.tab].done = true; SETUP[b.dataset.tab](); }
+  window.scrollTo({top:0});
+});
+function selector(id, items){
+  return `<div class="sel" id="${id}">${items.map(([v,l,on])=>`<label class="${on!==false?'on':''}"><input type="checkbox" value="${v}" ${on!==false?'checked':''}>${l}</label>`).join('')}</div>`;
+}
+function bindSel(id, single){
+  document.querySelectorAll(`#${id} label`).forEach(l => l.onclick = e => {
+    e.preventDefault(); const c = l.querySelector('input');
+    if (single) { document.querySelectorAll(`#${id} label`).forEach(x => { x.classList.remove('on'); x.querySelector('input').checked = false; }); c.checked = true; l.classList.add('on'); return; }
+    if (c.checked && document.querySelectorAll(`#${id} input:checked`).length===1) return;
+    c.checked = !c.checked; l.classList.toggle('on', c.checked);
+  });
+}
+const checked = id => [...document.querySelectorAll(`#${id} input:checked`)].map(c=>c.value);
+function endScreen(box, title, score, total, key, wrong, again, change){
+  const old = parseInt(store.get(key))||0, best = Math.max(old, score); store.set(key, best);
+  const pct = score/total;
+  const msg = pct===1 ? 'Parfait ! 🏆' : pct>=0.8 ? 'Très bien ! 🌟' : pct>=0.5 ? 'Pas mal, continue ! 💪' : 'Relis les règles et réessaie 📘';
+  box.innerHTML = `<h2>${title} — terminé</h2>
+    <div class="score">${score} / ${total}</div><p><b>${msg}</b><br>Meilleur score : ${best} / ${total}</p>
+    ${wrong.length ? `<h3>À revoir (recopie-les)</h3><ul class="review">${wrong.map(w=>`<li>${w}</li>`).join('')}</ul>` : ''}
+    <div class="row"><button class="btn" id="eAgain">Nouvelle série</button><button class="btn alt" id="eChg">Changer les réglages</button></div>`;
+  $('eAgain').onclick = again; $('eChg').onclick = change;
+}
+
+/* =====================================================
+   1. CONJUGUER (générateur infini)
+   ===================================================== */
+const V1 = ['manger','commencer','nager','lancer','appeler','jeter','crier','jouer','envoyer','payer','marcher','chanter','arriver','regarder','trouver','penser','tomber','oublier','avancer','ranger','voyager','essayer','lever','plonger','aller','naviguer','raconter','placer'];
+const V2 = ['finir','choisir','saisir','bondir','surgir','réussir','grandir','obéir','rougir','remplir','réfléchir','agir','franchir','pâlir','envahir','applaudir'];
+const V3 = ['être','avoir','faire','dire','voir','prendre','mettre','venir','tenir','pouvoir','vouloir','savoir','devoir','partir','sortir','dormir','courir','lire','écrire','croire','vivre','naître','mourir','recevoir','apercevoir','connaître','apparaître','répondre','entendre','descendre','attendre','perdre','ouvrir','découvrir','offrir','boire','conduire','craindre','éteindre','rire','suivre','battre','vaincre','revenir','devenir','comprendre','cueillir','fuir'];
+const NB_CONJ = 20;
+SETUP.conj = function(){
+  const box = $('conjBox'); let qs, i, score, wrong, locked, opts;
+  function intro(){
+    box.innerHTML = `<h2>Conjuguer : séries de ${NB_CONJ}</h2>
+      <p>Un verbe, une personne, un temps : écris la forme conjuguée. Les séries sont tirées au hasard, tu peux t'entraîner autant que tu veux.</p>
+      <p class="hint">Temps :</p>${selector('cjT',[['imp','Imparfait'],['ps','Passé simple']])}
+      <p class="hint">Verbes :</p>${selector('cjG',[['1','1er groupe (-er)'],['2','2e groupe (-ir, -issons)'],['3','3e groupe et irréguliers']])}
+      <p class="hint">Meilleur score : ${parseInt(store.get('conj'))||0} / ${NB_CONJ}</p>
+      <div class="row"><button class="btn" id="cGo">C'est parti !</button></div>`;
+    bindSel('cjT'); bindSel('cjG');
+    $('cGo').onclick = () => { opts = {t:checked('cjT'), g:checked('cjG')}; start(); };
+  }
+  function build(){
+    const verbs = [].concat(opts.g.includes('1')?V1:[], opts.g.includes('2')?V2:[], opts.g.includes('3')?V3:[]);
+    const out = [], seen = new Set();
+    // un peu plus de 3e personne et de pluriels, souvent utiles dans les récits
+    const persons = [0,1,2,2,3,4,5,5];
+    while (out.length < NB_CONJ){
+      const v = pick(verbs), p = pick(persons), t = pick(opts.t), id = v+p+t;
+      if (seen.has(id)) continue; seen.add(id);
+      const prn = pick(PRON_ALT[p]);
+      out.push({v, p, t, prn, ans: conj(v,p,t)});
+    }
+    return out;
+  }
+  function start(){ qs = build(); i = 0; score = 0; wrong = []; show(); }
+  function show(){
+    locked = false; const q = qs[i];
+    box.innerHTML = `<div class="q-top"><span>Question ${i+1} / ${qs.length}</span><span>Score : ${score}</span></div>
+      <div class="bar"><i style="width:${i/qs.length*100}%"></i></div>
+      <div class="prompt"><b>${q.v}</b> → <span class="pill ${q.t==='imp'?'p-imp':'p-ps'}">${q.t==='imp'?'imparfait':'passé simple'}</span></div>
+      <form class="answer" id="cF"><span style="font-size:24px;font-weight:700;align-self:center">${q.prn==='je'?'je / j\'':q.prn}</span>
+        <input id="cIn" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="Ta réponse"><button class="btn">Valider</button></form>
+      <div class="fb" id="cFb"></div>
+      <div class="row hide" id="cNext"><button class="btn">${i+1<qs.length?'Suivant →':'Voir mon score'}</button></div>`;
+    const inp = $('cIn'); inp.focus();
+    $('cNext').querySelector('button').onclick = next;
+    $('cF').onsubmit = e => { e.preventDefault(); if (locked) return next();
+      let v = norm(inp.value); if (!v) return;
+      v = v.replace(/^(je |j'|tu |il |elle |on |nous |vous |ils |elles )/,'');
+      const ok = v === q.ans; locked = true; inp.readOnly = true; inp.classList.add(ok?'good':'bad');
+      if (ok) score++; else wrong.push(`${q.v}, ${q.t==='imp'?'imparfait':'passé simple'} : <b>${withPron(q.p,q.ans,q.prn)}</b>`);
+      const tab = table(q.v, q.t);
+      const fb = $('cFb'); fb.className = 'fb ' + (ok?'ok':'ko');
+      fb.innerHTML = (ok ? '✔ <b>Bravo !</b>' : `✘ La bonne réponse : <b>${withPron(q.p,q.ans,q.prn)}</b>`) +
+        `<div class="mini">${tab.map((l,k)=>k===q.p?`<b>${l}</b>`:`<span>${l}</span>`).join('')}</div>`;
+      $('cNext').classList.remove('hide'); $('cNext').querySelector('button').focus();
+    };
+  }
+  function next(){ i++; i<qs.length ? show() : endScreen(box,'Conjuguer',score,qs.length,'conj',wrong,start,intro); }
+  intro();
+};
+
+/* =====================================================
+   BANQUE DE PHRASES : {forme de départ|infinitif|personne 0-5|temps visé}
+   temps visé : imp · ps · any (les deux sont possibles) · subj (subjonctif, ne change pas)
+   ===================================================== */
+const PHRASES = [
+  // ---- depuis le présent ----
+  "Chaque matin, Luffy {mange|manger|2|imp} trois assiettes de viande.",
+  "Soudain, un monstre marin {surgit|surgir|2|ps} des vagues.",
+  "Le ciel {est|être|2|imp} gris et la mer {paraît|paraître|2|imp} calme.",
+  "Tout à coup, Zoro {dégaine|dégainer|2|ps} ses sabres et {attaque|attaquer|2|ps}.",
+  "Nous {naviguons|naviguer|3|imp} depuis trois jours quand une île {apparaît|apparaître|2|ps} à l'horizon.",
+  "Il {faut|falloir|2|imp} que nous {partions|partir|3|subj} avant la tempête.",
+  "Les pirates {chantent|chanter|5|imp} pendant que le cuisinier {prépare|préparer|2|imp} le repas.",
+  "Un matin, je {découvre|découvrir|0|ps} une vieille carte dans le grenier.",
+  "Il {ouvre|ouvrir|2|ps} la porte, {entre|entrer|2|ps} et {prend|prendre|2|ps} place à table.",
+  "Bien qu'il {soit|être|2|subj} blessé, le capitaine {continue|continuer|2|any} le combat.",
+  "Le vieux marin {vit|vivre|2|imp} seul dans une cabane au bord de la mer.",
+  "À cet instant, les deux équipages {aperçoivent|apercevoir|5|ps} un navire de la Marine.",
+  "Tu {lis|lire|1|imp} toujours avant de dormir.",
+  "Le vent {souffle|souffler|2|imp} fort ; soudain, le mât {se brise|se briser|2|ps}.",
+  "Nami {veut|vouloir|2|imp} que tout le monde {soit|être|2|subj} prêt à l'aube.",
+  "Ce jour-là, nous {faisons|faire|3|ps} une découverte extraordinaire.",
+  "Les enfants {jouent|jouer|5|imp} sur la plage quand un orage {éclate|éclater|2|ps}.",
+  "Le guerrier {saisit|saisir|2|ps} son épée et {bondit|bondir|2|ps} sur l'ennemi.",
+  "D'habitude, vous {venez|venir|4|imp} nous voir le dimanche.",
+  "Brusquement, ils {viennent|venir|5|ps} vers nous en courant.",
+  "Je {crains|craindre|0|imp} que l'ennemi ne {revienne|revenir|2|subj}.",
+  "Le soleil {se couche|se coucher|2|imp} déjà quand les voyageurs {atteignent|atteindre|5|ps} le village.",
+  "Il {dit|dire|2|ps} « Adieu » et {disparaît|disparaître|2|ps} dans la brume.",
+  "En ce temps-là, les pirates {craignent|craindre|5|imp} la Marine.",
+  "Nous {courons|courir|3|ps} jusqu'au port sans nous arrêter.",
+  "Elle {doit|devoir|2|imp} rentrer avant la nuit, mais un soir elle {se perd|se perdre|2|ps} dans la forêt.",
+  "Pour que tu {comprennes|comprendre|1|subj}, je {recommence|recommencer|0|ps} mon explication.",
+  "Le château {a|avoir|2|imp} quatre tours et un pont-levis.",
+  "Assoiffés, ils {boivent|boire|5|ps} d'un trait toute l'eau de la gourde.",
+  "Chaque soir, nous {lisons|lire|3|imp} une histoire, puis nous {éteignons|éteindre|3|imp} la lumière.",
+  "Le lendemain, le roi {reçoit|recevoir|2|ps} les ambassadeurs.",
+  "Avant que le jour ne {se lève|se lever|2|subj}, l'armée {quitte|quitter|2|ps} le camp.",
+  "Tu {es|être|1|imp} encore petit quand tu {apprends|apprendre|1|ps} à nager.",
+  "Ce matin-là, vous {choisissez|choisir|4|ps} le chemin le plus court.",
+  "Les vagues {frappent|frapper|5|imp} la coque sans relâche.",
+  "Tout à coup, tu {entends|entendre|1|ps} un cri.",
+  "Il {pleut|pleuvoir|2|imp} depuis le matin.",
+  "À minuit, le fantôme {sort|sortir|2|ps} de sa tombe.",
+  "Mes grands-parents {habitent|habiter|5|imp} une ferme où ils {élèvent|élever|5|imp} des chèvres.",
+  "Nous {voulons|vouloir|3|imp} qu'il {fasse|faire|2|subj} beau pour la course.",
+  "Un jour, Usopp {raconte|raconter|2|ps} enfin la vérité à ses amis.",
+  "Le magicien {lève|lever|2|ps} sa baguette et un éclair {jaillit|jaillir|2|ps}.",
+  "Il {est|être|2|imp} midi ; la place du marché {grouille|grouiller|2|imp} de monde.",
+  "Ce soir-là, nous {dormons|dormir|3|ps} à la belle étoile.",
+  "Le capitaine {ordonne|ordonner|2|ps} que l'on {hisse|hisser|2|subj} les voiles.",
+  // ---- depuis le passé composé ----
+  "Le capitaine {a crié|crier|2|ps} un ordre et l'équipage {a hissé|hisser|2|ps} les voiles.",
+  "Elle {est partie|partir|2|ps} sans dire un mot.",
+  "Nous {avons vu|voir|3|ps} un dragon au-dessus des montagnes.",
+  "Ils {sont arrivés|arriver|5|ps} au port à l'aube.",
+  "Tu {as pris|prendre|1|ps} la mauvaise route.",
+  "Les pirates {ont fait|faire|5|ps} la fête toute la nuit.",
+  "Le chevalier {s'est levé|se lever|2|ps} et {a tiré|tirer|2|ps} son épée.",
+  "Vous {avez eu|avoir|4|ps} beaucoup de chance.",
+  "Je {suis tombé|tomber|0|ps} dans l'escalier.",
+  "Les explorateurs {ont découvert|découvrir|5|ps} une cité perdue.",
+  "Il {a fallu|falloir|2|ps} que nous {attendions|attendre|3|subj} trois heures.",
+  "Elles {ont couru|courir|5|ps} jusqu'à la plage.",
+  "Le magicien {a dit|dire|2|ps} une formule et la porte {s'est ouverte|s'ouvrir|2|ps}.",
+  "Nous {sommes venus|venir|3|ps} dès que nous {avons pu|pouvoir|3|ps}.",
+  "Ce jour-là, il {a écrit|écrire|2|ps} sa dernière lettre.",
+  "Quand il {a ouvert|ouvrir|2|ps} le coffre, il {a vu|voir|2|ps} qu'il {était|être|2|imp} vide.",
+  "Les soldats {ont dû|devoir|5|ps} se replier.",
+  "Je {suis né|naître|0|ps} un jour d'orage.",
+  "Elle {a reçu|recevoir|2|ps} une lettre mystérieuse.",
+  "Vous {avez fini|finir|4|ps} le travail avant midi.",
+  "Ils {ont voulu|vouloir|5|ps} fuir, mais il {était|être|2|imp} trop tard.",
+  "L'enfant {a ri|rire|2|ps} aux éclats.",
+  "Nous {avons mis|mettre|3|ps} les voiles vers le sud.",
+  "Il {a bu|boire|2|ps} un verre d'eau et {s'est endormi|s'endormir|2|ps}.",
+  "Mes amis {ont attendu|attendre|5|ps} jusqu'au soir pour que je {puisse|pouvoir|0|subj} venir.",
+  "Les marins {ont tenu|tenir|5|ps} bon toute la nuit.",
+  "Tu {as répondu|répondre|1|ps} sans réfléchir.",
+  "Sanji {a servi|servir|2|ps} le dîner, puis il {a allumé|allumer|2|ps} une bougie.",
+  "Nous {avons été|être|3|ps} surpris par la nouvelle.",
+  "Le roi {a exigé|exiger|2|ps} que ses soldats {reviennent|revenir|5|subj} avant l'hiver."
+];
+const TOK = /\{([^|}]+)\|([^|}]+)\|(\d)\|(\w+)\}/g;
+function parse(s){
+  const toks = []; let m; TOK.lastIndex = 0;
+  while ((m = TOK.exec(s))) {
+    const [, src, inf, p, t] = m;
+    const exp = t==='subj' ? [src] : t==='any' ? [conj(inf,+p,'ps'), conj(inf,+p,'imp')] : [conj(inf,+p,t)];
+    toks.push({src, inf, p:+p, t, exp, imp:conj(inf,+p,'imp'), ps:conj(inf,+p,'ps'), pc: src.includes(' ') && !/^se |^s'/.test(src) || /^s'(est|sont)/.test(src)});
+  }
+  return toks;
+}
+const BANK = PHRASES.map(s => ({s, toks: parse(s)}));
+const LABEL = {imp:'imparfait', ps:'passé simple', any:'imp. ou p. s.', subj:'⚠ subjonctif'};
+const WHY = {
+  imp: "<span class='t-imp'>imparfait</span> : décor, description, habitude ou action qui dure",
+  ps: "<span class='t-ps'>passé simple</span> : action ponctuelle, soudaine, qui fait avancer le récit",
+  any: "les deux temps sont possibles ici (le sens change un peu : action qui dure ↔ action ponctuelle)",
+  subj: "<span class='t-subj'>subjonctif</span> : il ne change pas dans un récit au passé, on garde le subjonctif présent"
+};
+// remplace chaque {…} par fn(token, index)
+function fill(s, fn){ let k = -1; TOK.lastIndex = 0; return s.replace(TOK, () => fn(++k)); }
+// majuscule en début de phrase si la forme est au début
+const cap = (s, isStart) => isStart ? s.charAt(0).toUpperCase() + s.slice(1) : s;
+
+/* =====================================================
+   2. IMPARFAIT OU PASSÉ SIMPLE ? (choix)
+   ===================================================== */
+const NB_CHOIX = 20;
+SETUP.choix = function(){
+  const box = $('choixBox'); let qs, i, score, wrong;
+  function intro(){
+    box.innerHTML = `<h2>Imparfait ou passé simple ?</h2>
+      <p>Dans chaque phrase d'un récit au passé, choisis le bon temps. Regarde bien les indices : <i>soudain, chaque jour, tout à coup, pendant que, quand…</i></p>
+      <p class="hint">Meilleur score : ${parseInt(store.get('choix'))||0} / ${NB_CHOIX}</p>
+      <div class="row"><button class="btn" id="chGo">C'est parti !</button></div>`;
+    $('chGo').onclick = start;
+  }
+  function build(){
+    const items = [];
+    BANK.forEach(b => b.toks.forEach((t,k) => { if (t.t==='imp' || t.t==='ps') items.push({b, k}); }));
+    return shuffle(items).slice(0, NB_CHOIX);
+  }
+  function start(){ qs = build(); i = 0; score = 0; wrong = []; show(); }
+  function sentence(q, reveal){
+    return fill(q.b.s, k => {
+      const t = q.b.toks[k];
+      const isStart = q.b.s.indexOf('{') === 0 && k === 0;
+      if (k === q.k) return reveal ? `<b class="t-${t.t}">${cap(t.exp[0], isStart)}</b>` : `<span class="blank">…</span> <span class="hint">(${t.inf})</span>`;
+      return cap(t.t==='subj' ? t.src : t.t==='any' ? t.ps : t.exp[0], isStart);
+    });
+  }
+  function show(){
+    const q = qs[i], t = q.b.toks[q.k];
+    const opts = shuffle([t.imp, t.ps]);
+    box.innerHTML = `<div class="q-top"><span>Question ${i+1} / ${qs.length}</span><span>Score : ${score}</span></div>
+      <div class="bar"><i style="width:${i/qs.length*100}%"></i></div>
+      <div class="prompt">${sentence(q,false)}</div>
+      <div class="opts">${opts.map(o=>`<button>${esc(o)}</button>`).join('')}</div>
+      <div class="fb" id="chFb"></div>
+      <div class="row hide" id="chNext"><button class="btn">${i+1<qs.length?'Suivant →':'Voir mon score'}</button></div>`;
+    box.querySelectorAll('.opts button').forEach((b,k) => b.onclick = () => {
+      const btns = box.querySelectorAll('.opts button'); btns.forEach(x => x.disabled = true);
+      const ok = opts[k] === t.exp[0];
+      btns.forEach((x,j) => { if (opts[j]===t.exp[0]) x.classList.add('good'); else if (j===k) x.classList.add('bad'); });
+      if (ok) score++; else wrong.push(sentence(q,true));
+      const fb = $('chFb'); fb.className = 'fb ' + (ok?'ok':'ko');
+      fb.innerHTML = (ok?'✔ <b>Bravo !</b> ':'✘ <b>Pas tout à fait…</b> ') + WHY[t.t] + '.<br>' + sentence(q,true);
+      $('chNext').classList.remove('hide'); $('chNext').querySelector('button').focus();
+    });
+    $('chNext').querySelector('button').onclick = () => { i++; i<qs.length ? show() : endScreen(box,'Imparfait ou passé simple',score,qs.length,'choix',wrong,start,intro); };
+  }
+  intro();
+};
+
+/* =====================================================
+   3. TRANSFORMER (présent / passé composé → récit au passé)
+   ===================================================== */
+const NB_TR = 10;
+SETUP.transfo = function(){
+  const box = $('trBox'); let qs, i, score, total, wrong, locked, opts;
+  function intro(){
+    const nPres = BANK.filter(b=>!b.toks.some(t=>t.pc)).length, nPc = BANK.length - nPres;
+    box.innerHTML = `<h2>Transformer un récit au passé</h2>
+      <p>Réécris les verbes en gras pour raconter l'histoire <b>au passé</b> : <span class="t-imp">imparfait</span> ou <span class="t-ps">passé simple</span>. Attention : un verbe <span class="pill" style="background:var(--subj);color:#fff">⚠ subjonctif</span> reste au subjonctif présent !</p>
+      <p class="hint">Phrases de départ :</p>${selector('trS',[['pres',`au présent (${nPres})`],['pc',`au passé composé (${nPc})`]])}
+      <p class="hint">Niveau :</p>${selector('trM',[['guide','Guidé : le temps à employer est indiqué'],['expert','Expert : à toi de choisir le temps',false]])}
+      <p class="hint">Séries de ${NB_TR} phrases. Meilleur score : ${store.get('tr')||'—'}</p>
+      <div class="row"><button class="btn" id="trGo">C'est parti !</button></div>`;
+    bindSel('trS'); bindSel('trM', true);
+    $('trGo').onclick = () => { opts = {src:checked('trS'), mode:checked('trM')[0]}; start(); };
+  }
+  function build(){
+    const pool = BANK.filter(b => { const pc = b.toks.some(t=>t.pc); return (pc && opts.src.includes('pc')) || (!pc && opts.src.includes('pres')); });
+    return shuffle(pool).slice(0, NB_TR);
+  }
+  function start(){ qs = build(); i = 0; score = 0; total = 0; wrong = []; show(); }
+  function show(){
+    locked = false; const b = qs[i];
+    const srcHtml = fill(esc(b.s), k => `<b>${esc(b.toks[k].src)}</b>`);
+    const startsWithTok = b.s.indexOf('{') === 0;
+    const trHtml = fill(esc(b.s), k => {
+      const t = b.toks[k], lab = (opts.mode==='guide' || t.t==='subj') ? `<small class="${t.t}">${LABEL[t.t]}</small>` : `<small style="visibility:hidden">.</small>`;
+      const w = Math.max(...t.exp.map(e=>e.length), t.src.length, 6) + 2;
+      return `<span class="slot"><input data-k="${k}" style="width:${w}ch" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="${esc(t.inf)}" aria-label="${esc(t.inf)}">${lab}</span>`;
+    });
+    box.innerHTML = `<div class="q-top"><span>Phrase ${i+1} / ${qs.length} · ${opts.mode==='guide'?'guidé':'expert'}</span><span>Score : ${score} / ${total}</span></div>
+      <div class="bar"><i style="width:${i/qs.length*100}%"></i></div>
+      <div class="src">${srcHtml}</div>
+      <p class="hint" style="margin:0 0 4px">Réécris au passé :</p>
+      <form id="trF"><div class="tr">${trHtml}</div>
+        <div class="row" style="margin-top:6px"><button class="btn">Valider</button></div></form>
+      <div class="fb" id="trFb"></div>
+      <div class="row hide" id="trNext"><button class="btn">${i+1<qs.length?'Phrase suivante →':'Voir mon score'}</button></div>`;
+    const ins = [...box.querySelectorAll('.tr input')]; ins[0].focus();
+    ins.forEach((inp,k) => inp.onkeydown = e => { if (e.key==='Enter' && k < ins.length-1 && !locked) { e.preventDefault(); ins[k+1].focus(); } });
+    $('trF').onsubmit = e => { e.preventDefault(); if (locked) return next();
+      if (ins.some(x => !x.value.trim())) { ins.find(x => !x.value.trim()).focus(); return; }
+      locked = true; let good = 0; const lines = [];
+      ins.forEach((inp,k) => {
+        const t = b.toks[k]; let v = norm(inp.value);
+        const accepted = t.exp.flatMap(x => [norm(x), norm(x).replace(/^se |^s'/,'')]);
+        const ok = accepted.includes(v);
+        inp.readOnly = true; inp.classList.add(ok?'good':'bad'); total++;
+        if (ok) good++; else wrong.push(`${esc(t.src)} → <b>${t.exp.join(' / ')}</b> (${LABEL[t.t].replace('⚠ ','')})`);
+        lines.push(`<li>${ok?'✔':'✘'} <b>${esc(t.src)}</b> → <b>${t.exp.join('</b> ou <b>')}</b> — ${WHY[t.t]}</li>`);
+      });
+      score += good;
+      const corrected = fill(esc(b.s), k => { const t = b.toks[k]; return `<b class="t-${t.t}">${cap(t.exp[0], startsWithTok && k===0)}</b>`; });
+      const fb = $('trFb'); fb.className = 'fb ' + (good===ins.length?'ok':'ko');
+      fb.innerHTML = `${good===ins.length?'✔ <b>Parfait !</b>':`<b>${good} / ${ins.length}</b> verbe${ins.length>1?'s':''} juste${good>1?'s':''}`}<br>${corrected}<ul class="corr">${lines.join('')}</ul>`;
+      $('trNext').classList.remove('hide'); $('trNext').querySelector('button').focus();
+    };
+    $('trNext').querySelector('button').onclick = next;
+  }
+  function next(){ i++; if (i<qs.length) return show();
+    const prev = store.get('tr'); const ratio = score/total;
+    const prevRatio = prev ? +prev.split('/')[0]/+prev.split('/')[1] : -1;
+    if (ratio > prevRatio) store.set('tr', `${score}/${total}`);
+    const pct = ratio, msg = pct===1 ? 'Parfait ! 🏆' : pct>=0.8 ? 'Très bien ! 🌟' : pct>=0.5 ? 'Pas mal, continue ! 💪' : 'Relis les règles et réessaie 📘';
+    box.innerHTML = `<h2>Transformer — terminé</h2><div class="score">${score} / ${total}</div><p><b>${msg}</b> (verbes justes)</p>
+      ${wrong.length ? `<h3>À revoir (recopie-les)</h3><ul class="review">${wrong.map(w=>`<li>${w}</li>`).join('')}</ul>` : ''}
+      <div class="row"><button class="btn" id="eAgain">Nouvelle série</button><button class="btn alt" id="eChg">Changer les réglages</button></div>`;
+    $('eAgain').onclick = start; $('eChg').onclick = intro;
+  }
+  intro();
+};
+
+/* =====================================================
+   4. TEXTES À CORRIGER : [faux|juste|explication]
+   ===================================================== */
+const TEXTES = [
+  {t:"La tempête", s:"Ce soir-là, le ciel [devena|devint|devenir au passé simple : il devint (famille -in).] noir en quelques minutes. Des vagues énormes [frappèrent|frappaient|Le décor, une action qui dure → imparfait.] la coque sans relâche. Soudain, le mât [cédait|céda|« Soudain » : action brève → passé simple.]. Luffy [courra|courut|courir au passé simple : il courut. « Courra » est le futur !] vers la proue. « Il faut que tout le monde [s'accrochait|s'accroche|Après « il faut que » → subjonctif présent.] ! » hurla Nami. Les matelots [saisissèrent|saisirent|saisir (2e groupe) au passé simple : ils saisirent.] les cordages et tinrent bon jusqu'à l'aube."},
+  {t:"Au voleur !", s:"Chaque samedi, ma grand-mère [alla|allait|Une habitude (« chaque samedi ») → imparfait.] au marché. Elle [connaisait|connaissait|connaître à l'imparfait : nous connaissons → elle connaissait (deux s).] tous les marchands. Un jour, un inconnu [s'approchait|s'approcha|Une action unique (« un jour ») → passé simple.] de son panier et lui [prena|prit|prendre au passé simple : il prit.] une pomme. Ma grand-mère [criat|cria|1er groupe au passé simple : elle cria, sans t.] « Au voleur ! » et tous les marchands [accourèrent|accoururent|accourir se conjugue comme courir : ils accoururent.]."},
+  {t:"L'île aux statues", s:"Au bout de dix jours, nous [arrivions|arrivâmes|Action ponctuelle qui fait avancer le récit → passé simple.] enfin sur l'île. Une forêt épaisse [couvra|couvrait|Le décor → imparfait : elle couvrait.] toute la côte. Nous [marchâme|marchâmes|Passé simple, 1re pers. du pluriel : nous marchâmes (â et s).] pendant des heures. Les oiseaux [chantèrent|chantaient|Bruit de fond qui dure → imparfait.] au-dessus de nos têtes. Soudain, Zoro [s'arrêtait|s'arrêta|« Soudain » → passé simple.] : il [voya|vit|voir au passé simple : il vit.] une statue gigantesque. Il fallait que nous la [contournâmes|contournions|Après « il fallait que » → subjonctif présent : que nous contournions.]."},
+  {t:"Le chevalier", s:"Le chevalier [vécu|vécut|vivre au passé simple : il vécut (avec un t ; « vécu » est le participe passé).] longtemps dans un château isolé. Tous les matins, il [entraîna|entraînait|Habitude (« tous les matins ») → imparfait.] son cheval dans la cour. Un hiver, un dragon [attaquait|attaqua|Événement unique (« un hiver ») → passé simple.] le village voisin. Les habitants [venèrent|vinrent|venir au passé simple : ils vinrent (famille -in).] le supplier. Il [mettit|mit|mettre au passé simple : il mit.] son armure sans attendre. Avant que le soleil ne [se levait|se lève|Après « avant que » → subjonctif présent.], il était déjà en route."},
+  {t:"Le but", s:"Ce dimanche-là, il [plut|pleuvait|La météo, le décor → imparfait (il pleuvait).] sur le stade. Les supporters [chantèrent|chantaient|Action qui dure pendant tout le match → imparfait.] sans arrêt. À la dernière minute, Théo [recevait|reçut|Action ponctuelle → passé simple : il reçut (ç devant u).] le ballon. Il [franchissa|franchit|franchir (2e groupe) au passé simple : il franchit.] la défense et [tirait|tira|Action unique qui s'enchaîne → passé simple.] de toutes ses forces. Il fallait que l'arbitre [validait|valide|Après « il fallait que » → subjonctif présent : que l'arbitre valide.] le but."},
+  {t:"Le phoque", s:"L'été dernier, je [partai|partis|partir au passé simple : je partis (famille -i).] en Bretagne avec mes cousins. La maison où nous [logeâmes|logions|Une situation qui dure → imparfait : nous logions.] donnait sur la mer. Chaque matin, je [me baignai|me baignais|Habitude (« chaque matin ») → imparfait : je me baignais (-ais).] dans une crique. Un après-midi, je [vu|vis|voir au passé simple : je vis. « Vu » est le participe passé.] un phoque sur les rochers. Je [m'approchais|m'approchai|Action unique → passé simple : je m'approchai (-ai, sans s).] doucement, mais il [plongeat|plongea|1er groupe : il plongea (e après le g, pas de t).] aussitôt."},
+  {t:"La légende de l'étoile", s:"Il y a très longtemps, un roi [régna|régnait|Situation de départ qui dure → imparfait.] sur ces terres. Ses sujets le [craignèrent|craignaient|Un sentiment qui dure → imparfait.]. Une nuit, une étoile [tombait|tomba|Événement soudain (« une nuit ») → passé simple.] dans le lac. Le roi [ordona|ordonna|ordonner s'écrit avec deux n.] qu'on la [repêchait|repêche|Après « ordonner que » → subjonctif présent.]. Ses soldats [plongeèrent|plongèrent|Pas de e devant è : ils plongèrent (le e ne s'ajoute que devant a et o).] toute la nuit, en vain."},
+  {t:"Le robot", s:"En 2150, les robots [firent|faisaient|Une époque, une situation qui dure → imparfait.] tout le travail. Un matin, l'un d'eux [refusait|refusa|Action unique (« un matin ») → passé simple.] d'obéir. Il fallait qu'on le [répara|répare|Après « il fallait que » → subjonctif présent.] au plus vite. Les ingénieurs [descendèrent|descendirent|descendre au passé simple : ils descendirent (famille -i).] dans l'atelier. Personne ne [compris|comprit|comprendre au passé simple, 3e pers. du singulier : il comprit (avec t).] ce qui se passait. Le robot [écriva|écrivit|écrire au passé simple : il écrivit.] un seul mot sur l'écran : « Liberté »."}
+];
+SETUP.corriger = function(){
+  let cur = 0, tFound, tMiss, tTotal;
+  const done = new Set(JSON.parse(store.get('txtDone')||'[]'));
+  function tabs(){
+    $('txtTabs').innerHTML = TEXTES.map((x,k)=>`<button class="${k===cur?'on':''} ${done.has(k)?'done':''}">${k+1}. ${x.t}</button>`).join('');
+    $('txtTabs').querySelectorAll('button').forEach((b,k) => b.onclick = () => { cur = k; build(); });
+  }
+  function build(){
+    tabs(); tFound = 0; tMiss = 0; tTotal = 0;
+    const T = TEXTES[cur]; $('txtTitle').textContent = T.t;
+    const txt = $('txt'); txt.innerHTML = ''; $('why').textContent = 'Clique sur les mots fautifs…';
+    const re = /\[([^|\]]+)\|([^|\]]+)\|([^\]]+)\]/g; let last = 0, m;
+    const addPlain = str => str.split(/(\s+)/).forEach(tok => {
+      if (!tok) return;
+      if (/^\s+$/.test(tok) || /^[.,;:!?«»]+$/.test(tok)) { txt.appendChild(document.createTextNode(tok)); return; }
+      const s = document.createElement('span'); s.className = 'w'; s.textContent = tok;
+      s.onclick = () => { tMiss++; upd(); s.classList.remove('miss'); void s.offsetWidth; s.classList.add('miss'); setTimeout(()=>s.classList.remove('miss'),600); };
+      txt.appendChild(s);
+    });
+    while ((m = re.exec(T.s))) {
+      addPlain(T.s.slice(last, m.index));
+      const s = document.createElement('span'); s.className = 'w err'; s.textContent = m[1];
+      s.dataset.bad = m[1]; s.dataset.ok = m[2]; s.dataset.why = m[3];
+      s.onclick = () => { if (s.dataset.done) { $('why').innerHTML = `<b>${esc(s.dataset.bad)} → ${esc(s.dataset.ok)}</b> : ${esc(s.dataset.why)}`; return; }
+        s.dataset.done = 1; s.textContent = s.dataset.ok; s.classList.add('found'); tFound++;
+        $('why').innerHTML = `✔ <b>${esc(s.dataset.bad)} → ${esc(s.dataset.ok)}</b> : ${esc(s.dataset.why)}`; upd(); };
+      txt.appendChild(s); tTotal++; last = re.lastIndex;
+    }
+    addPlain(T.s.slice(last));
+    $('tTotal').textContent = tTotal; upd();
+  }
+  function upd(){
+    $('tFound').textContent = tFound; $('tMiss').textContent = tMiss;
+    if (tFound === tTotal && tTotal) {
+      done.add(cur); store.set('txtDone', JSON.stringify([...done])); tabs();
+      $('why').innerHTML = `🎉 Toutes les fautes sont trouvées ! (${tMiss} clic${tMiss>1?'s':''} sur des mots justes)<br>✍️ Recopie le texte corrigé dans ton cahier, puis passe au texte suivant.`;
+    }
+  }
+  $('tShow').onclick = () => {
+    const list = [];
+    document.querySelectorAll('#txt .err').forEach(s => {
+      list.push(`<li><b>${esc(s.dataset.bad)} → ${esc(s.dataset.ok)}</b> : ${esc(s.dataset.why)}</li>`);
+      if (s.dataset.done) return; s.dataset.done = 1;
+      s.innerHTML = `<s>${esc(s.dataset.bad)}</s>${esc(s.dataset.ok)}`; s.classList.add('shown');
+    });
+    $('why').innerHTML = `<b>Corrections :</b><ul class="corr">${list.join('')}</ul>`;
+  };
+  $('tReset').onclick = build;
+  $('tNext').onclick = () => { cur = (cur+1) % TEXTES.length; build(); };
+  build();
+};
+
+/* =====================================================
+   5. ÉCRIRE LA SUITE
+   ===================================================== */
+const DEBUTS = [
+  ["Le navire glissait lentement sur une mer d'huile. Les marins dormaient sur le pont, épuisés.", "Soudain, une cloche retentit dans le brouillard. Luffy se leva d'un bond et courut vers la proue."],
+  ["Ce matin-là, Léa ouvrit sa fenêtre et resta bouche bée.", "Un immense vaisseau flottait au-dessus de la ville. Elle descendit l'escalier quatre à quatre pour réveiller ses parents."],
+  ["La forêt était silencieuse. Seul le craquement des branches troublait le calme.", "Tout à coup, un loup surgit devant nous. Nous reculâmes sans faire le moindre bruit."],
+  ["Zoro marchait depuis des heures. Il était certain de connaître le chemin.", "Pourtant, il se retrouva une fois de plus devant le même arbre. Il soupira et repartit dans la direction opposée."],
+  ["Il fallait que nous trouvions un abri avant la nuit. Le vent soufflait de plus en plus fort.", "Au loin, nous aperçûmes une grotte. Nous y entrâmes au moment où l'orage éclatait."],
+  ["Le vieux libraire rangeait ses livres quand la porte s'ouvrit brusquement.", "Un enfant trempé entra et lui tendit un livre ancien. Le libraire pâlit en lisant le titre."],
+  ["Chaque soir, le gardien du phare allumait la grande lampe.", "Mais ce soir-là, la lampe refusa de s'allumer. Il prit sa lanterne et monta en haut de la tour."],
+  ["Nami étudiait la carte avec attention. Une petite île y était dessinée à l'encre rouge.", "Elle appela aussitôt l'équipage. Tous se penchèrent sur la table, les yeux brillants."],
+  ["Le match touchait à sa fin et le score était toujours nul.", "Dans les arrêts de jeu, Hugo récupéra le ballon. Il frappa de toutes ses forces et marqua."],
+  ["Le château semblait abandonné depuis des siècles.", "Pourtant, une lumière brillait à la plus haute fenêtre. Nous décidâmes d'aller voir de plus près."],
+  ["Mon grand-père racontait toujours la même histoire.", "Un jour, il sortit de sa poche une pièce d'or. Il me la donna en souriant."],
+  ["Les élèves attendaient le professeur depuis dix minutes.", "La porte s'ouvrit enfin, mais ce fut un robot qui entra. Toute la classe éclata de rire."],
+  ["Il neigeait sur le village. Les enfants construisaient un bonhomme de neige.", "Soudain, le bonhomme cligna des yeux. Les enfants poussèrent un cri et s'enfuirent."],
+  ["Le capitaine voulait que tout le monde soit prêt à l'aube.", "Pourtant, à l'aube, personne ne se leva. Il dut réveiller chaque marin un par un."],
+  ["Sanji préparait le dîner en chantonnant.", "Une odeur délicieuse envahit le navire. En quelques secondes, tout l'équipage accourut dans la cuisine."],
+  ["Le chevalier avançait prudemment dans la caverne.", "Il entendit un grondement sourd. Il leva son bouclier juste avant que le dragon ne crache son feu."],
+  ["Ce jour-là, il pleuvait si fort qu'on ne voyait rien à dix mètres.", "Une voiture s'arrêta devant notre maison. Un homme en sortit et frappa à la porte."],
+  ["Le héros était à terre et son ennemi riait.", "Il rassembla ses dernières forces et se releva. Son ennemi cessa aussitôt de rire."],
+  ["L'avion survolait l'océan depuis des heures.", "Tout à coup, les moteurs s'arrêtèrent. Les passagers retinrent leur souffle."],
+  ["Au fond du jardin, il y avait une vieille porte que personne n'ouvrait jamais.", "Un matin, je pris la clé rouillée et la tournai dans la serrure. La porte s'ouvrit en grinçant."],
+  ["Usopp racontait à tout le monde qu'il avait vaincu un géant.", "Personne ne le crut. Mais le lendemain, un géant débarqua sur l'île et demanda à voir Usopp."],
+  ["La ville dormait encore quand le premier coup de canon retentit.", "Les habitants se précipitèrent aux fenêtres. Une flotte immense entrait dans le port."],
+  ["Nous nous promenions sur la plage quand nous vîmes une bouteille.", "Je la ramassai et la débouchai. Elle contenait un message écrit en lettres dorées."],
+  ["Le magicien leva sa baguette.", "Un éclair jaillit et la salle fut plongée dans l'obscurité. Quand la lumière revint, le roi avait disparu."],
+  ["Brook jouait du violon sur le pont, sous la lune.", "Soudain, une voix venue de la mer lui répondit. Il cessa de jouer et se pencha par-dessus la rambarde."],
+  ["Le dernier train partait à minuit. Il restait deux minutes.", "Je courus sur le quai et sautai dans le wagon au moment où les portes se fermaient."]
+];
+const CONSIGNES = [
+  {t:"Emploie au moins <b>1 verbe à l'imparfait</b> et <b>1 verbe au passé simple</b>.", imp:1, ps:1},
+  {t:"Emploie au moins <b>2 verbes au passé simple</b> : des actions qui s'enchaînent.", ps:2},
+  {t:"Commence par <b>« Soudain, »</b> et emploie au moins <b>1 passé simple</b>.", start:'soudain', ps:1},
+  {t:"Décris d'abord le décor avec <b>2 verbes à l'imparfait</b>, puis ajoute <b>1 action au passé simple</b>.", imp:2, ps:1},
+  {t:"Emploie <b>« il fallait que »</b> suivi d'un <b class='t-subj'>subjonctif</b>, et au moins <b>1 passé simple</b>.", has:'fallait qu', ps:1},
+  {t:"Emploie au moins <b>1 passé simple au pluriel</b> (-èrent, -irent, -urent, -inrent).", plur:1}
+];
+// lexique des formes connues → temps
+const LEX = new Map();
+function addLex(f, t, inf){ if (!f) return; f = f.replace(/^(se |s')/,''); if (!LEX.has(f)) LEX.set(f, new Set()); LEX.get(f).add(t+':'+inf); }
+ALL_VERBS.forEach(v => { for (let p=0;p<6;p++){ addLex(conj(v,p,'imp'),'imp',v); addLex(conj(v,p,'ps'),'ps',v); } });
+const STOP = new Set(['plus','bus','vis','sus','pus','mis','dis']);
+const AUX = new Set(['a','ai','as','avons','avez','ont','est','es','suis','sommes','êtes','sont','avait','avais','avaient','était','étais','étaient','eut','fut','eurent','furent']);
+function detect(text){
+  const words = text.toLowerCase().replace(/[’]/g,"'").split(/[^a-zàâäçéèêëîïôöùûüœ']+/).map(w => w.replace(/^[a-z]'/,'').replace(/^qu'/,''));
+  const imp = [], ps = [];
+  words.forEach((w,k) => {
+    if (!w || STOP.has(w)) return;
+    const prev = words[k-1] || '';
+    let tags = LEX.get(w);
+    if (!tags) {
+      if (/^[a-zàâçéèêîôû]{3,}(èrent|âmes|âtes)$/.test(w)) tags = new Set(['ps:?']);
+      else if (/^[a-zàâçéèêîôû]{2,}(aient)$/.test(w)) tags = new Set(['imp:?']);
+      else return;
+    }
+    if (AUX.has(prev) && [...tags].every(t => t.startsWith('ps'))) return;   // « il a pris » = passé composé
+    const t = [...tags].map(x => x.split(':')[0]);
+    if (t.includes('ps')) ps.push(w); else if (t.includes('imp')) imp.push(w);
+  });
+  return {imp, ps};
+}
+SETUP.suite = function(){
+  let cur = parseInt(store.get('suCur'))||0;
+  const saved = JSON.parse(store.get('suites')||'{}');
+  const consFor = k => CONSIGNES[k % CONSIGNES.length];
+  $('suTot').textContent = DEBUTS.length;
+  function show(){
+    store.set('suCur', cur);
+    $('suNum').textContent = cur+1;
+    $('suDebut').textContent = DEBUTS[cur][0];
+    $('suCons').innerHTML = '🎯 ' + consFor(cur).t;
+    $('suText').value = saved[cur] || '';
+    $('suRes').innerHTML = ''; $('suModele').classList.add('hide');
+  }
+  $('suText').oninput = () => { saved[cur] = $('suText').value; store.set('suites', JSON.stringify(saved)); };
+  $('suPrev').onclick = () => { cur = (cur-1+DEBUTS.length)%DEBUTS.length; show(); };
+  $('suNext').onclick = () => { cur = (cur+1)%DEBUTS.length; show(); };
+  $('suRand').onclick = () => { let n; do { n = rnd(DEBUTS.length); } while (n===cur); cur = n; show(); };
+  $('suModel').onclick = () => { $('suModele').innerHTML = `<b>Une suite possible :</b><br>${esc(DEBUTS[cur][1])}`; $('suModele').classList.remove('hide'); };
+  $('suCheck').onclick = () => {
+    const t = $('suText').value.trim();
+    if (!t) { $('suRes').innerHTML = `<p class="tip">Écris d'abord ta suite !</p>`; return; }
+    const c = consFor(cur), d = detect(t);
+    const nbPhr = (t.match(/[.!?…]+(\s|$)/g)||[]).length || 1;
+    const checks = [];
+    if (c.imp) checks.push([d.imp.length >= c.imp, `au moins ${c.imp} imparfait${c.imp>1?'s':''}`]);
+    if (c.ps) checks.push([d.ps.length >= c.ps, `au moins ${c.ps} passé${c.ps>1?'s':''} simple${c.ps>1?'s':''}`]);
+    if (c.start) checks.push([t.toLowerCase().startsWith(c.start), 'commence par « Soudain, »']);
+    if (c.has) checks.push([t.toLowerCase().includes(c.has), 'contient « il fallait que »']);
+    if (c.plur) checks.push([d.ps.some(w => /(èrent|irent|urent|inrent)$/.test(w)), 'un passé simple au pluriel']);
+    checks.push([nbPhr <= 3, '1 ou 2 phrases']);
+    const allOk = checks.every(x => x[0]);
+    $('suRes').innerHTML = `<div class="fb ${allOk?'ok':'ko'}" style="display:block">
+      ${allOk ? '✔ <b>Consigne respectée !</b>' : '<b>Presque…</b> Vérifie la consigne :'}
+      <ul class="corr">${checks.map(([ok,l]) => `<li>${ok?'✔':'✘'} ${l}</li>`).join('')}</ul>
+      <div class="found-v">${d.imp.map(w=>`<span class="p-imp">${esc(w)} · imparfait</span>`).join('')}${d.ps.map(w=>`<span class="p-ps">${esc(w)} · passé simple</span>`).join('')}</div>
+      ${!d.imp.length && !d.ps.length ? '<p class="hint">Aucun verbe à l\'imparfait ou au passé simple repéré. As-tu bien écrit au passé ?</p>' : ''}
+      <p class="hint" style="margin-bottom:0">Le vérificateur ne connaît pas tous les verbes et ne vérifie pas le sens : relis-toi et demande à un adulte de valider.</p></div>`;
+  };
+  $('suDl').onclick = () => {
+    const parts = DEBUTS.map((d,k) => saved[k] ? `${k+1}. ${d[0]}\n→ ${saved[k]}\n` : null).filter(Boolean);
+    if (!parts.length) { $('suRes').innerHTML = `<p class="tip">Aucune suite écrite pour l'instant.</p>`; return; }
+    const blob = new Blob([`Mes suites de récits (imparfait / passé simple)\n\n` + parts.join('\n')], {type:'text/plain;charset=utf-8'});
+    const a = document.createElement('a'); a.href = URL.createObjectURL(blob);
+    a.download = `mes_suites_${new Date().toISOString().slice(0,10)}.txt`; a.click();
+    setTimeout(()=>URL.revokeObjectURL(a.href), 1000);
+  };
+  show();
+};
+</script>
+</body>
+</html>

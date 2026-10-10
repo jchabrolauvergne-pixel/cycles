@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mes quiz</title>
+<meta name="description" content="Tous les quiz de français, de maths et d'histoire.">
+<style>
+  :root{--bg:#f4f7fb;--card:#fff;--ink:#1f2a37;--muted:#5b6b7d;--primary:#1f7a6d;--primary-soft:#e2f3ef;--accent:#e8833a;--line:#dde4ec}
+  *{box-sizing:border-box}
+  body{margin:0;font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;background:var(--bg);color:var(--ink);line-height:1.5}
+  header{background:var(--primary);color:#fff;padding:26px 16px}
+  .wrap{max-width:960px;margin:0 auto}
+  h1{margin:0;font-size:30px}
+  header p{margin:4px 0 0;color:#d8f1ec}
+  main{padding:20px 16px 40px}
+  .tools{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:18px;align-items:center}
+  .tools input{flex:1 1 220px;font-size:17px;padding:10px 12px;border:2px solid var(--line);border-radius:10px}
+  .chip{border:2px solid var(--line);background:#fff;border-radius:999px;padding:6px 12px;font-size:15px;cursor:pointer;color:var(--ink)}
+  .chip.on{background:var(--primary);border-color:var(--primary);color:#fff}
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:14px}
+  a.card{display:flex;flex-direction:column;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px;text-decoration:none;color:inherit;box-shadow:0 1px 3px rgba(0,0,0,.04);transition:transform .15s,box-shadow .15s}
+  a.card:hover{transform:translateY(-2px);box-shadow:0 6px 16px rgba(0,0,0,.08)}
+  .card h2{margin:0 0 6px;font-size:19px;color:var(--primary)}
+  .card p{margin:0 0 10px;color:var(--muted);font-size:15px;flex:1}
+  .tags{display:flex;gap:6px;flex-wrap:wrap}
+  .tag{background:var(--primary-soft);color:var(--primary);border-radius:999px;padding:2px 9px;font-size:13px;font-weight:600}
+  .tag.new{background:var(--accent);color:#fff}
+  .file{font-size:12px;color:#9aa7b5;margin-top:8px}
+  .empty{color:var(--muted)}
+</style>
+</head>
+<body>
+<header><div class="wrap">
+  <h1>📚 Mes quiz</h1>
+  <p>Français, maths et histoire — choisis un quiz !</p>
+</div></header>
+
+<main class="wrap">
+  <div class="tools">
+    <input id="q" type="search" placeholder="Rechercher (ex. homophones, tables, dictée…)">
+    <span id="chips"></span>
+  </div>
+  <div class="grid" id="grid"></div>
+  <p class="empty" id="empty" hidden>Aucun quiz ne correspond.</p>
+</main>
+
+<script>
+/* Catalogue de base : ajoute une ligne ici pour chaque nouveau quiz.
+   Sur GitHub Pages, la page lit aussi le <title>, la description et les thèmes
+   de chaque fichier, et découvre automatiquement les .html non listés. */
+const CATALOGUE = [
+  {file:'a_ou_a.html', title:'« a » ou « à » + mots de la dictée (CM2)',
+   desc:"Choisir entre a (verbe avoir) et à (préposition), réviser les mots de la dictée « L'amphithéâtre de Nîmes » et corriger un texte.",
+   themes:['homophones','a/à','dictée','CM2']},
+  {file:'chasse_au_son_e.html', title:'Chasse au son « é » — série 1',
+   desc:'Choisir la bonne terminaison du son « é » : règle, quiz et texte à corriger.', themes:['son é','CM2','4e']},
+  {file:'chasse_au_son_e_2.html', title:'Chasse au son « é » — série 2',
+   desc:'Nouvelle série sur le son « é ».', themes:['son é','CM2','4e']},
+  {file:'homophones.html', title:'Homophones grammaticaux',
+   desc:'N1 : a/à, et/est, son/sont, on/ont, ou/où — N2 : ce/se, ces/ses/c\'est/s\'est, leur/leurs, peu/peut, la/là/l\'a…',
+   themes:['homophones','CM2','4e']},
+  {file:'tables_6_10.html', title:'Tables de multiplication de 6 à 10',
+   desc:'Apprendre et réviser les tables de 6, 7, 8, 9 et 10 : tables et astuces, quiz de 20 questions, facteur manquant et défi chrono.',
+   themes:['maths','tables de multiplication','CM2']},
+  {file:'histoire_temps_romains.html', title:'Se repérer dans le temps + chiffres romains (CM2)',
+   desc:'Histoire : la frise chronologique, les 5 grandes périodes, avant/après J.-C., les siècles et les chiffres romains.',
+   themes:['histoire','frise','chiffres romains','CM2']},
+  {file:'accords_4e.html', title:'Accords et nature des mots (4e)',
+   desc:"a/à, é/er/ez/ait, nature des mots, accord du participe passé et accord sujet-verbe : quiz à formats variés, chasse aux fautes et atelier d'écriture (One Piece, manga, jeux vidéo…).",
+   themes:['accords','a/à','participe passé','nature des mots','écriture','4e']},
+  {file:'imparfait_passe_simple.html', title:'Imparfait et passé simple (4e)',
+   desc:"Conjuguer, choisir entre imparfait et passé simple, transformer un récit au présent ou au passé composé (subjonctif signalé), corriger des textes et écrire la suite d'un récit.",
+   themes:['conjugaison','imparfait','passé simple','subjonctif','écriture','4e'], isNew:true}
+];
+
+const grid = document.getElementById('grid');
+let quizzes = CATALOGUE.map(q => ({...q}));
+let activeTheme = null;
+
+function render(){
+  const term = document.getElementById('q').value.trim().toLowerCase();
+  const list = quizzes
+    .filter(q => !activeTheme || q.themes.includes(activeTheme))
+    .filter(q => !term || (q.title+' '+q.desc+' '+q.themes.join(' ')).toLowerCase().includes(term))
+    .sort((a,b) => a.file.localeCompare(b.file));
+  grid.innerHTML = list.map(q => `
+    <a class="card" href="${q.file}">
+      <h2>${q.title}</h2>
+      <p>${q.desc || ''}</p>
+      <div class="tags">${q.isNew ? '<span class="tag new">nouveau</span>' : ''}${q.themes.map(t=>`<span class="tag">${t}</span>`).join('')}</div>
+      <div class="file">${q.file}</div>
+    </a>`).join('');
+  document.getElementById('empty').hidden = list.length > 0;
+  const all = [...new Set(quizzes.flatMap(q => q.themes))].sort((a,b)=>a.localeCompare(b));
+  document.getElementById('chips').innerHTML = all.map(t => `<button class="chip ${t===activeTheme?'on':''}" data-t="${t}">${t}</button>`).join(' ');
+  document.querySelectorAll('.chip').forEach(c => c.onclick = () => { activeTheme = activeTheme===c.dataset.t ? null : c.dataset.t; render(); });
+}
+document.getElementById('q').oninput = render;
+render();
+
+/* Lit title / description / themes d'un fichier du site */
+async function readMeta(file){
+  const r = await fetch(file); if (!r.ok) throw 0;
+  const doc = new DOMParser().parseFromString(await r.text(), 'text/html');
+  const meta = n => doc.querySelector(`meta[name="${n}"]`)?.content || '';
+  return { title: doc.title, desc: meta('description'),
+           themes: meta('themes').split(',').map(s=>s.trim()).filter(Boolean) };
+}
+
+(async () => {
+  if (location.protocol === 'file:') return;           // ouverture locale : catalogue seul
+  // 1) Mettre à jour les fiches du catalogue avec les infos réelles des fichiers
+  await Promise.all(quizzes.map(async q => {
+    try { const m = await readMeta(q.file); if (m.title) q.title = m.title; if (m.desc) q.desc = m.desc; if (m.themes.length) q.themes = m.themes; } catch(e){}
+  }));
+  render();
+  // 2) Découverte automatique des autres .html via l'API GitHub
+  const host = location.hostname;
+  if (!host.endsWith('.github.io')) return;
+  const owner = host.split('.')[0];
+  const seg = location.pathname.split('/').filter(Boolean)[0];
+  const repo = (seg && !seg.endsWith('.html')) ? seg : `${owner}.github.io`;
+  try {
+    const r = await fetch(`https://api.github.com/repos/${owner}/${repo}/contents/`);
+    if (!r.ok) return;
+    const files = (await r.json()).filter(f => f.type==='file' && f.name.endsWith('.html') && f.name!=='index.html');
+    const known = new Set(quizzes.map(q => q.file));
+    const extra = await Promise.all(files.filter(f => !known.has(f.name)).map(async f => {
+      try { const m = await readMeta(f.name); return {file:f.name, title:m.title||f.name, desc:m.desc, themes:m.themes}; }
+      catch(e){ return {file:f.name, title:f.name, desc:'', themes:[]}; }
+    }));
+    quizzes = quizzes.concat(extra); render();
+  } catch(e){}
+})();
+</script>
+</body>
+</html>

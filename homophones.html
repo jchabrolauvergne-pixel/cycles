@@ -1,0 +1,213 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="a/à, et/est, son/sont, on/ont, ou/où… puis ce/se, ces/ses, leur/leurs. Deux niveaux : CM2 et 4e.">
+<meta name="themes" content="Homophones">
+<title>Les homophones</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;700&family=Patrick+Hand&display=swap">
+<style>
+:root{
+  --paper:#f4f6fb; --card:#ffffff; --ink:#18264a; --muted:#5b6788; --line:#d8deec;
+  --blue:#2b54c9; --blue-soft:#e4ebfc; --hl:#ffe46b; --ok:#1d8757; --ok-soft:#dff3e8;
+  --ko:#c9303d; --ko-soft:#fbe3e5; --shadow:0 1px 2px rgba(24,38,74,.06),0 6px 20px rgba(24,38,74,.06);
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --paper:#111827; --card:#1a2336; --ink:#e7ecf8; --muted:#9aa6c4; --line:#2e3a55;
+  --blue:#7d9cf5; --blue-soft:#24325a; --hl:#8a7419; --ok:#5fd09a; --ok-soft:#173a2b;
+  --ko:#ff7d88; --ko-soft:#43202a; --shadow:none;}}
+:root[data-theme="dark"]{
+  --paper:#111827; --card:#1a2336; --ink:#e7ecf8; --muted:#9aa6c4; --line:#2e3a55;
+  --blue:#7d9cf5; --blue-soft:#24325a; --hl:#8a7419; --ok:#5fd09a; --ok-soft:#173a2b;
+  --ko:#ff7d88; --ko-soft:#43202a; --shadow:none;}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.55 Lexend,system-ui,sans-serif;padding-inline:16px;padding-block:20px 48px}
+.wrap{max-width:760px;margin:0 auto;display:flex;flex-direction:column;gap:20px}
+header h1{font-size:clamp(1.7rem,5vw,2.4rem);line-height:1.1;margin:0;letter-spacing:-.01em;text-wrap:balance}
+header h1 .e{background:var(--hl);padding:0 .15em;border-radius:4px;color:var(--ink)}
+header p{margin:.4rem 0 0;color:var(--muted)}
+.bar{display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between}
+.seg{display:inline-flex;background:var(--card);border:1px solid var(--line);border-radius:999px;padding:4px;gap:2px;flex-wrap:wrap}
+.seg button{border:0;background:transparent;color:var(--muted);font:500 .92rem Lexend,sans-serif;padding:.45rem .9rem;border-radius:999px;cursor:pointer}
+.seg button[aria-pressed="true"]{background:var(--blue);color:#fff}
+:root[data-theme="dark"] .seg button[aria-pressed="true"]{color:#0f1830}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .seg button[aria-pressed="true"]{color:#0f1830}}
+button:focus-visible{outline:3px solid var(--hl);outline-offset:2px}
+.panel{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:22px;box-shadow:var(--shadow)}
+.note{font-family:"Patrick Hand",cursive;font-size:1.2rem;color:var(--ko)}
+/* règle */
+.rules{display:grid;gap:14px}
+.rule{border-left:4px solid var(--blue);padding:4px 0 4px 14px}
+.rule h3{margin:0 0 4px;font-size:1.05rem}
+.rule p{margin:0;color:var(--ink)}
+.rule .ex{display:block;margin-top:4px;color:var(--muted);font-size:.93rem}
+b.k{background:var(--hl);color:var(--ink);padding:0 .2em;border-radius:3px;font-weight:700}
+/* quiz */
+.qhead{display:flex;justify-content:space-between;align-items:center;gap:10px;color:var(--muted);font-size:.9rem}
+.progress{height:6px;background:var(--line);border-radius:6px;overflow:hidden;margin:10px 0 22px}
+.progress i{display:block;height:100%;background:var(--blue);transition:width .3s}
+.sentence{font-size:clamp(1.25rem,4vw,1.6rem);line-height:1.45;margin:0 0 22px;text-wrap:pretty}
+.blank{display:inline-block;min-width:2.4em;border-bottom:3px solid var(--blue);text-align:center;color:var(--blue);font-weight:700}
+.blank.ok{color:var(--ok);border-color:var(--ok)} .blank.ko{color:var(--ko);border-color:var(--ko)}
+.opts{display:flex;flex-wrap:wrap;gap:10px}
+.opt{font:700 1.25rem Lexend,sans-serif;min-width:84px;padding:.6rem 1rem;border-radius:12px;border:2px solid var(--line);background:var(--card);color:var(--ink);cursor:pointer;transition:transform .1s,border-color .15s}
+.opt:hover:not(:disabled){border-color:var(--blue);transform:translateY(-1px)}
+.opt.ok{background:var(--ok-soft);border-color:var(--ok);color:var(--ok)}
+.opt.ko{background:var(--ko-soft);border-color:var(--ko);color:var(--ko)}
+.opt:disabled{cursor:default}
+.fb{margin-top:18px;padding:12px 14px;border-radius:10px;display:flex;gap:10px;align-items:flex-start}
+.fb.ok{background:var(--ok-soft)} .fb.ko{background:var(--ko-soft)}
+.fb strong{white-space:nowrap}
+.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}
+.btn{font:500 1rem Lexend,sans-serif;padding:.65rem 1.2rem;border-radius:10px;border:0;background:var(--blue);color:#fff;cursor:pointer}
+.btn.ghost{background:transparent;color:var(--blue);border:2px solid var(--blue)}
+:root[data-theme="dark"] .btn:not(.ghost){color:#0f1830}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .btn:not(.ghost){color:#0f1830}}
+.score{font-size:3rem;font-weight:700;line-height:1;font-variant-numeric:tabular-nums}
+.score small{font-size:1.2rem;color:var(--muted)}
+.review{list-style:none;padding:0;margin:16px 0 0;display:grid;gap:10px}
+.review li{padding:10px 12px;border-radius:10px;background:var(--ko-soft)}
+.review li span{display:block;color:var(--muted);font-size:.9rem}
+/* texte */
+.text{font-size:1.2rem;line-height:2.1}
+.w{cursor:pointer;border-radius:4px;padding:1px 2px}
+.w:hover{background:var(--blue-soft)}
+.w.sel{background:var(--hl);color:var(--ink)}
+.w.found{background:var(--ok-soft);color:var(--ok);text-decoration:line-through}
+.w.miss{background:var(--ko-soft);color:var(--ko);text-decoration:underline wavy}
+.w.wrong{outline:2px dashed var(--ko)}
+.corr{font-family:"Patrick Hand",cursive;color:var(--ko);font-size:1.25rem;margin-left:2px}
+.hint{color:var(--muted);font-size:.93rem;margin:0 0 12px}
+.best{color:var(--muted);font-size:.9rem}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+.back{color:var(--blue);text-decoration:none;font-size:.95rem}
+.back:hover{text-decoration:underline}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <a class="back" href="index.html">← Tous les quiz</a>
+  <header>
+    <h1>Les <span class="e">homophones</span></h1>
+    <p>Ils se prononcent pareil mais s'écrivent différemment : choisis le bon.</p>
+  </header>
+
+  <div class="bar">
+    <div class="seg" role="group" aria-label="Niveau">
+      <button id="lv1" aria-pressed="true" data-lv="1">Niveau 1 · CM2</button>
+      <button id="lv2" aria-pressed="false" data-lv="2">Niveau 2 · 4e</button>
+    </div>
+    <div class="seg" role="group" aria-label="Activité">
+      <button id="m-regle" data-m="regle" aria-pressed="false">La règle</button>
+      <button id="m-quiz" data-m="quiz" aria-pressed="true">Quiz</button>
+      <button id="m-texte" data-m="texte" aria-pressed="false">Texte à corriger</button>
+    </div>
+  </div>
+
+  <section class="panel" id="view" aria-live="polite"></section>
+</div>
+
+<script>
+const DATA = {"n1": [{"s": "Il ___ un chien.", "o": ["a", "à"], "a": "a", "e": "Il avait un chien → verbe avoir → a."}, {"s": "Je vais ___ la piscine.", "o": ["a", "à"], "a": "à", "e": "On ne peut pas dire « je vais avait la piscine » → à."}, {"s": "Elle ___ mal à la tête.", "o": ["a", "à"], "a": "a", "e": "Elle avait mal → a."}, {"s": "Il ___ gagné la course.", "o": ["a", "à"], "a": "a", "e": "Il avait gagné → a."}, {"s": "Il habite ___ Paris.", "o": ["a", "à"], "a": "à", "e": "« Il habite avait Paris » ne marche pas → à."}, {"s": "Tom ___ Léa jouent ensemble.", "o": ["et", "est"], "a": "et", "e": "Tom et puis Léa → et."}, {"s": "Le ciel ___ bleu.", "o": ["et", "est"], "a": "est", "e": "Le ciel était bleu → est."}, {"s": "J'aime les pommes ___ les poires.", "o": ["et", "est"], "a": "et", "e": "Les pommes et puis les poires → et."}, {"s": "Ma sœur ___ gentille.", "o": ["et", "est"], "a": "est", "e": "Ma sœur était gentille → est."}, {"s": "Il ___ en retard.", "o": ["et", "est"], "a": "est", "e": "Il était en retard → est."}, {"s": "Les chats ___ dans le jardin.", "o": ["son", "sont"], "a": "sont", "e": "Les chats étaient dans le jardin → sont."}, {"s": "Paul range ___ cartable.", "o": ["son", "sont"], "a": "son", "e": "Paul range mon cartable → son."}, {"s": "Où ___ mes chaussures ?", "o": ["son", "sont"], "a": "sont", "e": "Où étaient mes chaussures ? → sont."}, {"s": "Elle prend ___ vélo.", "o": ["son", "sont"], "a": "son", "e": "Elle prend mon vélo → son."}, {"s": "___ va au parc ?", "o": ["On", "Ont"], "a": "On", "e": "Il va au parc ? → On."}, {"s": "Mes parents ___ acheté du pain.", "o": ["on", "ont"], "a": "ont", "e": "Mes parents avaient acheté → ont."}, {"s": "Demain, ___ part en vacances.", "o": ["on", "ont"], "a": "on", "e": "Demain, il part → on."}, {"s": "Les élèves ___ fini leurs devoirs.", "o": ["on", "ont"], "a": "ont", "e": "Les élèves avaient fini → ont."}, {"s": "Ils ___ faim.", "o": ["on", "ont"], "a": "ont", "e": "Ils avaient faim → ont."}, {"s": "Tu veux du jus ___ de l'eau ?", "o": ["ou", "où"], "a": "ou", "e": "Du jus ou bien de l'eau → ou."}, {"s": "___ est ma trousse ?", "o": ["Ou", "Où"], "a": "Où", "e": "On demande un lieu → Où."}, {"s": "La maison ___ j'habite est grande.", "o": ["ou", "où"], "a": "où", "e": "Indique un lieu → où."}], "n2": [{"s": "Il ___ lave les mains.", "o": ["ce", "se"], "a": "se", "e": "Devant un verbe : je me lave → il se lave."}, {"s": "___ livre est passionnant.", "o": ["Ce", "Se"], "a": "Ce", "e": "Devant un nom → Ce."}, {"s": "Elle ___ demande pourquoi.", "o": ["ce", "se"], "a": "se", "e": "Je me demande → elle se demande."}, {"s": "___ que tu dis est vrai.", "o": ["Ce", "Se"], "a": "Ce", "e": "= Cela que tu dis → Ce."}, {"s": "Il a perdu ___ clés.", "o": ["ces", "ses", "c'est", "s'est"], "a": "ses", "e": "Les siennes → ses."}, {"s": "Regarde ___ nuages !", "o": ["ces", "ses", "c'est", "s'est"], "a": "ces", "e": "Ces nuages-là → ces."}, {"s": "___ mon meilleur ami.", "o": ["Ces", "Ses", "C'est", "S'est"], "a": "C'est", "e": "Cela est mon meilleur ami → C'est."}, {"s": "Elle ___ trompée de chemin.", "o": ["ces", "ses", "c'est", "s'est"], "a": "s'est", "e": "Je me suis trompée → elle s'est trompée."}, {"s": "Il ___ levé tôt.", "o": ["c'est", "s'est"], "a": "s'est", "e": "Je me suis levé → il s'est levé."}, {"s": "___ vrai, je l'ai vu !", "o": ["C'est", "S'est"], "a": "C'est", "e": "Cela est vrai → C'est."}, {"s": "Mes amis ? Je ___ ai donné mon adresse.", "o": ["leur", "leurs"], "a": "leur", "e": "Devant un verbe (= à eux) → leur, sans s."}, {"s": "Les enfants rangent ___ jouets.", "o": ["leur", "leurs"], "a": "leurs", "e": "Plusieurs jouets → leurs."}, {"s": "Ils ont vendu ___ maison.", "o": ["leur", "leurs"], "a": "leur", "e": "Une seule maison pour eux → leur."}, {"s": "Il ___ venir demain.", "o": ["peu", "peut"], "a": "peut", "e": "Il pouvait venir → peut."}, {"s": "Il mange très ___.", "o": ["peu", "peut"], "a": "peu", "e": "= pas beaucoup → peu."}, {"s": "Pose ton sac ___.", "o": ["la", "là", "l'a"], "a": "là", "e": "= ici, un lieu → là."}, {"s": "Sa robe ? Il ___ trouvée jolie.", "o": ["la", "là", "l'a"], "a": "l'a", "e": "Il l'avait trouvée → l'a."}, {"s": "Il ferme ___ porte.", "o": ["la", "là", "l'a"], "a": "la", "e": "Il ferme une porte → la."}, {"s": "Je crois ___ a raison.", "o": ["quel", "quelle", "qu'elle"], "a": "qu'elle", "e": "Je crois qu'il a raison → qu'elle."}, {"s": "___ belle journée !", "o": ["Quel", "Quelle", "Qu'elle"], "a": "Quelle", "e": "« Qu'il belle journée » ne marche pas ; journée est féminin → Quelle."}, {"s": "Il est parti ___ dire au revoir.", "o": ["sans", "s'en"], "a": "sans", "e": "Contraire de « avec » → sans."}, {"s": "Elle ___ souvient très bien.", "o": ["sans", "s'en"], "a": "s'en", "e": "Je m'en souviens → elle s'en souvient."}], "t1": {"text": "Ce matin, Léo [à|a] oublié [sont|son] cartable. Il [et|est] reparti en courant [est|et] il est arrivé en retard. Les élèves [on|ont] ri. La maîtresse lui a demandé [ou|où] il était passé.", "corr": [["à", "a", "Léo avait oublié → a."], ["sont", "son", "Mon cartable → son."], ["et", "est", "Il était reparti → est."], ["est", "et", "« et puis » il est arrivé → et."], ["on", "ont", "Les élèves avaient ri → ont."], ["ou", "où", "Question sur un lieu → où."]]}, "t2": {"text": "Julie et son frère se sont levés tôt : [ses|c'est] le jour du départ. Leurs parents [leurs|leur] ont promis une surprise. Julie [ce|se] demande [quel|quelle] sera la destination. Son frère, lui, [peu|peut] à peine attendre. « Posez vos valises [la|là], on part ! » dit leur mère.", "corr": [["ses", "c'est", "Cela est le jour du départ → c'est."], ["leurs", "leur", "Devant un verbe (= à eux) → leur, sans s."], ["ce", "se", "Je me demande → elle se demande."], ["quel", "quelle", "La destination est féminin → quelle."], ["peu", "peut", "Il pouvait à peine attendre → peut."], ["la", "là", "= ici, un lieu → là."]]}};
+const RULES = {"1": [["a ou à ?", "Remplace par <b class='k'>avait</b>. Si ça marche → <b class='k'>a</b> (verbe avoir). Sinon → <b class='k'>à</b>.", "Il a faim (il avait faim) · Il va à l'école"], ["et ou est ?", "Remplace par <b class='k'>était</b>. Si ça marche → <b class='k'>est</b>. Si on peut dire « et puis » → <b class='k'>et</b>.", "Le ciel est bleu · Tom et Léa"], ["son ou sont ?", "Remplace par <b class='k'>étaient</b> → <b class='k'>sont</b>. Remplace par <b class='k'>mon</b> → <b class='k'>son</b>.", "Ils sont là · Il range son sac"], ["on ou ont ?", "Remplace par <b class='k'>avaient</b> → <b class='k'>ont</b>. Remplace par <b class='k'>il</b> → <b class='k'>on</b>.", "Ils ont faim · On joue ?"], ["ou ou où ?", "Si on peut dire <b class='k'>ou bien</b> → <b class='k'>ou</b>. Si ça indique un lieu ou un moment → <b class='k'>où</b>.", "Pomme ou poire ? · Où vas-tu ?"]], "2": [["ce ou se ?", "<b class='k'>se</b> est devant un verbe (je me, tu te, il <b class='k'>se</b>). <b class='k'>ce</b> est devant un nom ou veut dire « cela ».", "Il se lave · Ce livre · Ce que tu dis"], ["ces, ses, c'est, s'est", "<b class='k'>ces</b> = ceux-là · <b class='k'>ses</b> = les siens · <b class='k'>c'est</b> = cela est · <b class='k'>s'est</b> = verbe pronominal (je me suis → il s'est).", "Ces nuages · ses clés · C'est vrai · Il s'est levé"], ["leur ou leurs ?", "Devant un verbe, <b class='k'>leur</b> = « lui » au pluriel : il ne prend jamais de s. Devant un nom : <b class='k'>leurs</b> si plusieurs objets, <b class='k'>leur</b> si un seul.", "Je leur parle · leurs jouets · leur maison"], ["peu ou peut ?", "Remplace par <b class='k'>pouvait</b> → <b class='k'>peut</b>. Sinon (= pas beaucoup) → <b class='k'>peu</b>.", "Il peut venir · Il mange peu"], ["la, là ou l'a ?", "<b class='k'>l'a</b> → l'avait · <b class='k'>là</b> → ici (lieu) · <b class='k'>la</b> → une.", "Il l'a vue · Pose-le là · la porte"], ["quel(le) ou qu'elle ?", "Remplace par <b class='k'>qu'il</b> → <b class='k'>qu'elle</b>. Sinon → <b class='k'>quel / quelle</b>, accordé avec le nom.", "Je crois qu'elle vient · Quelle belle journée !"], ["sans ou s'en ?", "<b class='k'>s'en</b> est devant un verbe (je m'en vais → il s'en va). <b class='k'>sans</b> = le contraire de « avec ».", "Il s'en souvient · sans bruit"]]};
+const CFG = {"id": "homophones-1", "op": "", "errWhat": "d'homophones"};
+let level=1, mode="quiz", quiz=null, texteState=null;
+const $=s=>document.querySelector(s), view=$("#view");
+const store={get(k){try{return localStorage.getItem(CFG.id+":"+k)}catch(e){return null}},set(k,v){try{localStorage.setItem(CFG.id+":"+k,v)}catch(e){}}};
+const esc=s=>s.replace(/[&<>]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;"}[c]));
+function shuffle(a){a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
+function setPressed(sel,attr,val){document.querySelectorAll(sel).forEach(b=>b.setAttribute("aria-pressed",String(b.dataset[attr]==val)))}
+
+document.querySelectorAll("[data-lv]").forEach(b=>b.onclick=()=>{level=+b.dataset.lv;setPressed("[data-lv]","lv",level);store.set("lv",level);start()});
+document.querySelectorAll("[data-m]").forEach(b=>b.onclick=()=>{mode=b.dataset.m;setPressed("[data-m]","m",mode);start()});
+
+function start(){ if(mode==="regle")renderRules(); else if(mode==="quiz")newQuiz(); else newTexte(); }
+
+function renderRules(){
+  view.innerHTML=`<div class="rules">${RULES[level].map(r=>`<div class="rule"><h3>${r[0]}</h3><p>${r[1]}<span class="ex">${r[2]}</span></p></div>`).join("")}</div>
+  <div class="actions"><button class="btn" id="go-quiz">M'entraîner</button></div>`;
+  $("#go-quiz").onclick=()=>{mode="quiz";setPressed("[data-m]","m",mode);newQuiz()};
+}
+
+function newQuiz(){
+  const bank=DATA["n"+level];
+  quiz={items:shuffle(bank).slice(0,10),i:0,score:0,errors:[]};
+  renderQ();
+}
+function renderQ(){
+  const q=quiz.items[quiz.i], n=quiz.items.length;
+  const [before,after]=q.s.split("___");
+  view.innerHTML=`<div class="qhead"><span>Question ${quiz.i+1} / ${n}</span><span>Score : ${quiz.score}</span></div>
+   <div class="progress"><i style="width:${quiz.i/n*100}%"></i></div>
+   <p class="sentence">${esc(before)}<span class="blank" id="blank">?</span>${esc(after)}</p>
+   <div class="opts">${q.o.map((o,k)=>`<button class="opt" id="opt${k}" data-v="${esc(o)}">${CFG.op}${esc(o)}</button>`).join("")}</div>
+   <div id="fbzone"></div>`;
+  view.querySelectorAll(".opt").forEach(b=>b.onclick=()=>answer(b));
+}
+function answer(b){
+  const q=quiz.items[quiz.i], v=b.dataset.v, good=v===q.a, blank=$("#blank");
+  view.querySelectorAll(".opt").forEach(x=>{x.disabled=true;if(x.dataset.v===q.a)x.classList.add("ok")});
+  if(good){quiz.score++}else{b.classList.add("ko");quiz.errors.push({q,v})}
+  blank.textContent=q.a; blank.classList.add(good?"ok":"ko");
+  const last=quiz.i===quiz.items.length-1;
+  $("#fbzone").innerHTML=`<div class="fb ${good?"ok":"ko"}"><strong>${good?"Bravo !":"Pas tout à fait."}</strong><span>${esc(q.e)}</span></div>
+   <div class="actions"><button class="btn" id="next">${last?"Voir mon score":"Question suivante"}</button></div>`;
+  const nx=$("#next"); nx.focus(); nx.onclick=()=>{ if(last)renderEnd(); else {quiz.i++;renderQ()} };
+}
+function renderEnd(){
+  const n=quiz.items.length, k="best"+level, prev=+(store.get(k)||0);
+  if(quiz.score>prev)store.set(k,quiz.score);
+  const best=Math.max(prev,quiz.score);
+  const msg=quiz.score===n?"Parfait, aucune faute !":quiz.score>=8?"Très bien, encore un petit effort.":quiz.score>=5?"C'est en bonne voie. Relis la règle puis recommence.":"Relis la règle et réessaie, tu vas progresser.";
+  view.innerHTML=`<div class="score">${quiz.score}<small> / ${n}</small></div>
+   <p class="note">${msg}</p><p class="best">Meilleur score au niveau ${level} : ${best} / ${n}</p>
+   ${quiz.errors.length?`<h3 style="margin:18px 0 0">À revoir</h3><ul class="review">${quiz.errors.map(({q,v})=>`<li><b>${esc(q.s.replace("___",q.a))}</b> <span>Tu as choisi ${CFG.op}${esc(v)} · ${esc(q.e)}</span></li>`).join("")}</ul>`:""}
+   <div class="actions"><button class="btn" id="again">Nouvelle série</button><button class="btn ghost" id="torule">Revoir la règle</button></div>`;
+  $("#again").onclick=newQuiz;
+  $("#torule").onclick=()=>{mode="regle";setPressed("[data-m]","m",mode);renderRules()};
+}
+
+const MK=/\[([^|\]]+)\|([^\]]+)\]/;
+function newTexte(){
+  const t=DATA["t"+level];
+  const tokens=t.text.split(/( +)/);
+  texteState={t,checked:false};
+  let n=0;
+  const html=tokens.map(tok=>{
+    if(/^ +$/.test(tok))return tok;
+    const m=tok.match(MK); let attr="", shown=tok;
+    if(m){ shown=tok.replace(MK,m[1]); attr=` data-err="${n}" data-fix="${esc(m[2])}"`; n++; }
+    return `<span class="w"${attr} tabindex="0" role="button">${esc(shown)}</span>`;
+  }).join("");
+  view.innerHTML=`<p class="hint">Ce texte contient <b>${t.corr.length} erreurs</b> ${CFG.errWhat}. Clique sur les mots fautifs, puis vérifie.</p>
+   <p class="text" id="txt">${html}</p>
+   <div class="actions"><button class="btn" id="check">Vérifier</button><button class="btn ghost" id="reset">Recommencer</button></div><div id="tfb"></div>`;
+  view.querySelectorAll(".w").forEach(w=>{
+    const tog=()=>{if(!texteState.checked)w.classList.toggle("sel")};
+    w.onclick=tog; w.onkeydown=e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();tog()}};
+  });
+  $("#reset").onclick=newTexte;
+  $("#check").onclick=()=>{
+    if(texteState.checked)return; texteState.checked=true;
+    let found=0,wrong=0;
+    view.querySelectorAll(".w").forEach(w=>{
+      const isErr=w.dataset.err!==undefined, sel=w.classList.contains("sel");
+      w.classList.remove("sel");
+      if(isErr){ w.classList.add(sel?"found":"miss"); if(sel)found++;
+        w.insertAdjacentHTML("afterend",`<span class="corr">${w.dataset.fix}</span>`); }
+      else if(sel){w.classList.add("wrong");wrong++}
+    });
+    $("#tfb").innerHTML=`<div class="fb ${found===t.corr.length&&!wrong?"ok":"ko"}"><strong>${found} / ${t.corr.length}</strong><span>erreurs trouvées${wrong?` · ${wrong} mot${wrong>1?"s":""} correct${wrong>1?"s":""} marqué${wrong>1?"s":""} à tort (pointillés)`:""}.</span></div>
+     <ul class="review" style="margin-top:12px">${t.corr.map(c=>`<li style="background:var(--blue-soft)"><b>${esc(c[0])} → ${esc(c[1])}</b><span>${esc(c[2])}</span></li>`).join("")}</ul>`;
+  };
+}
+
+const saved=+(store.get("lv")||1); if(saved===2){level=2;setPressed("[data-lv]","lv",2)}
+start();
+</script>
+
+</body>
+</html>

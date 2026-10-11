@@ -258,6 +258,7 @@
   </section>
 </main>
 
+<script src="levelup.js" data-quiz="imp-ps-4e"></script>
 <script>
 const QUIZ_ID = 'imp-ps-4e';
 const $ = id => document.getElementById(id);
@@ -383,7 +384,7 @@ function bindSel(id, single){
 }
 const checked = id => [...document.querySelectorAll(`#${id} input:checked`)].map(c=>c.value);
 function endScreen(box, title, score, total, key, wrong, again, change){
-  const old = parseInt(store.get(key))||0, best = Math.max(old, score); store.set(key, best);
+  const old = parseInt(store.get(key))||0, best = Math.max(old, score); store.set(key, best); LevelUp.save(key, score, total);
   const pct = score/total;
   const msg = pct===1 ? 'Parfait ! 🏆' : pct>=0.8 ? 'Très bien ! 🌟' : pct>=0.5 ? 'Pas mal, continue ! 💪' : 'Relis les règles et réessaie 📘';
   box.innerHTML = `<h2>${title} — terminé</h2>
@@ -425,7 +426,7 @@ SETUP.conj = function(){
     }
     return out;
   }
-  function start(){ qs = build(); i = 0; score = 0; wrong = []; show(); }
+  function start(){ qs = build(); i = 0; score = 0; wrong = []; LevelUp.reset(); show(); }
   function show(){
     locked = false; const q = qs[i];
     box.innerHTML = `<div class="q-top"><span>Question ${i+1} / ${qs.length}</span><span>Score : ${score}</span></div>
@@ -441,7 +442,7 @@ SETUP.conj = function(){
       let v = norm(inp.value); if (!v) return;
       v = v.replace(/^(je |j'|tu |il |elle |on |nous |vous |ils |elles )/,'');
       const ok = v === q.ans; locked = true; inp.readOnly = true; inp.classList.add(ok?'good':'bad');
-      if (ok) score++; else wrong.push(`${q.v}, ${q.t==='imp'?'imparfait':'passé simple'} : <b>${withPron(q.p,q.ans,q.prn)}</b>`);
+      if (ok) score++; else { wrong.push(`${q.v}, ${q.t==='imp'?'imparfait':'passé simple'} : <b>${withPron(q.p,q.ans,q.prn)}</b>`); LevelUp.err(`${q.v} · ${q.t==='imp'?'imparfait':'passé simple'} · ${q.prn}`, q.ans, inp.value); }
       const tab = table(q.v, q.t);
       const fb = $('cFb'); fb.className = 'fb ' + (ok?'ok':'ko');
       fb.innerHTML = (ok ? '✔ <b>Bravo !</b>' : `✘ La bonne réponse : <b>${withPron(q.p,q.ans,q.prn)}</b>`) +
@@ -577,7 +578,7 @@ SETUP.choix = function(){
     BANK.forEach(b => b.toks.forEach((t,k) => { if (t.t==='imp' || t.t==='ps') items.push({b, k}); }));
     return shuffle(items).slice(0, NB_CHOIX);
   }
-  function start(){ qs = build(); i = 0; score = 0; wrong = []; show(); }
+  function start(){ qs = build(); i = 0; score = 0; wrong = []; LevelUp.reset(); show(); }
   function sentence(q, reveal){
     return fill(q.b.s, k => {
       const t = q.b.toks[k];
@@ -599,7 +600,7 @@ SETUP.choix = function(){
       const btns = box.querySelectorAll('.opts button'); btns.forEach(x => x.disabled = true);
       const ok = opts[k] === t.exp[0];
       btns.forEach((x,j) => { if (opts[j]===t.exp[0]) x.classList.add('good'); else if (j===k) x.classList.add('bad'); });
-      if (ok) score++; else wrong.push(sentence(q,true));
+      if (ok) score++; else { wrong.push(sentence(q,true)); LevelUp.err(sentence(q,false).replace(/\(.*?\)/,'(' + t.inf + ')'), t.exp[0], opts[k]); }
       const fb = $('chFb'); fb.className = 'fb ' + (ok?'ok':'ko');
       fb.innerHTML = (ok?'✔ <b>Bravo !</b> ':'✘ <b>Pas tout à fait…</b> ') + WHY[t.t] + '.<br>' + sentence(q,true);
       $('chNext').classList.remove('hide'); $('chNext').querySelector('button').focus();
@@ -630,7 +631,7 @@ SETUP.transfo = function(){
     const pool = BANK.filter(b => { const pc = b.toks.some(t=>t.pc); return (pc && opts.src.includes('pc')) || (!pc && opts.src.includes('pres')); });
     return shuffle(pool).slice(0, NB_TR);
   }
-  function start(){ qs = build(); i = 0; score = 0; total = 0; wrong = []; show(); }
+  function start(){ qs = build(); i = 0; score = 0; total = 0; wrong = []; LevelUp.reset(); show(); }
   function show(){
     locked = false; const b = qs[i];
     const srcHtml = fill(esc(b.s), k => `<b>${esc(b.toks[k].src)}</b>`);
@@ -658,7 +659,7 @@ SETUP.transfo = function(){
         const accepted = t.exp.flatMap(x => [norm(x), norm(x).replace(/^se |^s'/,'')]);
         const ok = accepted.includes(v);
         inp.readOnly = true; inp.classList.add(ok?'good':'bad'); total++;
-        if (ok) good++; else wrong.push(`${esc(t.src)} → <b>${t.exp.join(' / ')}</b> (${LABEL[t.t].replace('⚠ ','')})`);
+        if (ok) good++; else { wrong.push(`${esc(t.src)} → <b>${t.exp.join(' / ')}</b> (${LABEL[t.t].replace('⚠ ','')})`); LevelUp.err(fill(b.s, j => j===k ? `[${b.toks[j].src}]` : b.toks[j].src), t.exp.join(' / '), inp.value); }
         lines.push(`<li>${ok?'✔':'✘'} <b>${esc(t.src)}</b> → <b>${t.exp.join('</b> ou <b>')}</b> — ${WHY[t.t]}</li>`);
       });
       score += good;
@@ -673,6 +674,7 @@ SETUP.transfo = function(){
     const prev = store.get('tr'); const ratio = score/total;
     const prevRatio = prev ? +prev.split('/')[0]/+prev.split('/')[1] : -1;
     if (ratio > prevRatio) store.set('tr', `${score}/${total}`);
+    LevelUp.save('transfo-' + opts.mode, score, total);
     const pct = ratio, msg = pct===1 ? 'Parfait ! 🏆' : pct>=0.8 ? 'Très bien ! 🌟' : pct>=0.5 ? 'Pas mal, continue ! 💪' : 'Relis les règles et réessaie 📘';
     box.innerHTML = `<h2>Transformer — terminé</h2><div class="score">${score} / ${total}</div><p><b>${msg}</b> (verbes justes)</p>
       ${wrong.length ? `<h3>À revoir (recopie-les)</h3><ul class="review">${wrong.map(w=>`<li>${w}</li>`).join('')}</ul>` : ''}
@@ -696,14 +698,14 @@ const TEXTES = [
   {t:"Le robot", s:"En 2150, les robots [firent|faisaient|Une époque, une situation qui dure → imparfait.] tout le travail. Un matin, l'un d'eux [refusait|refusa|Action unique (« un matin ») → passé simple.] d'obéir. Il fallait qu'on le [répara|répare|Après « il fallait que » → subjonctif présent.] au plus vite. Les ingénieurs [descendèrent|descendirent|descendre au passé simple : ils descendirent (famille -i).] dans l'atelier. Personne ne [compris|comprit|comprendre au passé simple, 3e pers. du singulier : il comprit (avec t).] ce qui se passait. Le robot [écriva|écrivit|écrire au passé simple : il écrivit.] un seul mot sur l'écran : « Liberté »."}
 ];
 SETUP.corriger = function(){
-  let cur = 0, tFound, tMiss, tTotal;
+  let cur = 0, tFound, tMiss, tTotal, textSaved = false;
   const done = new Set(JSON.parse(store.get('txtDone')||'[]'));
   function tabs(){
     $('txtTabs').innerHTML = TEXTES.map((x,k)=>`<button class="${k===cur?'on':''} ${done.has(k)?'done':''}">${k+1}. ${x.t}</button>`).join('');
     $('txtTabs').querySelectorAll('button').forEach((b,k) => b.onclick = () => { cur = k; build(); });
   }
   function build(){
-    tabs(); tFound = 0; tMiss = 0; tTotal = 0;
+    tabs(); tFound = 0; tMiss = 0; tTotal = 0; textSaved = false;
     const T = TEXTES[cur]; $('txtTitle').textContent = T.t;
     const txt = $('txt'); txt.innerHTML = ''; $('why').textContent = 'Clique sur les mots fautifs…';
     const re = /\[([^|\]]+)\|([^|\]]+)\|([^\]]+)\]/g; let last = 0, m;
@@ -730,6 +732,7 @@ SETUP.corriger = function(){
     $('tFound').textContent = tFound; $('tMiss').textContent = tMiss;
     if (tFound === tTotal && tTotal) {
       done.add(cur); store.set('txtDone', JSON.stringify([...done])); tabs();
+      if (!textSaved) { textSaved = true; LevelUp.reset(); LevelUp.save('texte-' + (cur+1), tTotal, tTotal + tMiss); }
       $('why').innerHTML = `🎉 Toutes les fautes sont trouvées ! (${tMiss} clic${tMiss>1?'s':''} sur des mots justes)<br>✍️ Recopie le texte corrigé dans ton cahier, puis passe au texte suivant.`;
     }
   }

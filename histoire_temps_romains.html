@@ -159,6 +159,7 @@
   <section id="frise" class="hide"><div class="card" id="friseBox"></div></section>
 </main>
 
+<script src="levelup.js" data-quiz="histoire-temps-1"></script>
 <script>
 const QUIZ_ID = 'histoire-temps-1';
 const $ = id => document.getElementById(id);
@@ -255,7 +256,7 @@ function romQuestion(){
 /* ---------- Moteur de quiz (QCM ou réponse tapée) ---------- */
 function makeRunner(boxId, key, title, build){
   const box = $(boxId); let qs, i, score, wrong, locked;
-  function start(){ box.dataset.started = 1; qs = build(); i = 0; score = 0; wrong = []; show(); }
+  function start(){ box.dataset.started = 1; qs = build(); i = 0; score = 0; wrong = []; LevelUp.reset(); show(); }
   function show(){
     locked = false; const q = qs[i];
     const body = q.input
@@ -272,26 +273,26 @@ function makeRunner(boxId, key, title, build){
       const inp = $(`${boxId}-in`); inp.focus();
       $(`${boxId}-f`).onsubmit = e => { e.preventDefault(); if (locked) return next();
         const v = inp.value.trim(); if (!v) return; inp.readOnly = true;
-        const ok = q.check(v); inp.classList.add(ok?'good':'bad'); done(ok); };
+        const ok = q.check(v); inp.classList.add(ok?'good':'bad'); done(ok, v); };
     } else {
       box.querySelectorAll('.opts button').forEach((b,k) => b.onclick = () => {
         const btns = box.querySelectorAll('.opts button'); btns.forEach(x => x.disabled = true);
         const ok = q.opts[k] === q.answer;
         btns.forEach((x,j) => { if (q.opts[j]===q.answer) x.classList.add('good'); else if (j===k) x.classList.add('bad'); });
-        done(ok);
+        done(ok, q.opts[k]);
       });
     }
   }
-  function done(ok){
+  function done(ok, given){
     locked = true; const q = qs[i];
-    if (ok) score++; else wrong.push(q.recap);
+    if (ok) score++; else { wrong.push(q.recap); LevelUp.err(q.prompt, q.good || q.answer, given); }
     const fb = $(`${boxId}-fb`); fb.className = 'fb ' + (ok?'ok':'ko');
     fb.innerHTML = (ok ? '✔ <b>Bravo !</b>' : `✘ <b>Pas tout à fait…</b>${q.good?` Réponse : <b>${q.good}</b>`:''}`) + (q.explain ? '<br>'+q.explain : '');
     $(`${boxId}-next`).classList.remove('hide'); $(`${boxId}-next`).querySelector('button').focus();
   }
   function next(){ i++; i<qs.length ? show() : end(); }
   function end(){
-    const best = Math.max(getBest(key), score); setBest(key, best);
+    const best = Math.max(getBest(key), score); setBest(key, best); LevelUp.save(key, score, qs.length);
     const pct = score/qs.length;
     const msg = pct===1 ? 'Parfait ! 🏆' : pct>=0.8 ? 'Très bien ! 🌟' : pct>=0.5 ? 'Pas mal, continue ! 💪' : 'Relis la leçon et réessaie 📘';
     box.innerHTML = `<h2>${title} — terminé</h2>
@@ -363,6 +364,7 @@ function friseGame(){
     const best = getBest('frise_best'), first = best === 0;
     // on garde le plus petit nombre d'erreurs (+1 pour distinguer "jamais joué")
     if (first || errors+1 < best) setBest('frise_best', errors+1);
+    LevelUp.reset(); LevelUp.save('frise', 10, 10 + errors);
     const rec = first || errors+1 < best;
     box.querySelector('p').innerHTML = errors === 0
       ? '🏆 <b>Frise parfaite, sans aucune erreur !</b>'

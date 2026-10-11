@@ -248,6 +248,7 @@
   </section>
 </main>
 
+<script src="levelup.js" data-quiz="accords-4e"></script>
 <script>
 const QUIZ_ID = 'accords-4e';
 const NB_Q = 20;
@@ -381,7 +382,7 @@ function build(){
   return shuffle(out);
 }
 function start(){
-  qs = build(); qi = 0; score = 0; wrong = [];
+  qs = build(); qi = 0; score = 0; wrong = []; LevelUp.reset();
   perCat = {}; cats.forEach(k => perCat[k] = {ok:0,n:0});
   show();
 }
@@ -415,23 +416,23 @@ function show(){
     $('f').onsubmit = e => { e.preventDefault(); if (locked) return next();
       const v = inp.value; if (!v.trim()) return;
       inp.readOnly = true; const ok = q.r.some(r => norm(r)===norm(v));
-      inp.classList.add(ok?'good':'bad'); done(ok, q.r[0]); };
+      inp.classList.add(ok?'good':'bad'); done(ok, q.r[0], v); };
   } else {
     box.querySelectorAll('.opts button').forEach((b,k) => b.onclick = () => {
       const btns = box.querySelectorAll('.opts button'); btns.forEach(x => x.disabled = true);
       const ok = q.opts[k]===q.ans;
       btns.forEach((x,j) => { if (q.opts[j]===q.ans) x.classList.add('good'); else if (j===k) x.classList.add('bad'); });
-      done(ok, q.ans);
+      done(ok, q.ans, q.opts[k]);
     });
   }
 }
-function done(ok, answer){
+function done(ok, answer, given){
   locked = true; const q = qs[qi];
   perCat[q.k].n++; if (ok){ score++; perCat[q.k].ok++; }
   let corr = '';
   if (q.t==='vf' && !q.ok) corr = `<br>Correction : ${q.c}`;
   if (!ok && q.t==='saisie') corr = `<br>Il fallait écrire : <b>${esc(answer)}</b>`;
-  if (!ok) wrong.push(recap(q));
+  if (!ok) { wrong.push(recap(q)); LevelUp.err(`[${CATS[q.k].n}] ${sentence(q)}`, q.t==='vf' && !q.ok ? q.c : answer, given); }
   const fb = $('fb'); fb.className = 'fb ' + (ok?'ok':'ko');
   fb.innerHTML = (ok ? '✔ <b>Bravo !</b>' : '✘ <b>Pas tout à fait…</b>') + corr + '<br>' + q.e;
   $('next').classList.remove('hide'); $('next').querySelector('button').focus();
@@ -447,7 +448,7 @@ function recap(q){
 }
 function next(){ qi++; qi<qs.length ? show() : end(); }
 function end(){
-  const old = parseInt(store.get('best'))||0, best = Math.max(old, score); store.set('best', best);
+  const old = parseInt(store.get('best'))||0, best = Math.max(old, score); store.set('best', best); LevelUp.save('quiz', score, qs.length);
   const pct = score/qs.length;
   const msg = pct===1 ? 'Parfait, digne d\'un roi ! 👑' : pct>=0.8 ? 'Très bien ! 🌟' : pct>=0.5 ? 'Pas mal, continue ! 💪' : 'Relis les règles et retente ta chance 📘';
   const rows = Object.entries(perCat).filter(([,v])=>v.n).map(([k,v]) => {
@@ -466,9 +467,9 @@ function end(){
 
 /* ============ CHASSE AUX FAUTES ============ */
 const TEXTE = "Le soleil se levait [a|à] peine quand la vigie [à|a] crié : « Terre en vue ! » Tout l'équipage s'est [précipiter|précipité] sur le pont. Les marins, [épuisé|épuisés] par trois jours de tempête, [regardait|regardaient] l'île avec espoir. Nami [à|a] aussitôt sorti sa carte. « Nous [allont|allons] accoster derrière ces rochers, [a|à] l'abri du vent. » Le capitaine, lui, voulait déjà [sauté|sauter] [a|à] l'eau. Les provisions que Sanji avait [préparé|préparées] [était|étaient] presque [épuisé|épuisées]. Zoro, qui [dormé|dormait] encore, s'est [réveiller|réveillé] en sursaut. « Vous [venais|venez] ? On [vas|va] enfin trouver le trésor ! » Robin et Nami sont [descendu|descendues] les premières. Les pirates sont [partit|partis] [a|à] l'aventure, sans savoir ce qui les [attendaient|attendait].";
-let tFound, tMiss, tTotal;
+let tFound, tMiss, tTotal, textSaved = false;
 function buildText(){
-  tFound = 0; tMiss = 0; tTotal = 0;
+  tFound = 0; tMiss = 0; tTotal = 0; textSaved = false;
   const txt = $('txt'); txt.innerHTML = '';
   const re = /\[([^|\]]+)\|([^\]]+)\]/g; let last = 0, m;
   const addPlain = str => str.split(/(\s+)/).forEach(tok => {
@@ -490,6 +491,7 @@ function buildText(){
 function upd(){
   $('tFound').textContent = tFound; $('tMiss').textContent = tMiss;
   if (tFound === tTotal) {
+    if (!textSaved) { textSaved = true; LevelUp.reset(); LevelUp.save('texte', tTotal, tTotal + tMiss); }
     const e = $('tEnd'); e.classList.remove('hide');
     e.innerHTML = `🏴‍☠️ Toutes les fautes sont trouvées ! (${tMiss} clic${tMiss>1?'s':''} sur des mots justes)<br>✍️ Pour finir : choisis 5 corrections et explique chacune avec la bonne règle.`;
   }

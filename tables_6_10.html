@@ -102,6 +102,7 @@
 
 </main>
 
+<script src="levelup.js" data-quiz="tables-6-10"></script>
 <script>
 const QUIZ_ID = 'tables-6-10';
 const TABLES = [6,7,8,9,10];
@@ -165,7 +166,7 @@ function makeQuiz(boxId, key, title, missing){
     $(`${boxId}-go`).onclick = () => start(chosen(selId));
   }
   let tabs;
-  function start(t){ tabs = t; qs = makeFacts(t, NB_Q); i = 0; score = 0; wrong = []; show(); }
+  function start(t){ tabs = t; qs = makeFacts(t, NB_Q); i = 0; score = 0; wrong = []; LevelUp.reset(); show(); }
   function show(){
     locked = false;
     const [a,b] = qs[i];
@@ -190,14 +191,14 @@ function makeQuiz(boxId, key, title, missing){
     const [a,b] = qs[i], ok = parseInt(v) === qs[i].expected;
     inp.classList.add(ok ? 'good' : 'bad');
     const full = `${a} × ${b} = ${a*b}`;
-    if (ok) score++; else wrong.push(full);
+    if (ok) score++; else { wrong.push(full); LevelUp.err(missing ? box.querySelector('.op').textContent : `${a} × ${b}`, String(qs[i].expected), v); }
     const fb = $(`${boxId}-fb`); fb.className = 'fb ' + (ok ? 'ok' : 'ko');
     fb.innerHTML = ok ? `✔ <b>Bravo !</b> ${full}` : `✘ La bonne réponse : <b>${full}</b>`;
     $(`${boxId}-next`).classList.remove('hide');
   }
   function next(){ i++; i<qs.length ? show() : end(); }
   function end(){
-    const best = Math.max(getBest(key), score); setBest(key, best);
+    const best = Math.max(getBest(key), score); setBest(key, best); LevelUp.save(key, score, qs.length);
     const pct = score/qs.length;
     const msg = pct===1 ? 'Parfait ! 🏆' : pct>=0.8 ? 'Très bien ! 🌟' : pct>=0.5 ? 'Pas mal, continue ! 💪' : 'Relis les tables et réessaie 📘';
     box.innerHTML = `<h2>${title} — terminé</h2>
@@ -225,7 +226,7 @@ function setupChrono(){
     $('chr-go').onclick = () => { tabs = chosen(selId); start(); };
   }
   function start(){
-    facts = makeFacts(tabs, 200); i = 0; score = 0; wrong = []; left = DUREE;
+    facts = makeFacts(tabs, 200); i = 0; score = 0; wrong = []; left = DUREE; LevelUp.reset();
     box.innerHTML = `<h2>Défi chrono</h2>
       <div class="q-top"><span class="timer" id="chr-t">${left}</span><span>Bonnes réponses : <b id="chr-s">0</b></span></div>
       <div class="bar"><i id="chr-bar" style="width:100%"></i></div>
@@ -237,7 +238,7 @@ function setupChrono(){
       e.preventDefault(); const v = inp.value.trim(); if (v==='') return;
       const [a,b] = facts[i];
       if (parseInt(v) === a*b) { score++; $('chr-s').textContent = score; flash(inp,'good'); }
-      else { wrong.push(`${a} × ${b} = ${a*b}`); flash(inp,'bad'); }
+      else { wrong.push(`${a} × ${b} = ${a*b}`); LevelUp.err(`${a} × ${b}`, String(a*b), v); flash(inp,'bad'); }
       i++; inp.value = ''; showOp(); inp.focus();
     };
     timer = setInterval(() => {
@@ -248,7 +249,7 @@ function setupChrono(){
   function flash(el,c){ el.classList.add(c); setTimeout(()=>el.classList.remove(c),250); }
   function showOp(){ const [a,b] = facts[i]; $('chr-op').innerHTML = `${a} × ${b} = <span class="blank">?</span>`; }
   function end(){
-    const old = getBest('chrono'), best = Math.max(old, score); setBest('chrono', best);
+    const old = getBest('chrono'), best = Math.max(old, score); setBest('chrono', best); if (score + wrong.length) LevelUp.save('chrono', score, score + wrong.length);
     box.innerHTML = `<h2>Temps écoulé !</h2>
       <div class="score">${score} bonne${score>1?'s':''} réponse${score>1?'s':''}</div>
       <p>${score > old && old > 0 ? '🏆 <b>Nouveau record !</b>' : `Record : ${best}`} — ${wrong.length} erreur${wrong.length>1?'s':''}</p>

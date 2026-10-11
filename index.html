@@ -119,6 +119,30 @@
   footer .hand{font-family:Caveat,cursive;font-size:22px;display:block;color:var(--hi)}
   @keyframes rise{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
   @media (prefers-reduced-motion: reduce){.card{animation:none}.xpbar i{transition:none}}
+  /* ===== Compte enfant ===== */
+  .brand{justify-content:space-between;flex-wrap:wrap;row-gap:12px}
+  .brand h1{white-space:nowrap}
+  .who{display:flex;align-items:center;gap:8px;flex-wrap:wrap;justify-content:flex-end}
+  .who button,.who .chip{font:600 15px Inter,sans-serif;border-radius:999px;padding:8px 14px;cursor:pointer;border:1px solid rgba(255,255,255,.25)}
+  .who .login{background:var(--chalk-y);color:#23342d;border-color:transparent}
+  .who .chip{background:rgba(255,255,255,.08);color:var(--chalk);cursor:default}
+  .who .out{background:transparent;color:#cfd8cf}
+  .sync{font-size:12px;color:#bfc9bf;margin-top:6px}
+  .modal{position:fixed;inset:0;z-index:50;background:rgba(15,20,18,.55);backdrop-filter:blur(3px);display:none;align-items:center;justify-content:center;padding:16px}
+  .modal.show{display:flex}
+  .sheet{width:min(420px,100%);background:var(--card);color:var(--ink);border-radius:22px;padding:22px;box-shadow:0 30px 60px -20px rgba(0,0,0,.5);animation:rise .3s both}
+  .sheet h2{font-family:Fraunces,serif;margin:0 0 4px;font-size:26px}
+  .sheet p{margin:0 0 14px;color:var(--muted)}
+  .sheet label{display:block;font-weight:600;font-size:14px;margin:12px 0 6px}
+  .sheet input{width:100%;font:600 20px Inter,sans-serif;padding:12px 14px;border:2px solid var(--border);border-radius:14px;background:var(--paper);color:var(--ink)}
+  .sheet input:focus{outline:none;border-color:var(--fr)}
+  .pin{display:flex;gap:10px}
+  .pin input{text-align:center;font-size:28px;padding:10px 0}
+  .sheet .err{color:#d14343;font-weight:600;min-height:1.4em;margin:10px 0 0}
+  .sheet .actions{display:flex;gap:10px;margin-top:14px}
+  .sheet .actions button{flex:1;font:700 16px Inter,sans-serif;border-radius:14px;padding:12px;cursor:pointer;border:2px solid var(--border);background:var(--card);color:var(--ink)}
+  .sheet .actions .primary{background:var(--board);color:var(--chalk-y);border-color:var(--board)}
+  footer a{color:var(--muted)}
   @media (max-width:640px){
     .stats{grid-template-columns:1fr 1fr}.stats .stat:first-child{grid-column:1/-1}
     .seg button{padding:8px 11px}
@@ -133,10 +157,11 @@
 <header class="hero">
   <div class="wrap">
     <div class="brand">
-      <div class="logo" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 3 L20 12 H15.5 V21 H8.5 V12 H4 Z" fill="#23342d"/></svg></div>
-      <div>
+      <div style="display:flex;align-items:center;gap:14px">
+        <div class="logo" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 3 L20 12 H15.5 V21 H8.5 V12 H4 Z" fill="#23342d"/></svg></div>
         <h1>Level <span class="up">Up</span></h1>
       </div>
+      <div class="who" id="who"></div>
     </div>
     <p class="tagline">Un peu chaque jour, <u>beaucoup</u> chaque année.</p>
 
@@ -173,7 +198,26 @@
   </div>
 </main>
 
-<footer><span class="hand">Bon courage, et amuse-toi bien !</span>Level Up · Français · Maths · Histoire — CM2 &amp; 4e</footer>
+<footer><span class="hand">Bon courage, et amuse-toi bien !</span>Level Up · Français · Maths · Histoire — CM2 &amp; 4e<br><a href="parent.html">Espace parent →</a></footer>
+
+<div class="modal" id="loginModal" role="dialog" aria-modal="true" aria-labelledby="lgTitle">
+  <form class="sheet" id="loginForm" autocomplete="off">
+    <h2 id="lgTitle">Qui joue ?</h2>
+    <p>Tape ton prénom et ton code secret à 4 chiffres.</p>
+    <label for="lgName">Prénom</label>
+    <input id="lgName" autocapitalize="words" spellcheck="false" required>
+    <label>Code secret</label>
+    <div class="pin">
+      <input inputmode="numeric" maxlength="1" pattern="[0-9]" aria-label="Chiffre 1" type="password">
+      <input inputmode="numeric" maxlength="1" pattern="[0-9]" aria-label="Chiffre 2" type="password">
+      <input inputmode="numeric" maxlength="1" pattern="[0-9]" aria-label="Chiffre 3" type="password">
+      <input inputmode="numeric" maxlength="1" pattern="[0-9]" aria-label="Chiffre 4" type="password">
+    </div>
+    <p class="err" id="lgErr" role="alert"></p>
+    <div class="actions"><button type="button" id="lgCancel">Annuler</button><button class="primary" id="lgGo">C'est moi ! ▲</button></div>
+  </form>
+</div>
+<script src="levelup.js"></script>
 
 <script>
 /* ===== Catalogue : ajoute une ligne pour chaque nouveau quiz =====
@@ -222,8 +266,10 @@ const iconOf = q => (ICONS.find(([k]) => q.themes.some(t => t.includes(k))) || [
 
 /* ===== XP : calculés à partir des meilleurs scores enregistrés par chaque quiz ===== */
 const IGNORE = /(goal|draft|sujet|suCur|suites|frise_best)$/;
+let ME = null;   // données du compte connecté (null = pas connecté)
 function xpOf(id){
   if (!id) return {xp:0, played:false};
+  if (ME) { const d = (ME.quizzes || {})[id]; return d ? {xp:+d.xp, played:true, best:+d.best_pct} : {xp:0, played:false}; }
   let xp = 0, played = false;
   LS.keys().filter(k => k.includes(id) && !IGNORE.test(k)).forEach(k => {
     const v = LS.get(k) || ''; played = true;
@@ -235,11 +281,14 @@ function xpOf(id){
   return {xp, played};
 }
 const RANKS = ['Débutant','Apprenti','Curieux','Explorateur','Aventurier','Stratège','Expert','Champion','Maître','Légende'];
-const XP_PER_LEVEL = 60;
+// chaque niveau demande un peu plus d'XP que le précédent : 60, 100, 140, 180…
+function levelFrom(total){ let lv = 1, need = 60, rest = total; while (rest >= need) { rest -= need; lv++; need += 40; } return {lv, into:rest, need}; }
 
 /* ===== Série de jours ===== */
 function streak(){
   const today = new Date().toISOString().slice(0,10);
+  if (ME) { const days = (ME.days || []).map(String); let n = 0, d = new Date(); if (!days.includes(d.toISOString().slice(0,10))) d.setDate(d.getDate()-1);
+    while (days.includes(d.toISOString().slice(0,10))) { n++; d.setDate(d.getDate()-1); } return n; }
   let days = []; try { days = JSON.parse(LS.get('levelup_days') || '[]'); } catch(e){}
   if (!days.includes(today)) days.push(today);
   days = days.slice(-60); LS.set('levelup_days', JSON.stringify(days));
@@ -254,21 +303,23 @@ let level = LS.get('levelup_level') || 'all';
 let subjects = new Set();
 
 function renderStats(){
-  const total = quizzes.reduce((s,q) => s + xpOf(q.id).xp, 0);
-  const lv = Math.floor(total / XP_PER_LEVEL) + 1, into = total % XP_PER_LEVEL;
+  const total = ME ? +ME.xp : quizzes.reduce((s,q) => s + xpOf(q.id).xp, 0);
+  const {lv, into, need} = levelFrom(total);
   $('lvNum').textContent = lv;
   $('lvName').textContent = RANKS[Math.min(lv-1, RANKS.length-1)];
   $('xpTot').textContent = total;
-  requestAnimationFrame(() => { $('xpBar').style.width = (into / XP_PER_LEVEL * 100) + '%'; });
-  $('xpBarWrap').setAttribute('aria-valuenow', Math.round(into / XP_PER_LEVEL * 100));
-  $('xpNext').textContent = `Encore ${XP_PER_LEVEL - into} XP pour passer niveau ${lv+1}`;
+  requestAnimationFrame(() => { $('xpBar').style.width = (into / need * 100) + '%'; });
+  $('xpBarWrap').setAttribute('aria-valuenow', Math.round(into / need * 100));
+  $('xpNext').textContent = `Encore ${need - into} XP pour passer niveau ${lv+1}`;
   const s = streak();
   $('streak').textContent = `${s} jour${s>1?'s':''} 🔥`;
 }
 
 function card(q, k){
-  const s = subjectOf(q), {xp, played} = xpOf(q.id);
-  const pct = Math.min(100, Math.round(xp / 60 * 100));
+  const s = subjectOf(q), {xp, played, best} = xpOf(q.id);
+  // connecté : l'anneau montre le meilleur pourcentage ; sinon, la progression locale
+  const pct = best !== undefined ? best : Math.min(100, Math.round(xp / 60 * 100));
+  const mastered = best !== undefined ? best >= 90 : pct >= 100;
   return `<a class="card" data-s="${s}" href="${esc(q.file)}" data-file="${esc(q.file)}" data-title="${esc(q.title)}" style="animation-delay:${k*50}ms">
     ${q.isNew && !played ? '<span class="stamp">NOUVEAU</span>' : ''}
     <div class="top"><span class="ico" aria-hidden="true">${iconOf(q)}</span><span class="subjname">${SUBJ[s].n}</span>
@@ -277,7 +328,7 @@ function card(q, k){
     <p>${esc(q.desc || '')}</p>
     <div class="foot">
       <span class="prog"><span class="ring" style="--p:${played ? Math.max(pct,8) : 0}"></span>
-        ${played ? (pct >= 100 ? '<span class="done-mark">Bravo, maîtrisé !</span>' : `<span><b>${xp} XP</b> gagnés</span>`) : '<span>Pas encore joué</span>'}</span>
+        ${played ? (mastered ? '<span class="done-mark">Bravo, maîtrisé !</span>' : `<span><b>${xp} XP</b>${best !== undefined ? ` · record ${best} %` : ' gagnés'}</span>`) : '<span>Pas encore joué</span>'}</span>
       <span class="play">${played ? 'Rejouer' : 'Jouer'} →</span>
     </div>
   </a>`;
@@ -320,6 +371,55 @@ document.querySelectorAll('.subj').forEach(b => b.onclick = () => {
 $('q').oninput = render;
 
 renderStats(); renderResume(); render();
+
+/* ===== Compte enfant (Supabase) ===== */
+function renderWho(){
+  const s = LevelUp.session();
+  $('who').innerHTML = s
+    ? `<span class="chip">👋 ${esc(s.prenom)}</span><button class="out" id="outBtn">Changer de joueur</button>`
+    : `<button class="login" id="inBtn">Se connecter</button>`;
+  if (s) $('outBtn').onclick = async () => { await LevelUp.logout(); ME = null; renderWho(); renderStats(); render(); };
+  else $('inBtn').onclick = openLogin;
+}
+async function refreshMe(){
+  if (!LevelUp.session()) { ME = null; return; }
+  const d = await LevelUp.me();
+  ME = d; if (!d) renderWho();
+  renderStats(); render();
+}
+const pins = [...document.querySelectorAll('.pin input')];
+pins.forEach((inp,k) => {
+  inp.addEventListener('input', () => { inp.value = inp.value.replace(/\D/g,'').slice(-1); if (inp.value && k < 3) pins[k+1].focus(); if (k===3 && inp.value) $('loginForm').requestSubmit(); });
+  inp.addEventListener('keydown', e => { if (e.key==='Backspace' && !inp.value && k > 0) pins[k-1].focus(); });
+});
+function openLogin(){
+  $('lgErr').textContent = ''; pins.forEach(p => p.value = '');
+  $('loginModal').classList.add('show'); $('lgName').focus();
+}
+function closeLogin(){ $('loginModal').classList.remove('show'); }
+$('lgCancel').onclick = closeLogin;
+$('loginModal').addEventListener('click', e => { if (e.target.id === 'loginModal') closeLogin(); });
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLogin(); });
+$('loginForm').onsubmit = async e => {
+  e.preventDefault();
+  const name = $('lgName').value.trim(), pin = pins.map(p => p.value).join('');
+  if (!name) { $('lgErr').textContent = 'Écris ton prénom.'; return; }
+  if (!/^\d{4}$/.test(pin)) { $('lgErr').textContent = 'Le code a 4 chiffres.'; pins.find(p => !p.value)?.focus(); return; }
+  $('lgGo').disabled = true; $('lgErr').textContent = '';
+  try {
+    const s = await LevelUp.login(name, pin);
+    level = s.niveau === 'autre' ? 'all' : s.niveau;
+    document.querySelectorAll('#levelSeg button').forEach(x => x.classList.toggle('on', x.dataset.l === level));
+    closeLogin(); renderWho(); await refreshMe();
+    LevelUp.toast(`Salut ${s.prenom} ! On monte de niveau ? ▲`);
+  } catch(err){
+    $('lgErr').textContent = err.code === 'verrouille' ? 'Trop d\'essais : attends 15 minutes ou demande à un parent.'
+      : err.code === 'identifiants' ? 'Prénom ou code incorrect.' : 'Impossible de se connecter (Internet ?). Réessaie.';
+    pins.forEach(p => p.value = ''); pins[0].focus();
+  } finally { $('lgGo').disabled = false; }
+};
+renderWho(); refreshMe();
+if (location.hash === '#login' && !LevelUp.session()) openLogin();
 
 /* ===== Sur GitHub Pages : infos réelles des fichiers + découverte automatique ===== */
 async function readMeta(file){

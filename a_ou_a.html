@@ -141,6 +141,7 @@
   </section>
 </main>
 
+<script src="levelup.js" data-quiz="a-ou-a-1"></script>
 <script>
 const QUIZ_ID = 'a-ou-a-1';
 
@@ -257,7 +258,7 @@ function buildMots(){
 /* ---------- Moteur de quiz ---------- */
 function makeRunner(boxId, key, title, build){
   const box = $(boxId); let qs, i, score, wrong;
-  function start(){ box.dataset.started = 1; qs = build(); i = 0; score = 0; wrong = []; show(); }
+  function start(){ box.dataset.started = 1; qs = build(); i = 0; score = 0; wrong = []; LevelUp.reset(); show(); }
   function show(){
     const q = qs[i];
     box.innerHTML = `<h2>${title}</h2>
@@ -275,14 +276,14 @@ function makeRunner(boxId, key, title, build){
     btns.forEach(b => b.disabled = true);
     const ok = q.opts[k] === q.answer;
     btns.forEach((b,j) => { if (q.opts[j]===q.answer) b.classList.add('good'); else if (j===k) b.classList.add('bad'); });
-    if (ok) score++; else wrong.push(q.recap);
+    if (ok) score++; else { wrong.push(q.recap); LevelUp.err(q.prompt, q.answer, q.opts[k]); }
     fb.className = 'fb ' + (ok ? 'ok' : 'ko');
     fb.innerHTML = (ok ? '✔ <b>Bravo !</b><br>' : '✘ <b>Pas tout à fait…</b><br>') + q.explain;
     $(`${boxId}-next`).classList.remove('hide');
     $(`${boxId}-next`).querySelector('button').focus();
   }
   function end(){
-    const best = Math.max(getBest(key), score); setBest(key, best);
+    const best = Math.max(getBest(key), score); setBest(key, best); LevelUp.save(key, score, qs.length);
     const pct = score/qs.length;
     const msg = pct===1 ? 'Parfait ! 🏆' : pct>=0.8 ? 'Très bien ! 🌟' : pct>=0.5 ? 'Pas mal, continue ! 💪' : 'Relis la règle et réessaie 📘';
     box.innerHTML = `<h2>${title} — terminé</h2>
@@ -299,9 +300,9 @@ const runner = {
 };
 
 /* ---------- Texte à corriger ---------- */
-let tFound, tMiss, tTotal;
+let tFound, tMiss, tTotal, textSaved = false;
 function buildText(){
-  tFound = 0; tMiss = 0; tTotal = 0;
+  tFound = 0; tMiss = 0; tTotal = 0; textSaved = false;
   const txt = $('txt'); txt.innerHTML = '';
   const re = /\[([^|\]]+)\|([^\]]+)\]/g; let last = 0, m;
   const addPlain = str => str.split(/(\s+)/).forEach(tok => {
@@ -323,6 +324,7 @@ function buildText(){
 function upd(){
   $('tFound').textContent = tFound; $('tMiss').textContent = tMiss;
   if (tFound === tTotal) {
+    if (!textSaved) { textSaved = true; LevelUp.reset(); LevelUp.save('texte', tTotal, tTotal + tMiss); }
     const e = $('tEnd'); e.classList.remove('hide');
     e.innerHTML = `🎉 Toutes les fautes sont trouvées ! (${tMiss} clic${tMiss>1?'s':''} sur des mots justes)<br>✍️ Pour finir : recopie le texte corrigé dans ton cahier.`;
   }

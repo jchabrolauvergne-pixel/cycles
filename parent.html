@@ -110,11 +110,11 @@ let TOKEN = LS.get('lu_parent'), KIDS = [], CUR = LS.get('lu_parent_kid');
 const QUIZ = {
   'a-ou-a-1':'« a » ou « à » + dictée', 'son-e-1':'Son « é » — série 1', 'son-e-2':'Son « é » — série 2', 'homophones-1':'Homophones',
   'tables-6-10':'Tables de 6 à 10', 'histoire-temps-1':'Repères dans le temps + chiffres romains',
-  'accords-4e':'Accords et nature des mots', 'imp-ps-4e':'Imparfait et passé simple'
+  'accords-4e':'Accords et nature des mots', 'imp-ps-4e':'Imparfait et passé simple', 'waste-cm2':'Waste (anglais)'
 };
 const MODE = { aa:'quiz a/à', mots:'mots de la dictée', texte:'texte à corriger', quiz:'quiz', manque:'facteur manquant', chrono:'défi chrono',
   qcm:'quiz', rom:'chiffres romains', frise:'frise', conj:'conjuguer', choix:'imp. ou p. s. ?', 'transfo-guide':'transformer (guidé)', 'transfo-expert':'transformer (expert)',
-  'niveau-1':'quiz niveau 1', 'niveau-2':'quiz niveau 2', 'texte-1':'texte 1', 'texte-2':'texte 2' };
+  'niveau-1':'quiz niveau 1', 'niveau-2':'quiz niveau 2', tri:'tri des déchets', spelling:'dictée de mots', 'texte-1':'texte 1', 'texte-2':'texte 2' };
 const modeName = m => MODE[m] || (/^texte-\d+$/.test(m) ? 'texte ' + m.split('-')[1] : m);
 const quizName = (q, m) => `${QUIZ[q] || q}${m ? ' · ' + modeName(m) : ''}`;
 const pctCls = p => p >= 80 ? 'g' : p >= 50 ? 'm' : 'b';

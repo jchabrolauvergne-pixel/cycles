@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Level Up</title>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%2323342d'/%3E%3Cpath d='M32 11 L51 34 H40 V53 H24 V34 H13 Z' fill='%23f5d76e'/%3E%3C/svg%3E">
-<meta name="description" content="Level Up : quiz et exercices de français, de maths et d'histoire, CM2 et 4e.">
+<meta name="description" content="Level Up : quiz et exercices de français, de maths, d'histoire et d'anglais, CM2 et 4e.">
 <meta name="theme-color" content="#23342d">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -15,7 +15,7 @@
     --paper:#fbfaf6; --line:#dde8f4; --line2:#b9d1ea; --margin:#e9a3a3;
     --ink:#1d2433; --muted:#5f6878; --card:#ffffff; --border:#e6e2d8;
     --board:#23342d; --board2:#1b2823; --chalk:#f4f1e8; --chalk-y:#f5d76e; --wood:#8a5a32;
-    --fr:#2c4fa3; --fr-soft:#e6ecfa; --ma:#1f8a5b; --ma-soft:#e2f5ec; --hi:#b5562b; --hi-soft:#fbeadf;
+    --fr:#2c4fa3; --fr-soft:#e6ecfa; --ma:#1f8a5b; --ma-soft:#e2f5ec; --hi:#b5562b; --hi-soft:#fbeadf; --en:#7a3ea8; --en-soft:#f0e6f7;
     --xp:#f5b83d; --xp2:#ff7a59; --shadow:0 1px 2px rgba(30,30,40,.06),0 8px 24px -12px rgba(30,30,40,.18);
   }
   @media (prefers-color-scheme: dark){
@@ -23,7 +23,7 @@
       --paper:#141823; --line:#1f2737; --line2:#28334a; --margin:#5a2f38;
       --ink:#eceef4; --muted:#a3abbb; --card:#1b2130; --border:#2a3245;
       --board:#16211c; --board2:#101813;
-      --fr-soft:#1f2a47; --ma-soft:#16302a; --hi-soft:#3a2418; --fr:#8aa8ff; --ma:#5fd09c; --hi:#f0a27a;
+      --fr-soft:#1f2a47; --ma-soft:#16302a; --hi-soft:#3a2418; --fr:#8aa8ff; --ma:#5fd09c; --hi:#f0a27a; --en:#c79bf0; --en-soft:#2e1f3d;
       --shadow:0 1px 2px rgba(0,0,0,.3),0 10px 30px -14px rgba(0,0,0,.6);
     }
   }
@@ -85,6 +85,7 @@
   .subj[data-s="fr"].on{border-color:var(--fr);background:var(--fr-soft);color:var(--fr)}
   .subj[data-s="ma"].on{border-color:var(--ma);background:var(--ma-soft);color:var(--ma)}
   .subj[data-s="hi"].on{border-color:var(--hi);background:var(--hi-soft);color:var(--hi)}
+  .subj[data-s="en"].on{border-color:var(--en);background:var(--en-soft);color:var(--en)}
 
   /* ============ SECTIONS + CARTES ============ */
   .section-title{display:flex;flex-wrap:wrap;align-items:baseline;gap:2px 10px;margin:26px 0 12px}
@@ -97,7 +98,7 @@
   .card::before{content:"";position:absolute;left:0;top:0;bottom:0;width:7px;background:var(--c)}
   .card:hover{transform:translateY(-4px) rotate(-.3deg);box-shadow:0 2px 4px rgba(0,0,0,.06),0 18px 34px -16px rgba(0,0,0,.3)}
   .card:focus-visible{outline:3px solid var(--c);outline-offset:3px}
-  .card[data-s="fr"]{--c:var(--fr);--cs:var(--fr-soft)} .card[data-s="ma"]{--c:var(--ma);--cs:var(--ma-soft)} .card[data-s="hi"]{--c:var(--hi);--cs:var(--hi-soft)}
+  .card[data-s="fr"]{--c:var(--fr);--cs:var(--fr-soft)} .card[data-s="ma"]{--c:var(--ma);--cs:var(--ma-soft)} .card[data-s="hi"]{--c:var(--hi);--cs:var(--hi-soft)} .card[data-s="en"]{--c:var(--en);--cs:var(--en-soft)}
   .top{display:flex;align-items:center;gap:10px;margin-bottom:10px}
   .ico{width:42px;height:42px;border-radius:12px;display:grid;place-items:center;font-size:22px;background:var(--cs);flex:none}
   .subjname{font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--c)}
@@ -191,6 +192,7 @@
       <button class="subj" data-s="fr">✒️ Français</button>
       <button class="subj" data-s="ma">📐 Maths</button>
       <button class="subj" data-s="hi">🏛️ Histoire</button>
+      <button class="subj" data-s="en">🇬🇧 Anglais</button>
     </div>
 
     <div id="sections"></div>
@@ -198,7 +200,7 @@
   </div>
 </main>
 
-<footer><span class="hand">Bon courage, et amuse-toi bien !</span>Level Up · Français · Maths · Histoire — CM2 &amp; 4e<br><a href="parent.html">Espace parent →</a></footer>
+<footer><span class="hand">Bon courage, et amuse-toi bien !</span>Level Up · Français · Maths · Histoire · Anglais — CM2 &amp; 4e<br><a href="parent.html">Espace parent →</a></footer>
 
 <div class="modal" id="loginModal" role="dialog" aria-modal="true" aria-labelledby="lgTitle">
   <form class="sheet" id="loginForm" autocomplete="off">
@@ -246,7 +248,10 @@ const CATALOGUE = [
    themes:['accords','a/à','participe passé','nature des mots','écriture','4e']},
   {file:'imparfait_passe_simple.html', id:'imp-ps-4e', title:'Imparfait et passé simple',
    desc:"Conjuguer, choisir le bon temps, transformer un récit (subjonctif signalé), corriger des textes et écrire la suite d'une histoire.",
-   themes:['conjugaison','imparfait','passé simple','subjonctif','écriture','4e'], isNew:true}
+   themes:['conjugaison','imparfait','passé simple','subjonctif','écriture','4e']},
+  {file:'waste_cm2.html', id:'waste-cm2', title:'Waste — les déchets en anglais',
+   desc:"Science in English : les matériaux des déchets, le tri, combien de temps ils restent dans la nature, leur traitement en France. Avec prononciation, dictée et texte à corriger.",
+   themes:['anglais','sciences','waste','déchets','CM2'], isNew:true}
 ];
 
 const $ = id => document.getElementById(id);
@@ -258,10 +263,10 @@ const LS = {
 };
 
 /* ===== Matière, niveau, icône ===== */
-const SUBJ = { fr:{n:'Français', i:'✒️'}, ma:{n:'Maths', i:'📐'}, hi:{n:'Histoire', i:'🏛️'} };
-const subjectOf = q => q.themes.includes('maths') ? 'ma' : q.themes.includes('histoire') ? 'hi' : 'fr';
+const SUBJ = { fr:{n:'Français', i:'✒️'}, ma:{n:'Maths', i:'📐'}, hi:{n:'Histoire', i:'🏛️'}, en:{n:'Anglais', i:'🇬🇧'} };
+const subjectOf = q => q.themes.includes('anglais') ? 'en' : q.themes.includes('maths') ? 'ma' : q.themes.includes('histoire') ? 'hi' : 'fr';
 const levelsOf = q => ['CM2','4e'].filter(l => q.themes.includes(l));
-const ICONS = [['tables','✖️'],['romain','🏛️'],['frise','⏳'],['passé simple','⏱️'],['imparfait','⏱️'],['conjugaison','🔁'],['accords','🔗'],['son é','🔊'],['dictée','📝'],['homophones','👯'],['écriture','✍️']];
+const ICONS = [['waste','♻️'],['tables','✖️'],['romain','🏛️'],['frise','⏳'],['passé simple','⏱️'],['imparfait','⏱️'],['conjugaison','🔁'],['accords','🔗'],['son é','🔊'],['dictée','📝'],['homophones','👯'],['écriture','✍️']];
 const iconOf = q => (ICONS.find(([k]) => q.themes.some(t => t.includes(k))) || [0, SUBJ[subjectOf(q)].i])[1];
 
 /* ===== XP : calculés à partir des meilleurs scores enregistrés par chaque quiz ===== */
@@ -340,9 +345,9 @@ function render(){
     .filter(q => level==='all' || levelsOf(q).includes(level))
     .filter(q => !subjects.size || subjects.has(subjectOf(q)))
     .filter(q => !term || (q.title+' '+(q.desc||'')+' '+q.themes.join(' ')).toLowerCase().includes(term));
-  const order = ['fr','ma','hi'];
+  const order = ['fr','ma','hi','en'];
   const groups = order.map(s => [s, list.filter(q => subjectOf(q)===s)]).filter(([,l]) => l.length);
-  const notes = {fr:'orthographe, grammaire, conjugaison', ma:'calcul et tables', hi:'repères et dates'};
+  const notes = {fr:'orthographe, grammaire, conjugaison', ma:'calcul et tables', hi:'repères et dates', en:'vocabulaire et sciences en anglais'};
   let k = 0;
   $('sections').innerHTML = groups.map(([s,l]) => `
     <div class="section-title"><h2>${SUBJ[s].i} ${SUBJ[s].n}</h2><span class="hand">${notes[s]} · ${l.length} quiz</span></div>

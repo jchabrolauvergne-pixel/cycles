@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Waste — les déchets en anglais (CM2)</title>
+<meta name="description" content="Science in English : les matériaux des déchets, le tri, combien de temps les déchets restent dans la nature, le traitement des déchets en France. Vocabulaire avec prononciation, tri, quiz, dictée et texte à corriger.">
+<meta name="themes" content="anglais, sciences, waste, déchets, CM2">
+<style>
+  :root{
+    --bg:#f2f6f1; --card:#ffffff; --ink:#1d2a22; --muted:#5b6b60;
+    --primary:#2f7d4f; --primary-soft:#e2f2e7; --accent:#7a3ea8; --accent-soft:#f0e6f7;
+    --ok:#2e9e5b; --ok-soft:#e3f6ea; --ko:#d14343; --ko-soft:#fbe5e5; --line:#dbe5dd;
+    --c-org:#7a5a2e; --c-pla:#e0a21b; --c-pap:#3e7bd8; --c-car:#a8743c; --c-gla:#2aa39a; --c-alu:#8a96a3; --c-met:#5a6370; --c-dan:#d14343;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;background:var(--bg);color:var(--ink);font-size:18px;line-height:1.5}
+  header{background:linear-gradient(135deg,#1f5c3a,#2f7d4f);color:#fff;padding:18px 16px 0}
+  .wrap{max-width:900px;margin:0 auto}
+  header a.back{color:#d5ecdc;text-decoration:none;font-size:15px}
+  h1{margin:6px 0 4px;font-size:26px}
+  .sub{margin:0 0 14px;color:#d5ecdc;font-size:16px}
+  .badge{display:inline-block;background:var(--accent);color:#fff;border-radius:999px;padding:2px 10px;font-size:14px;font-weight:600;margin-left:6px;vertical-align:middle}
+  nav{display:flex;gap:5px;flex-wrap:wrap}
+  nav button{border:0;background:rgba(255,255,255,.15);color:#fff;padding:9px 12px;border-radius:10px 10px 0 0;font-size:15px;cursor:pointer;font-weight:600}
+  nav button.on{background:var(--bg);color:var(--primary)}
+  main{padding:18px 16px 70px}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px;margin-bottom:16px;box-shadow:0 1px 3px rgba(0,0,0,.04)}
+  h2{margin:0 0 10px;font-size:21px;color:var(--primary)}
+  h3{margin:16px 0 6px;font-size:18px;color:var(--primary)}
+  .hint{color:var(--muted);font-size:16px}
+  .fr{color:var(--muted);font-size:.85em;font-style:italic}
+  .say{border:0;background:var(--primary-soft);color:var(--primary);border-radius:999px;width:30px;height:30px;cursor:pointer;font-size:15px;vertical-align:middle;flex:none}
+  .say:hover{background:var(--primary);color:#fff}
+  .tip{background:#fff8d8;border-left:5px solid #f0c400;padding:10px 14px;border-radius:8px;margin-top:12px}
+  /* leçon */
+  .mats{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:10px}
+  .mat{border:2px solid var(--line);border-left:8px solid var(--c);border-radius:12px;padding:10px 12px}
+  .mat b{display:flex;align-items:center;gap:8px;font-size:18px}
+  .mat p{margin:4px 0 0;font-size:16px}
+  .vocab{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:6px}
+  .vocab div{display:flex;align-items:center;gap:8px;border:1px solid var(--line);border-radius:10px;padding:6px 8px;font-size:16px}
+  .vocab .e{font-size:20px;width:26px;text-align:center}
+  .steps{display:flex;align-items:flex-end;gap:4px;overflow-x:auto;padding:6px 0 4px}
+  .step{flex:1 0 82px;text-align:center;font-size:13px;display:flex;flex-direction:column;justify-content:flex-end}
+  .step .bar{background:linear-gradient(180deg,#5aa877,#2f7d4f);border-radius:6px 6px 0 0;color:#fff;font-weight:700;font-size:12px;padding:3px 2px;display:flex;align-items:flex-start;justify-content:center}
+  .step .ic{font-size:24px}
+  .treat{display:flex;gap:16px;align-items:center;flex-wrap:wrap}
+  .pie{width:150px;height:150px;border-radius:50%;background:conic-gradient(#3fa34d 0 20%, #c0392b 20% 56%, #29a3c4 56% 86%, #7a4fb5 86% 100%);flex:none}
+  .leg{flex:1 1 260px}
+  .leg div{margin:6px 0;padding-left:24px;position:relative}
+  .leg div i{position:absolute;left:0;top:4px}
+  .leg i{width:16px;height:16px;border-radius:4px;display:inline-block}
+  /* commun quiz */
+  .q-top{display:flex;justify-content:space-between;align-items:center;color:var(--muted);font-size:15px;margin-bottom:6px;gap:8px;flex-wrap:wrap}
+  .bar2{height:8px;background:var(--line);border-radius:99px;overflow:hidden;margin-bottom:16px}
+  .bar2>i{display:block;height:100%;background:var(--primary);width:0;transition:width .3s}
+  .prompt{font-size:22px;margin:4px 0 16px;display:flex;gap:10px;align-items:flex-start}
+  .big-e{font-size:56px;text-align:center;margin:4px 0}
+  .opts{display:flex;gap:10px;flex-wrap:wrap}
+  .opts button{flex:1 1 200px;font-size:18px;padding:12px;border:2px solid var(--line);background:#fff;border-radius:12px;cursor:pointer;font-weight:600;color:var(--ink);text-align:left}
+  .opts button:hover:not(:disabled){border-color:var(--primary)}
+  .opts button.good{background:var(--ok-soft);border-color:var(--ok);color:var(--ok)}
+  .opts button.bad{background:var(--ko-soft);border-color:var(--ko);color:var(--ko)}
+  .answer{display:flex;gap:10px;flex-wrap:wrap}
+  .answer input{flex:0 1 300px;font-size:24px;padding:8px 12px;border:3px solid var(--line);border-radius:12px;font-weight:700}
+  input:focus{outline:none;border-color:var(--primary)}
+  input.good{border-color:var(--ok)!important;background:var(--ok-soft)} input.bad{border-color:var(--ko)!important;background:var(--ko-soft)}
+  .fb{margin-top:14px;padding:12px 14px;border-radius:10px;display:none}
+  .fb.ok{display:block;background:var(--ok-soft)} .fb.ko{display:block;background:var(--ko-soft)}
+  .btn{border:0;background:var(--primary);color:#fff;font-size:17px;font-weight:600;padding:11px 18px;border-radius:10px;cursor:pointer}
+  .btn.alt{background:#fff;color:var(--primary);border:2px solid var(--primary)}
+  .row{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px;align-items:center}
+  .score{font-size:44px;font-weight:800;color:var(--primary);margin:6px 0}
+  .review li{margin-bottom:6px}
+  s{color:var(--ko)}
+  /* tri */
+  .item{font-size:24px;text-align:center;border:3px dashed var(--primary);border-radius:16px;padding:14px;margin-bottom:14px;background:var(--primary-soft)}
+  .item .e{font-size:54px;display:block;line-height:1.1}
+  .bins{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+  .bin{border:0;border-radius:14px 14px 10px 10px;padding:12px 6px 10px;color:#fff;font-weight:700;font-size:15px;cursor:pointer;background:var(--c);box-shadow:inset 0 -6px 0 rgba(0,0,0,.15);min-height:76px}
+  .bin span{display:block;font-size:24px}
+  .bin.good{outline:5px solid var(--ok);outline-offset:2px} .bin.bad{outline:5px solid var(--ko);outline-offset:2px;opacity:.75}
+  .bin:disabled{cursor:default}
+  /* frise */
+  .pool{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0}
+  .pool button{font-size:17px;padding:10px 12px;border:2px solid var(--line);background:#fff;border-radius:12px;cursor:pointer;font-weight:600;color:var(--ink)}
+  .pool button.shake{animation:shake .3s;border-color:var(--ko);background:var(--ko-soft)}
+  .placed{display:flex;gap:6px;flex-wrap:wrap;margin:8px 0}
+  .placed div{background:var(--ok-soft);border:2px solid var(--ok);border-radius:10px;padding:6px 10px;font-size:15px;font-weight:600}
+  .placed small{display:block;color:var(--ok);font-weight:700}
+  /* texte */
+  .text{font-size:20px;line-height:2.1}
+  .text span.w{cursor:pointer;border-radius:5px;padding:1px 1px}
+  .text span.w:hover{background:#eaf2ec}
+  .text span.found{background:var(--ok-soft);color:var(--ok);font-weight:700}
+  .text span.miss{background:var(--ko-soft);animation:shake .3s}
+  .text span.shown{background:var(--accent-soft);font-weight:700}
+  .text span.shown s{margin-right:4px}
+  .counter{display:flex;gap:16px;flex-wrap:wrap;font-weight:600;margin-bottom:10px}
+  .counter .g{color:var(--ok)} .counter .b{color:var(--ko)}
+  .tabs2{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px}
+  .tabs2 button{border:2px solid var(--line);background:#fff;border-radius:999px;padding:5px 12px;font-size:15px;font-weight:600;cursor:pointer;color:var(--ink)}
+  .tabs2 button.on{background:var(--primary);border-color:var(--primary);color:#fff}
+  @keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-3px)}75%{transform:translateX(3px)}}
+  .hide{display:none}
+  @media (max-width:640px){
+    body{font-size:17px}.prompt{font-size:20px}
+    .bins{grid-template-columns:repeat(2,1fr)}
+  }
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <a class="back" href="index.html">← Level Up</a>
+    <h1>Waste 🗑️ <span class="badge">CM2 · English</span></h1>
+    <p class="sub">Science in English : les déchets, le tri et le recyclage</p>
+    <nav id="tabs">
+      <button data-tab="lesson" class="on">📘 Lesson</button>
+      <button data-tab="sort">🗂️ Sort it!</button>
+      <button data-tab="quiz">✏️ Quiz</button>
+      <button data-tab="spell">🎧 Spelling</button>
+      <button data-tab="time">⏳ How long?</button>
+      <button data-tab="text">🔍 Fix the text</button>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+  <!-- ================= LESSON ================= -->
+  <section id="lesson">
+    <div class="card">
+      <h2>1. Materials in our bins <span class="fr">(les matériaux dans nos poubelles)</span></h2>
+      <p class="hint">Clique sur 🔊 pour entendre le mot en anglais.</p>
+      <div class="mats" id="mats"></div>
+      <div class="tip">✍️ <b>To conclude :</b> In our bins, there are all sorts of things and items made from different materials: plastic, glass, aluminium, metal, paper, cardboard, wood, organic waste and hazardous materials.
+        <button class="say" data-say="In our bins, there are all sorts of things and items made from different materials: plastic, glass, aluminium, metal, paper, cardboard, wood, organic waste and hazardous materials." aria-label="Écouter">🔊</button></div>
+    </div>
+
+    <div class="card">
+      <h2>2. How long waste remains in nature <span class="fr">(combien de temps les déchets restent dans la nature)</span></h2>
+      <div class="steps" id="steps"></div>
+      <p class="hint">Plus la barre est haute, plus le déchet met de temps à disparaître. Un mégot (cigarette butt) jeté par terre reste 2 ans dans la nature !</p>
+    </div>
+
+    <div class="card">
+      <h2>3. Waste treatment in France <span class="fr">(le traitement des déchets en France)</span></h2>
+      <p>Once the rubbish has been collected, the waste needs to be treated:</p>
+      <div class="treat">
+        <div class="pie" role="img" aria-label="Recycling 20 %, storage 36 %, incineration 30 %, compost 14 %"></div>
+        <div class="leg">
+          <div><i style="background:#3fa34d"></i><b>Recycling 20 %</b> — the waste is <b>recycled</b> <span class="fr">(réutilisé pour fabriquer autre chose)</span></div>
+          <div><i style="background:#c0392b"></i><b>Storage 36 %</b> — the waste is <b>stored</b> in waste collection centres <span class="fr">(stocké)</span></div>
+          <div><i style="background:#29a3c4"></i><b>Incineration 30 %</b> — the waste is <b>incinerated</b>, that is, <b>burned</b> <span class="fr">(brûlé)</span></div>
+          <div><i style="background:#7a4fb5"></i><b>Compost 14 %</b> — organic waste becomes <b>compost</b> <span class="fr">(engrais naturel)</span></div>
+        </div>
+      </div>
+      <div class="tip">🌍 In all cases, waste has a negative impact on the <b>environment</b>: therefore <span class="fr">(donc)</span>, we must <b>produce less of it</b>!
+        <button class="say" data-say="In all cases, waste has a negative impact on the environment: therefore, we must produce less of it." aria-label="Écouter">🔊</button></div>
+    </div>
+
+    <div class="card">
+      <h2>4. Vocabulary</h2>
+      <div class="vocab" id="vocab"></div>
+    </div>
+  </section>
+
+  <section id="sort" class="hide"><div class="card" id="sortBox"></div></section>
+  <section id="quiz" class="hide"><div class="card" id="quizBox"></div></section>
+  <section id="spell" class="hide"><div class="card" id="spellBox"></div></section>
+  <section id="time" class="hide"><div class="card" id="timeBox"></div></section>
+
+  <section id="text" class="hide">
+    <div class="card">
+      <h2>Fix the text <span class="fr">(corrige le texte)</span></h2>
+      <p class="hint">Chaque texte contient des fautes d'orthographe en anglais. Clique sur un mot que tu crois faux : s'il l'est, il se corrige.</p>
+      <div class="tabs2" id="txtTabs"></div>
+      <div class="counter"><span class="g">✔ Trouvées : <span id="tFound">0</span> / <span id="tTotal"></span></span><span class="b">✘ Clics sur un mot juste : <span id="tMiss">0</span></span></div>
+      <div class="text" id="txt"></div>
+      <p class="tip" id="why">Clique sur les mots mal écrits…</p>
+      <div class="row"><button class="btn alt" id="tShow">Voir la correction</button><button class="btn" id="tReset">Recommencer</button></div>
+    </div>
+  </section>
+</main>
+
+<script src="levelup.js" data-quiz="waste-cm2"></script>
+<script>
+const QUIZ_ID = 'waste-cm2';
+const $ = id => document.getElementById(id);
+const rnd = n => Math.floor(Math.random()*n);
+const pick = a => a[rnd(a.length)];
+const shuffle = a => { a = a.slice(); for (let i=a.length-1;i>0;i--){const j=rnd(i+1);[a[i],a[j]]=[a[j],a[i]];} return a; };
+const esc = s => String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+const store = { get(k){ try{ return localStorage.getItem(`${QUIZ_ID}_${k}`); }catch(e){ return null; } }, set(k,v){ try{ localStorage.setItem(`${QUIZ_ID}_${k}`, v); }catch(e){} } };
+const norm = s => s.toLowerCase().replace(/[’`]/g,"'").replace(/\s+/g,' ').replace(/[.!?]+$/,'').trim();
+
+/* ---------- prononciation anglaise (synthèse vocale du navigateur) ---------- */
+let VOICE = null;
+function loadVoice(){ try { const v = speechSynthesis.getVoices(); VOICE = v.find(x => /en-GB/i.test(x.lang)) || v.find(x => /^en/i.test(x.lang)) || null; } catch(e){} }
+try { loadVoice(); speechSynthesis.onvoiceschanged = loadVoice; } catch(e){}
+function say(t){ try { speechSynthesis.cancel(); const u = new SpeechSynthesisUtterance(t); u.lang = 'en-GB'; if (VOICE) u.voice = VOICE; u.rate = .9; speechSynthesis.speak(u); } catch(e){} }
+const sayBtn = t => `<button class="say" data-say="${esc(t)}" aria-label="Écouter « ${esc(t)} »">🔊</button>`;
+document.addEventListener('click', e => { const b = e.target.closest('[data-say]'); if (b) { e.preventDefault(); e.stopPropagation(); say(b.dataset.say); } }, true);
+
+/* =====================================================
+   DONNÉES DE LA LEÇON
+   ===================================================== */
+const CATS = {
+  org:{en:'Organic matter', fr:'matière organique', e:'🍌', c:'--c-org', def:'the material that makes up <b>living things</b>'},
+  pla:{en:'Plastic', fr:'plastique', e:'🛍️', c:'--c-pla', def:'a material generally made from <b>petroleum</b>'},
+  pap:{en:'Paper', fr:'papier', e:'📄', c:'--c-pap', def:'a material made from <b>wood</b>'},
+  car:{en:'Cardboard', fr:'carton', e:'📦', c:'--c-car', def:'it is <b>paper</b>, but <b>stronger</b> and rigid'},
+  gla:{en:'Glass', fr:'verre', e:'🍾', c:'--c-gla', def:'a material made from a mixture of <b>silica, sand, lime and ash</b>'},
+  alu:{en:'Aluminium', fr:'aluminium', e:'🥤', c:'--c-alu', def:'a very light <b>metal</b>'},
+  met:{en:'Metal', fr:'métal', e:'🔩', c:'--c-met', def:'for example <b>silver, gold or iron</b>'},
+  dan:{en:'Dangerous materials', fr:'matières dangereuses', e:'☠️', c:'--c-dan', def:'also called <b>hazardous materials</b>: they can hurt people or nature'}
+};
+const ITEMS = [
+  ['banana peel','peau de banane','🍌','org'], ['apple core','trognon de pomme','🍎','org'], ['chicken bone','os de poulet','🍗','org'],
+  ['eggshells','coquilles d\'œufs','🥚','org'], ['vegetable peelings','épluchures de légumes','🥕','org'], ['tea bag','sachet de thé','🍵','org'],
+  ['plastic bag','sac plastique','🛍️','pla'], ['plastic bottle','bouteille en plastique','🧴','pla'], ['yoghurt pot','pot de yaourt','🥛','pla'],
+  ['plastic straw','paille en plastique','🥤','pla'], ['toothbrush','brosse à dents','🪥','pla'],
+  ['sheet of paper','feuille de papier','📄','pap'], ['newspaper','journal','📰','pap'], ['envelope','enveloppe','✉️','pap'], ['notebook','cahier','📓','pap'],
+  ['cardboard box','boîte en carton','📦','car'], ['pizza box','boîte à pizza','🍕','car'], ['cereal box','boîte de céréales','🥣','car'], ['egg box','boîte à œufs','🥚','car'],
+  ['glass bottle','bouteille en verre','🍾','gla'], ['jam jar','pot de confiture','🫙','gla'], ['broken glass','verre cassé','🥂','gla'],
+  ['drinks can','canette','🥤','alu'], ['aluminium foil','papier aluminium','🌯','alu'], ['aluminium tray','barquette en aluminium','🍱','alu'],
+  ['tin can','boîte de conserve','🥫','met'], ['nail','clou','🔩','met'], ['old key','vieille clé','🔑','met'], ['spoon','cuillère','🥄','met'],
+  ['battery','pile','🔋','dan'], ['bleach','eau de Javel','🧪','dan'], ['paint pot','pot de peinture','🎨','dan'], ['medicine','médicaments','💊','dan'], ['light bulb','ampoule','💡','dan']
+];
+// article correct devant chaque déchet (a / an / some)
+const SOME = ['eggshells','vegetable peelings','aluminium foil','bleach','medicine','broken glass'];
+const art = n => SOME.includes(n) ? 'some' : /^[aeiou]/.test(n) ? 'an' : 'a';
+const TIMES = [
+  ['paper','papier','📄','3 months',0], ['apple core','trognon de pomme','🍎','6 months',1], ['newspaper','journal','📰','1 year',2],
+  ['cigarette butt','mégot','🚬','2 years',3], ['chewing gum','chewing-gum','🍬','5 years',4], ['aluminium can','canette en aluminium','🥤','10 – 100 years',5],
+  ['plastic bag','sac plastique','🛍️','100 – 1,000 years',6], ['polystyrene','polystyrène','⬜','1,000 years',7], ['glass bottle','bouteille en verre','🍾','4,000 years',8]
+];
+const VOCAB = [
+  ['waste','déchets','🗑️'], ['rubbish','ordures','🚮'], ['a bin','une poubelle','🗑️'], ['to sort','trier','🗂️'],
+  ['organic matter','matière organique','🍌'], ['plastic','plastique','🛍️'], ['paper','papier','📄'], ['cardboard','carton','📦'],
+  ['glass','verre','🍾'], ['aluminium','aluminium','🥤'], ['metal','métal','🔩'], ['hazardous materials','matières dangereuses','☠️'],
+  ['wood','bois','🪵'], ['petroleum','pétrole','🛢️'], ['sand','sable','🏖️'], ['living things','êtres vivants','🌳'],
+  ['light','léger','🪶'], ['stronger','plus solide','💪'], ['recycling','recyclage','♻️'], ['storage','stockage','🏚️'],
+  ['incineration','incinération','🔥'], ['to burn','brûler','🔥'], ['compost','compost','🌱'], ['environment','environnement','🌍'],
+  ['a battery','une pile','🔋'], ['a can','une canette','🥤'], ['a bottle','une bouteille','🍾'], ['a newspaper','un journal','📰'],
+  ['a cigarette butt','un mégot','🚬'], ['a plastic bag','un sac plastique','🛍️'], ['therefore','donc','➡️'], ['less','moins','➖']
+];
+
+/* ---------- rendu de la leçon ---------- */
+$('mats').innerHTML = Object.values(CATS).map(c => `<div class="mat" style="--c:var(${c.c})"><b><span>${c.e}</span>${c.en} ${sayBtn(c.en)}</b>
+  <p>${c.en === 'Dangerous materials' ? 'Dangerous materials are' : c.en + ': this is'} ${c.def}.</p><p class="fr">${c.fr}</p></div>`).join('');
+$('steps').innerHTML = TIMES.map((t,k) => `<div class="step"><span class="ic">${t[2]}</span><div class="bar" style="height:${30 + k*18}px">${t[3].replace(' – ','–').replace(/ (months|years|year)/,'<br>$1')}</div><b>${t[0]}</b></div>`).join('');
+$('vocab').innerHTML = VOCAB.map(v => `<div><span class="e">${v[2]}</span><span><b>${v[0]}</b><br><span class="fr">${v[1]}</span></span><span style="margin-left:auto">${sayBtn(v[0])}</span></div>`).join('');
+
+/* ---------- onglets ---------- */
+const SETUP = {};
+document.querySelectorAll('#tabs button').forEach(b => b.onclick = () => {
+  document.querySelectorAll('#tabs button').forEach(x => x.classList.toggle('on', x===b));
+  ['lesson','sort','quiz','spell','time','text'].forEach(id => $(id).classList.toggle('hide', id!==b.dataset.tab));
+  const s = SETUP[b.dataset.tab]; if (s && !s.done) { s.done = true; s(); }
+  window.scrollTo({top:0});
+});
+function endScreen(box, title, score, total, key, wrong, again){
+  const old = parseInt(store.get(key))||0, best = Math.max(old, score); store.set(key, best);
+  LevelUp.save(key, score, total);
+  const pct = score/total;
+  const msg = pct===1 ? 'Perfect! 🏆' : pct>=0.8 ? 'Well done! 🌟' : pct>=0.5 ? 'Good job, keep going! 💪' : 'Read the lesson again and try again 📘';
+  box.innerHTML = `<h2>${title} — finished!</h2>
+    <div class="score">${score} / ${total}</div><p><b>${msg}</b><br>Meilleur score : ${best} / ${total}</p>
+    ${wrong.length ? `<h3>À revoir</h3><ul class="review">${wrong.map(w=>`<li>${w}</li>`).join('')}</ul>` : ''}
+    <div class="row"><button class="btn" id="eAgain">Play again ▶</button></div>`;
+  $('eAgain').onclick = again;
+}
+
+/* =====================================================
+   1. SORT IT! — trier les déchets dans la bonne poubelle
+   ===================================================== */
+const NB_SORT = 12;
+SETUP.sort = function(){
+  const box = $('sortBox'); let qs, i, score, wrong;
+  function start(){ qs = shuffle(ITEMS).slice(0, NB_SORT); i = 0; score = 0; wrong = []; LevelUp.reset(); show(); }
+  function show(){
+    const it = qs[i];
+    box.innerHTML = `<div class="q-top"><span>Item ${i+1} / ${qs.length}</span><span>Score : ${score}</span></div>
+      <div class="bar2"><i style="width:${i/qs.length*100}%"></i></div>
+      <p class="hint" style="margin-top:0">In which bin? <span class="fr">(Dans quelle poubelle ?)</span> Quel est le matériau de ce déchet ?</p>
+      <div class="item"><span class="e">${it[2]}</span>${art(it[0])} ${esc(it[0])} ${sayBtn(art(it[0]) + ' ' + it[0])}<br><span class="fr">${esc(it[1])}</span></div>
+      <div class="bins">${Object.entries(CATS).map(([k,c]) => `<button class="bin" data-k="${k}" style="--c:var(${c.c})"><span>${c.e}</span>${c.en}</button>`).join('')}</div>
+      <div class="fb" id="sFb"></div>
+      <div class="row hide" id="sNext"><button class="btn">${i+1<qs.length?'Next →':'See my score'}</button></div>`;
+    box.querySelectorAll('.bin').forEach(b => b.onclick = () => {
+      box.querySelectorAll('.bin').forEach(x => x.disabled = true);
+      const ok = b.dataset.k === it[3];
+      box.querySelector(`.bin[data-k="${it[3]}"]`).classList.add('good'); if (!ok) b.classList.add('bad');
+      if (ok) score++; else { wrong.push(`${it[2]} ${art(it[0])} ${esc(it[0])} → <b>${CATS[it[3]].en}</b>`); LevelUp.err(`Sort: ${art(it[0])} ${it[0]}`, CATS[it[3]].en, CATS[b.dataset.k].en); }
+      const fb = $('sFb'); fb.className = 'fb ' + (ok?'ok':'ko');
+      fb.innerHTML = (ok ? '✔ <b>Yes!</b> ' : '✘ <b>No…</b> ') + `${art(it[0]).replace(/^./, c => c.toUpperCase())} ${esc(it[0])} ${['eggshells','vegetable peelings'].includes(it[0]) ? 'are' : 'is'} ${it[3]==='dan' ? '<b>dangerous</b> (hazardous materials): take it to a special collection point' : it[3]==='org' ? '<b>organic matter</b>: it can go in the compost' : `made of <b>${CATS[it[3]].en.toLowerCase()}</b>`}. <span class="fr">(${CATS[it[3]].fr})</span>`;
+      $('sNext').classList.remove('hide'); $('sNext').querySelector('button').focus();
+    });
+    $('sNext').querySelector('button').onclick = () => { i++; i<qs.length ? show() : endScreen(box,'Sort it!',score,qs.length,'tri',wrong,start); };
+  }
+  start();
+};
+
+/* =====================================================
+   2. QUIZ — banque de questions (leçon + vocabulaire)
+   ===================================================== */
+const BANK = [
+  // définitions (texte à trous de la leçon)
+  {q:"Organic matter: this is the material that makes up ___.", r:"living things", f:["petroleum","sand","metal"]},
+  {q:"Plastic: this is a material generally made from ___.", r:"petroleum", f:["wood","glass","sand"]},
+  {q:"Paper: this is a material made from ___.", r:"wood", f:["petroleum","iron","lime"]},
+  {q:"Cardboard: this is paper, but ___ and rigid.", r:"stronger", f:["lighter","softer","smaller"]},
+  {q:"Glass: this is a material made from a mixture of ___.", r:"silica, sand, lime and ash", f:["wood and paper","petroleum and water","silver and gold"]},
+  {q:"Aluminium: this is a very light ___.", r:"metal", f:["glass","plastic","paper"]},
+  {q:"Metal: for example ___.", r:"silver, gold or iron", f:["sand, lime or ash","wood or paper","petroleum"]},
+  {q:"Batteries, bleach and paint are ___.", r:"hazardous materials", f:["organic matter","cardboard","glass"]},
+  // combien de temps
+  {q:"How long does a sheet of paper remain in nature?", r:"3 months", f:["5 years","1,000 years","4,000 years"]},
+  {q:"How long does an apple core remain in nature?", r:"6 months", f:["2 years","100 years","3 days"]},
+  {q:"How long does a newspaper remain in nature?", r:"1 year", f:["3 months","1,000 years","10 years"]},
+  {q:"How long does a cigarette butt remain in nature?", r:"2 years", f:["2 months","200 years","4,000 years"]},
+  {q:"How long does chewing gum remain in nature?", r:"5 years", f:["5 days","6 months","1,000 years"]},
+  {q:"How long does an aluminium can remain in nature?", r:"10 to 100 years", f:["1 year","4,000 years","6 months"]},
+  {q:"How long does a plastic bag remain in nature?", r:"100 to 1,000 years", f:["3 months","2 years","10 years"]},
+  {q:"How long does a glass bottle remain in nature?", r:"4,000 years", f:["40 years","400 years","4 years"]},
+  {q:"Which waste remains the longest in nature?", r:"a glass bottle", f:["a plastic bag","chewing gum","a newspaper"]},
+  {q:"Which waste disappears the fastest?", r:"paper", f:["polystyrene","an aluminium can","chewing gum"]},
+  // traitement
+  {q:"In France, ___ % of the waste is recycled.", r:"20", f:["36","30","14"]},
+  {q:"In France, ___ % of the waste is stored in waste collection centres.", r:"36", f:["20","30","14"]},
+  {q:"In France, ___ % of the waste is incinerated.", r:"30", f:["20","36","14"]},
+  {q:"In France, ___ % of the waste becomes compost.", r:"14", f:["20","36","30"]},
+  {q:"Incinerated means…", r:"burned", f:["recycled","stored","buried in the garden"]},
+  {q:"Recycled means…", r:"reused to make something else", f:["burned","thrown in the sea","stored"]},
+  {q:"Which treatment is the most common in France?", r:"storage", f:["recycling","compost","incineration"]},
+  {q:"Waste has a negative impact on the ___.", r:"environment", f:["moon","weather forecast","television"]},
+  {q:"Therefore, we must ___.", r:"produce less of it", f:["produce more of it","burn everything","throw it in the river"]},
+  {q:"What can we put in the compost?", r:"vegetable peelings", f:["a battery","a glass bottle","a plastic bag"]},
+  {q:"Where must you take old batteries?", r:"to a special collection point", f:["in the compost","in the paper bin","in the river"]},
+  {q:"What does 'therefore' mean in French?", r:"donc", f:["mais","parce que","pourtant"]}
+];
+const NB_QUIZ = 15;
+function vocabQuestions(n){
+  return shuffle(VOCAB).slice(0, n).map((v,k) => {
+    const others = shuffle(VOCAB.filter(x => x !== v));
+    return k % 2 === 0
+      ? {q:`What is « ${v[1]} » in English? ${v[2]}`, r:v[0], f:others.slice(0,3).map(x=>x[0]), en:v[0]}
+      : {q:`What does « ${v[0]} » mean? ${v[2]}`, r:v[1], f:others.slice(0,3).map(x=>x[1]), en:v[0]};
+  });
+}
+SETUP.quiz = function(){
+  const box = $('quizBox'); let qs, i, score, wrong;
+  function start(){ qs = shuffle([...shuffle(BANK).slice(0, NB_QUIZ - 5), ...vocabQuestions(5)]); i = 0; score = 0; wrong = []; LevelUp.reset(); show(); }
+  function show(){
+    const q = qs[i], opts = shuffle([q.r, ...q.f]);
+    const speak = q.en || q.q.replace('___','…');
+    box.innerHTML = `<div class="q-top"><span>Question ${i+1} / ${qs.length}</span><span>Score : ${score}</span></div>
+      <div class="bar2"><i style="width:${i/qs.length*100}%"></i></div>
+      <div class="prompt">${sayBtn(speak)}<span>${esc(q.q).replace('___','<b style="color:var(--accent)">_____</b>')}</span></div>
+      <div class="opts">${opts.map(o=>`<button>${esc(o)}</button>`).join('')}</div>
+      <div class="fb" id="qFb"></div>
+      <div class="row hide" id="qNext"><button class="btn">${i+1<qs.length?'Next →':'See my score'}</button></div>`;
+    box.querySelectorAll('.opts button').forEach((b,k) => b.onclick = () => {
+      const btns = box.querySelectorAll('.opts button'); btns.forEach(x => x.disabled = true);
+      const ok = opts[k] === q.r;
+      btns.forEach((x,j) => { if (opts[j]===q.r) x.classList.add('good'); else if (j===k) x.classList.add('bad'); });
+      const full = q.q.includes('___') ? q.q.replace('___', `<b>${esc(q.r)}</b>`) : `${esc(q.q)} → <b>${esc(q.r)}</b>`;
+      if (ok) score++; else { wrong.push(full); LevelUp.err(q.q, q.r, opts[k]); }
+      const fb = $('qFb'); fb.className = 'fb ' + (ok?'ok':'ko');
+      fb.innerHTML = (ok ? '✔ <b>Well done!</b><br>' : '✘ <b>Not quite…</b><br>') + full;
+      $('qNext').classList.remove('hide'); $('qNext').querySelector('button').focus();
+    });
+    $('qNext').querySelector('button').onclick = () => { i++; i<qs.length ? show() : endScreen(box,'Quiz',score,qs.length,'quiz',wrong,start); };
+  }
+  start();
+};
+
+/* =====================================================
+   3. SPELLING — dictée de mots anglais
+   ===================================================== */
+const SPELL = [
+  ['waste','déchets','🗑️'], ['rubbish','ordures','🚮'], ['bin','poubelle','🗑️'], ['plastic','plastique','🛍️'], ['paper','papier','📄'],
+  ['cardboard','carton','📦'], ['glass','verre','🍾'], ['aluminium','aluminium','🥤'], ['metal','métal','🔩'], ['wood','bois','🪵'],
+  ['petroleum','pétrole','🛢️'], ['sand','sable','🏖️'], ['organic','organique','🍌'], ['hazardous','dangereux','☠️'], ['dangerous','dangereux','⚠️'],
+  ['battery','pile','🔋'], ['bottle','bouteille','🍾'], ['newspaper','journal','📰'], ['recycling','recyclage','♻️'], ['storage','stockage','🏚️'],
+  ['incineration','incinération','🔥'], ['burned','brûlé','🔥'], ['compost','compost','🌱'], ['environment','environnement','🌍'], ['stronger','plus solide','💪'],
+  ['light','léger','🪶'], ['therefore','donc','➡️'], ['materials','matériaux','🧱'], ['things','choses','📦'], ['different','différent','🔀']
+];
+const NB_SPELL = 10;
+SETUP.spell = function(){
+  const box = $('spellBox'); let qs, i, score, wrong, locked;
+  function start(){ qs = shuffle(SPELL).slice(0, NB_SPELL); i = 0; score = 0; wrong = []; LevelUp.reset(); show(); }
+  function show(){
+    locked = false; const w = qs[i];
+    box.innerHTML = `<div class="q-top"><span>Word ${i+1} / ${qs.length}</span><span>Score : ${score}</span></div>
+      <div class="bar2"><i style="width:${i/qs.length*100}%"></i></div>
+      <p class="hint" style="margin-top:0">Écoute le mot 🔊, puis écris-le en anglais.</p>
+      <div class="big-e">${w[2]}</div>
+      <p style="text-align:center;margin:0 0 12px"><button class="btn alt" data-say="${esc(w[0])}">🔊 Listen</button> <span class="fr" style="margin-left:8px">(${esc(w[1])})</span></p>
+      <form class="answer" id="spF" style="justify-content:center"><input id="spIn" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="Écris le mot en anglais"><button class="btn">OK</button></form>
+      <div class="fb" id="spFb"></div>
+      <div class="row hide" id="spNext" style="justify-content:center"><button class="btn">${i+1<qs.length?'Next →':'See my score'}</button></div>`;
+    setTimeout(() => say(w[0]), 250);
+    const inp = $('spIn'); inp.focus();
+    $('spF').onsubmit = e => { e.preventDefault(); if (locked) return next();
+      const v = norm(inp.value); if (!v) return;
+      locked = true; inp.readOnly = true;
+      const ok = v === w[0] || (w[0]==='aluminium' && v==='aluminum');
+      inp.classList.add(ok?'good':'bad');
+      if (ok) score++; else { wrong.push(`${w[2]} <b>${esc(w[0])}</b> (${esc(w[1])}) — tu as écrit <s>${esc(inp.value)}</s>`); LevelUp.err(`Spelling: ${w[1]}`, w[0], inp.value); }
+      const fb = $('spFb'); fb.className = 'fb ' + (ok?'ok':'ko');
+      fb.innerHTML = ok ? `✔ <b>Great!</b> ${esc(w[0])}` : `✘ The right spelling is: <b style="letter-spacing:2px">${esc(w[0]).split('').join(' ')}</b> ${sayBtn(w[0])}`;
+      $('spNext').classList.remove('hide'); $('spNext').querySelector('button').focus();
+    };
+    $('spNext').querySelector('button').onclick = next;
+  }
+  function next(){ i++; i<qs.length ? show() : endScreen(box,'Spelling',score,qs.length,'spelling',wrong,start); }
+  start();
+};
+
+/* =====================================================
+   4. HOW LONG? — ranger les déchets du plus rapide au plus lent
+   ===================================================== */
+SETUP.time = function(){
+  const box = $('timeBox'); let placed, errors;
+  function start(){
+    placed = 0; errors = 0; LevelUp.reset();
+    box.innerHTML = `<h2>How long waste remains in nature ⏳</h2>
+      <p>Clique sur les déchets <b>dans l'ordre</b> : d'abord celui qui disparaît <b>le plus vite</b>, à la fin celui qui reste <b>le plus longtemps</b>.</p>
+      <div class="placed" id="placed"></div>
+      <div class="pool" id="pool">${shuffle(TIMES).map(t => `<button data-k="${t[4]}">${t[2]} ${esc(t[0])}</button>`).join('')}</div>
+      <p class="hint">Erreurs : <b id="tErr">0</b></p><div id="tEnd"></div>`;
+    box.querySelectorAll('#pool button').forEach(b => b.onclick = () => {
+      const k = +b.dataset.k, t = TIMES[k];
+      if (k === placed) {
+        $('placed').insertAdjacentHTML('beforeend', `<div>${t[2]} ${esc(t[0])}<small>${t[3]}</small></div>`);
+        b.remove(); placed++; say(`${t[0]}: ${t[3].replace('–','to')}`);
+        if (placed === TIMES.length) finish();
+      } else {
+        errors++; $('tErr').textContent = errors; LevelUp.err(`How long: what comes after « ${placed ? TIMES[placed-1][0] : 'the start'} »?`, TIMES[placed][0], t[0]);
+        b.classList.remove('shake'); void b.offsetWidth; b.classList.add('shake');
+      }
+    });
+  }
+  function finish(){
+    const total = TIMES.length, score = Math.max(0, total - errors);
+    store.set('frise', Math.max(parseInt(store.get('frise'))||0, score));
+    LevelUp.save('frise', score, total);
+    $('tEnd').innerHTML = `<p class="tip">${errors === 0 ? '🏆 <b>Perfect order!</b>' : `🎉 <b>Finished!</b> ${errors} mistake${errors>1?'s':''}.`} A glass bottle stays <b>4,000 years</b> in nature: never throw waste on the ground!</p>
+      <div class="row"><button class="btn" id="tAgain">Play again ▶</button></div>`;
+    $('tAgain').onclick = start;
+  }
+  start();
+};
+
+/* =====================================================
+   5. FIX THE TEXT — [faux|juste|explication]
+   ===================================================== */
+const TEXTES = [
+  {t:'To conclude', s:"In [aour|our|« notre » se dit our.] bins, [ther|there|there are = il y a.] are all [south|sorts|all sorts of = toutes sortes de. (South = le sud !)] of things and items [med|made|made from = fabriqué à partir de.] from [diferant|different|different : deux f, et -ent à la fin.] [materiels|materials|materials : -als à la fin.]: [plastik|plastic|plastic se termine par -ic.], [glasse|glass|glass : deux s, pas de e.], aluminium, metal, [papper|paper|paper : un seul p au milieu.], [cardbord|cardboard|cardboard = card + board.], wood, organic waste and [haserdous|hazardous|hazardous : z, puis -ous.] materials."},
+  {t:'Materials', s:"Plastic is a material generally made from [petrol|petroleum|En anglais : petroleum (pétrole brut).]. Paper is made from [wod|wood|wood : deux o.]. Cardboard is paper, but [strongger|stronger|stronger : un seul g.] and rigid. Glass is made from a mixture of silica, [sende|sand|sand = sable.], lime and [ashe|ash|ash = cendre.]. Aluminium is a very [ligth|light|light : -ght à la fin.] metal. Silver, gold and [irone|iron|iron = fer, sans e.] are metals."},
+  {t:'Waste treatment', s:"Once the [rubish|rubbish|rubbish : deux b.] has been collected, the waste needs to be [treted|treated|treated : treat + ed.]. Twenty per cent of the waste is [recicled|recycled|recycled : recycle + d, avec un y.]. Thirty per cent is incinerated, that is, [burnt|burned|Dans la leçon, on écrit burned.]. In all cases, waste has a negative impact on the [environement|environment|environment : pas de e après n.]: therefore, we must produce [les|less|less = moins, deux s.] of it."}
+];
+SETUP.text = function(){
+  let cur = 0, tFound, tMiss, tTotal, saved;
+  function tabs(){
+    $('txtTabs').innerHTML = TEXTES.map((x,k)=>`<button class="${k===cur?'on':''}">${k+1}. ${x.t}</button>`).join('');
+    $('txtTabs').querySelectorAll('button').forEach((b,k) => b.onclick = () => { cur = k; build(); });
+  }
+  function build(){
+    tabs(); tFound = 0; tMiss = 0; tTotal = 0; saved = false;
+    const T = TEXTES[cur], txt = $('txt'); txt.innerHTML = ''; $('why').textContent = 'Clique sur les mots mal écrits…';
+    const re = /\[([^|\]]+)\|([^|\]]+)\|([^\]]+)\]/g; let last = 0, m;
+    const addPlain = str => str.split(/(\s+)/).forEach(tok => {
+      if (!tok) return;
+      if (/^\s+$/.test(tok) || /^[.,;:!?«»]+$/.test(tok)) { txt.appendChild(document.createTextNode(tok)); return; }
+      const s = document.createElement('span'); s.className = 'w'; s.textContent = tok;
+      s.onclick = () => { tMiss++; upd(); s.classList.remove('miss'); void s.offsetWidth; s.classList.add('miss'); setTimeout(()=>s.classList.remove('miss'),600); };
+      txt.appendChild(s);
+    });
+    while ((m = re.exec(T.s))) {
+      addPlain(T.s.slice(last, m.index));
+      const s = document.createElement('span'); s.className = 'w err'; s.textContent = m[1];
+      s.dataset.bad = m[1]; s.dataset.ok = m[2]; s.dataset.why = m[3];
+      s.onclick = () => { if (s.dataset.done) return;
+        s.dataset.done = 1; s.textContent = s.dataset.ok; s.classList.add('found'); tFound++; say(s.dataset.ok);
+        $('why').innerHTML = `✔ <b>${esc(s.dataset.bad)} → ${esc(s.dataset.ok)}</b> : ${esc(s.dataset.why)}`; upd(); };
+      txt.appendChild(s); tTotal++; last = re.lastIndex;
+    }
+    addPlain(T.s.slice(last));
+    $('tTotal').textContent = tTotal; upd();
+  }
+  function upd(){
+    $('tFound').textContent = tFound; $('tMiss').textContent = tMiss;
+    if (tFound === tTotal && tTotal && !saved) {
+      saved = true; LevelUp.reset(); LevelUp.save('texte-' + (cur+1), tTotal, tTotal + tMiss);
+      $('why').innerHTML = `🎉 <b>All mistakes found!</b> (${tMiss} clic${tMiss>1?'s':''} sur des mots justes)<br>✍️ Recopie le texte corrigé dans ton cahier, puis passe au texte suivant.`;
+    }
+  }
+  $('tShow').onclick = () => {
+    const list = [];
+    document.querySelectorAll('#txt .err').forEach(s => {
+      list.push(`<li><b>${esc(s.dataset.bad)} → ${esc(s.dataset.ok)}</b> : ${esc(s.dataset.why)}</li>`);
+      if (s.dataset.done) return; s.dataset.done = 1;
+      s.innerHTML = `<s>${esc(s.dataset.bad)}</s>${esc(s.dataset.ok)}`; s.classList.add('shown');
+    });
+    $('why').innerHTML = `<b>Corrections :</b><ul class="review">${list.join('')}</ul>`;
+  };
+  $('tReset').onclick = build;
+  build();
+};
+</script>
+</body>
+</html>

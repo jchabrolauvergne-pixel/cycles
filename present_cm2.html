@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Le présent des verbes (CM2)</title>
+<meta name="description" content="Le présent de l'indicatif : être, avoir, verbes en -er, verbes courants (s, s, t), verbes en -dre (ds, ds, d), pouvoir/vouloir (x, x, t), finir (2 s), offrir/ouvrir. Carte mentale, terminaisons, conjugaison, choix et textes à corriger.">
+<meta name="themes" content="conjugaison, présent, CM2">
+<style>
+  :root{
+    --bg:#f6f4fb; --card:#ffffff; --ink:#1f1d2b; --muted:#615d74; --line:#e2dfee;
+    --primary:#3d6fd1; --primary-soft:#e5edfb;
+    --etre:#f08c00; --etre-s:#fff1dc; --avoir:#9b3fb5; --avoir-s:#f4e6f8; --er:#1fa34a; --er-s:#e1f5e8;
+    --sst:#0aa5c2; --sst-s:#dff4f8; --dre:#e0408f; --dre-s:#fce4f0; --now:#e03131; --now-s:#fde5e5;
+    --ok:#2e9e5b; --ok-soft:#e3f6ea; --ko:#d14343; --ko-soft:#fbe5e5;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;background:var(--bg);color:var(--ink);font-size:18px;line-height:1.5}
+  header{background:linear-gradient(135deg,#2c55a8,#3d6fd1);color:#fff;padding:18px 16px 0}
+  .wrap{max-width:920px;margin:0 auto}
+  header a.back{color:#dbe6fb;text-decoration:none;font-size:15px}
+  h1{margin:6px 0 4px;font-size:26px}
+  .sub{margin:0 0 14px;color:#dbe6fb;font-size:16px}
+  .badge{display:inline-block;background:#f5b83d;color:#3a2a00;border-radius:999px;padding:2px 10px;font-size:14px;font-weight:700;margin-left:6px;vertical-align:middle}
+  nav{display:flex;gap:5px;flex-wrap:wrap}
+  nav button{border:0;background:rgba(255,255,255,.15);color:#fff;padding:9px 12px;border-radius:10px 10px 0 0;font-size:15px;cursor:pointer;font-weight:600}
+  nav button.on{background:var(--bg);color:var(--primary)}
+  main{padding:18px 16px 70px}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px;margin-bottom:16px;box-shadow:0 1px 3px rgba(0,0,0,.04)}
+  h2{margin:0 0 10px;font-size:21px;color:var(--primary)}
+  h3{margin:16px 0 6px;font-size:18px;color:var(--primary)}
+  .hint{color:var(--muted);font-size:16px}
+  .tip{background:#fff8d8;border-left:5px solid #f0c400;padding:10px 14px;border-radius:8px;margin-top:12px}
+  table{width:100%;border-collapse:collapse;font-size:16px;margin-top:6px}
+  td,th{border:1px solid var(--line);padding:6px 8px;text-align:left;vertical-align:top}
+  th{background:var(--primary-soft)}
+  /* carte mentale */
+  .mind{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;align-items:start}
+  .center{grid-column:2;grid-row:2;align-self:center;text-align:center;background:#ffd966;border:3px solid #e6b800;border-radius:16px;padding:18px 10px;font-weight:800;font-size:24px}
+  .node{border:3px solid var(--c);background:var(--cs);border-radius:14px;padding:10px 12px}
+  .node h4{margin:0 0 6px;color:var(--c);font-size:17px;display:flex;align-items:center;gap:6px}
+  .node .conj{font-size:16px;line-height:1.55}
+  .node .conj b{color:var(--c)}
+  .node .ex{font-size:14px;color:var(--muted);margin-top:6px}
+  .two{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+  /* conjugueur */
+  .conjbar{display:flex;gap:8px;flex-wrap:wrap}
+  .conjbar input{font-size:18px;padding:8px 10px;border:2px solid var(--line);border-radius:10px;flex:1 1 200px}
+  .conjout{margin-top:10px}
+  /* sélecteurs */
+  .sel{display:flex;gap:8px;flex-wrap:wrap;margin:6px 0 12px}
+  .sel label{border:2px solid var(--line);border-radius:999px;padding:6px 14px;cursor:pointer;font-weight:600;user-select:none;font-size:16px}
+  .sel input{display:none}
+  .sel label.on{background:var(--primary);border-color:var(--primary);color:#fff}
+  /* quiz */
+  .q-top{display:flex;justify-content:space-between;align-items:center;color:var(--muted);font-size:15px;margin-bottom:6px;gap:8px;flex-wrap:wrap}
+  .bar{height:8px;background:var(--line);border-radius:99px;overflow:hidden;margin-bottom:16px}
+  .bar>i{display:block;height:100%;background:var(--primary);width:0;transition:width .3s}
+  .prompt{font-size:24px;margin:4px 0 16px}
+  .inf{color:var(--muted);font-size:18px}
+  .blank{display:inline-block;min-width:60px;border-bottom:3px solid var(--primary);text-align:center;font-weight:700;color:var(--primary)}
+  .stem{font-weight:700}
+  .answer{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+  .answer input{flex:0 1 240px;font-size:24px;padding:8px 12px;border:3px solid var(--line);border-radius:12px;font-weight:700}
+  .answer input.short{flex:0 1 120px}
+  input:focus{outline:none;border-color:var(--primary)}
+  input.good{border-color:var(--ok)!important;background:var(--ok-soft)} input.bad{border-color:var(--ko)!important;background:var(--ko-soft)}
+  .opts{display:flex;gap:10px;flex-wrap:wrap}
+  .opts button{flex:1 1 150px;font-size:20px;padding:12px;border:2px solid var(--line);background:#fff;border-radius:12px;cursor:pointer;font-weight:600;color:var(--ink)}
+  .opts button:hover:not(:disabled){border-color:var(--primary)}
+  .opts button.good{background:var(--ok-soft);border-color:var(--ok);color:var(--ok)}
+  .opts button.bad{background:var(--ko-soft);border-color:var(--ko);color:var(--ko)}
+  .fb{margin-top:14px;padding:12px 14px;border-radius:10px;display:none}
+  .fb.ok{display:block;background:var(--ok-soft)} .fb.ko{display:block;background:var(--ko-soft)}
+  .fb .mini{display:grid;grid-template-columns:repeat(3,1fr);gap:2px 14px;font-size:16px;margin-top:6px}
+  .btn{border:0;background:var(--primary);color:#fff;font-size:17px;font-weight:600;padding:11px 18px;border-radius:10px;cursor:pointer}
+  .btn.alt{background:#fff;color:var(--primary);border:2px solid var(--primary)}
+  .row{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px;align-items:center}
+  .score{font-size:44px;font-weight:800;color:var(--primary);margin:6px 0}
+  .review li{margin-bottom:6px}
+  s{color:var(--ko)}
+  .fam{display:inline-block;border-radius:8px;padding:0 8px;font-weight:700;font-size:15px}
+  /* textes */
+  .text{font-size:20px;line-height:2.1}
+  .text span.w{cursor:pointer;border-radius:5px;padding:1px 1px}
+  .text span.w:hover{background:#efedf6}
+  .text span.found{background:var(--ok-soft);color:var(--ok);font-weight:700}
+  .text span.miss{background:var(--ko-soft);animation:shake .3s}
+  .text span.shown{background:var(--dre-s);font-weight:700}
+  .text span.shown s{margin-right:4px}
+  .counter{display:flex;gap:16px;flex-wrap:wrap;font-weight:600;margin-bottom:10px}
+  .counter .g{color:var(--ok)} .counter .b{color:var(--ko)}
+  .tabs2{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px}
+  .tabs2 button{border:2px solid var(--line);background:#fff;border-radius:999px;padding:5px 12px;font-size:15px;font-weight:600;cursor:pointer;color:var(--ink)}
+  .tabs2 button.on{background:var(--primary);border-color:var(--primary);color:#fff}
+  @keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-3px)}75%{transform:translateX(3px)}}
+  .hide{display:none}
+  @media (max-width:700px){
+    body{font-size:17px}.prompt{font-size:21px}
+    .mind{grid-template-columns:1fr 1fr}.center{grid-column:1/-1;grid-row:1}.node.now{grid-column:1/-1;order:-1}
+    .two{grid-template-columns:1fr}
+    .fb .mini{grid-template-columns:1fr 1fr}
+  }
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <a class="back" href="index.html">← Level Up</a>
+    <h1>Le présent des verbes <span class="badge">CM2</span></h1>
+    <p class="sub">Être, avoir, verbes en -er, -ir, -dre, -oir… les terminaisons du présent</p>
+    <nav id="tabs">
+      <button data-tab="regles" class="on">📘 Leçon</button>
+      <button data-tab="term">✏️ Terminaisons</button>
+      <button data-tab="conj">🔁 Conjuguer</button>
+      <button data-tab="famille">🧩 Quelle famille ?</button>
+      <button data-tab="choix">⚖️ Le bon verbe</button>
+      <button data-tab="textes">🔍 Textes</button>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+  <!-- ================= LEÇON ================= -->
+  <section id="regles">
+    <div class="card">
+      <h2>La carte mentale du présent</h2>
+      <div class="mind">
+        <div class="node" style="--c:var(--etre);--cs:var(--etre-s)"><h4>Être</h4>
+          <div class="conj">je <b>suis</b><br>tu <b>es</b><br>il/elle <b>est</b><br>nous <b>sommes</b><br>vous <b>êtes</b><br>ils/elles <b>sont</b></div></div>
+        <div class="node now" style="--c:var(--now);--cs:var(--now-s);text-align:center"><h4 style="justify-content:center">⏳ Quand ?</h4>
+          <div class="conj"><b>Maintenant</b><br><b>Aujourd'hui</b></div><div class="ex">Le présent dit ce qui se passe au moment où l'on parle, ou ce qu'on fait souvent.</div></div>
+        <div class="node" style="--c:var(--avoir);--cs:var(--avoir-s)"><h4>Avoir</h4>
+          <div class="conj">j'<b>ai</b><br>tu <b>as</b><br>il/elle <b>a</b><br>nous <b>avons</b><br>vous <b>avez</b><br>ils/elles <b>ont</b></div></div>
+        <div class="node" style="--c:var(--er);--cs:var(--er-s)"><h4>Verbes en -ER</h4>
+          <div class="conj">je …<b>e</b><br>tu …<b>es</b><br>il/elle …<b>e</b><br>nous …<b>ons</b><br>vous …<b>ez</b><br>ils/elles …<b>ent</b></div><div class="ex">je chante, nous chantons</div></div>
+        <div class="center">Le présent</div>
+        <div class="node" style="--c:var(--sst);--cs:var(--sst-s)"><h4>Verbes courants</h4>
+          <div class="conj">je …<b>s</b><br>tu …<b>s</b><br>il/elle …<b>t</b><br>nous …<b>ons</b><br>vous …<b>ez</b><br>ils/elles …<b>ent</b></div><div class="ex">je dors, il voit, il dit, je finis</div></div>
+        <div class="node" style="--c:var(--dre);--cs:var(--dre-s);grid-column:1/-1">
+          <div class="two">
+            <div><h4>Verbes en -DRE</h4><div class="conj">je …<b>ds</b> · tu …<b>ds</b> · il …<b>d</b><br>nous …<b>ons</b> · vous …<b>ez</b> · ils …<b>ent</b></div><div class="ex">vendre : je vends, il vend · prendre : je prends, il prend</div></div>
+            <div><h4>Pouvoir, vouloir (-OIR)</h4><div class="conj">je …<b>x</b> · tu …<b>x</b> · il …<b>t</b><br>nous …<b>ons</b> · vous …<b>ez</b> · ils …<b>ent</b></div><div class="ex">je peux, il peut · je veux, il veut</div></div>
+          </div></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>À retenir (G6)</h2>
+      <ul>
+        <li>Une grande majorité des verbes se terminent par <b>s – s – t – ons – ez – ent</b> : je dors, tu cours, il voit.</li>
+        <li>Les verbes en <b>-DRE</b> (vendre, prendre) se terminent généralement par <b>ds – ds – d – ons – ez – ent</b>.</li>
+        <li>Certains verbes en <b>-OIR</b> (pouvoir, vouloir) se terminent par <b>x – x – t – ons – ez – ent</b>.</li>
+        <li>Pour bien écrire, je prononce d'abord le verbe dans ma tête, car <b>le radical peut changer</b> : je vois, nous <b>voy</b>ons ; je viens, ils <b>vienn</b>ent.</li>
+        <li>Il ne faut pas oublier les <b>2 s</b> pour faire le son [s] avec les verbes comme finir : nous fini<b>ss</b>ons, ils fini<b>ss</b>ent.</li>
+        <li>Certains verbes en <b>-IR</b> (offrir, ouvrir) se terminent par <b>e – es – e – ons – ez – ent</b>, comme les verbes en -er : j'ouvre, il offre.</li>
+      </ul>
+      <div class="tip">⚠️ <b>Pièges</b> : les verbes en <b>-indre</b> (peindre, éteindre, craindre) font <b>s, s, t</b> : je peins, il éteint (pas de d !). Et trois verbes ont <b>-tes</b> avec vous : vous <b>êtes</b>, vous <b>faites</b>, vous <b>dites</b>.</div>
+    </div>
+
+    <div class="card">
+      <h2>Le conjugueur</h2>
+      <p class="hint">Tape un verbe à l'infinitif pour voir sa conjugaison au présent.</p>
+      <div class="conjbar"><input id="cjIn" list="cjList" placeholder="ex. prendre, voir, finir…" autocomplete="off"><button class="btn" id="cjGo">Conjuguer</button></div>
+      <datalist id="cjList"></datalist>
+      <div class="conjout" id="cjOut"></div>
+    </div>
+  </section>
+
+  <section id="term" class="hide"><div class="card" id="termBox"></div></section>
+  <section id="conj" class="hide"><div class="card" id="conjBox"></div></section>
+  <section id="famille" class="hide"><div class="card" id="famBox"></div></section>
+  <section id="choix" class="hide"><div class="card" id="choixBox"></div></section>
+  <section id="textes" class="hide">
+    <div class="card">
+      <h2>Textes à corriger</h2>
+      <p class="hint">Chaque texte contient des verbes mal conjugués au présent. Clique sur un verbe que tu crois faux : s'il l'est, il se corrige et l'explication s'affiche.</p>
+      <div class="tabs2" id="txtTabs"></div>
+      <div class="counter"><span class="g">✔ Trouvées : <span id="tFound">0</span> / <span id="tTotal"></span></span><span class="b">✘ Clics sur un mot juste : <span id="tMiss">0</span></span></div>
+      <div class="text" id="txt"></div>
+      <p class="tip" id="why">Clique sur les verbes mal écrits…</p>
+      <div class="row"><button class="btn alt" id="tShow">Voir la correction</button><button class="btn" id="tReset">Recommencer</button><button class="btn" id="tNext">Texte suivant →</button></div>
+    </div>
+  </section>
+</main>
+
+<script src="levelup.js" data-quiz="present-cm2"></script>
+<script>
+const QUIZ_ID = 'present-cm2';
+const $ = id => document.getElementById(id);
+const rnd = n => Math.floor(Math.random()*n);
+const pick = a => a[rnd(a.length)];
+const shuffle = a => { a = a.slice(); for (let i=a.length-1;i>0;i--){const j=rnd(i+1);[a[i],a[j]]=[a[j],a[i]];} return a; };
+const esc = s => String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+const store = { get(k){ try{ return localStorage.getItem(`${QUIZ_ID}_${k}`); }catch(e){ return null; } }, set(k,v){ try{ localStorage.setItem(`${QUIZ_ID}_${k}`, v); }catch(e){} } };
+const norm = s => s.toLowerCase().replace(/[’`]/g,"'").replace(/\s+/g,' ').replace(/[.!?,]+$/,'').trim();
+
+/* =====================================================
+   CONJUGAISON DU PRÉSENT
+   familles : er (e es e ons ez ent) · sst (s s t…) · dre (ds ds d…) · xxt (x x t…) · ir2 (is is it issons…) · ees (e es e, offrir/ouvrir) · irr
+   ===================================================== */
+const ENDS = {
+  er:['e','es','e','ons','ez','ent'], ees:['e','es','e','ons','ez','ent'], sst:['s','s','t','ons','ez','ent'],
+  dre:['ds','ds','d','ons','ez','ent'], xxt:['x','x','t','ons','ez','ent'], ir2:['is','is','it','issons','issez','issent']
+};
+const FAM = {
+  er:{n:'Verbes en -er', e:'e · es · e · ons · ez · ent', c:'er'},
+  sst:{n:'Verbes courants', e:'s · s · t · ons · ez · ent', c:'sst'},
+  ir2:{n:'Verbes comme finir', e:'is · is · it · issons · issez · issent', c:'sst'},
+  dre:{n:'Verbes en -dre', e:'ds · ds · d · ons · ez · ent', c:'dre'},
+  xxt:{n:'Pouvoir, vouloir', e:'x · x · t · ons · ez · ent', c:'dre'},
+  ees:{n:'Offrir, ouvrir…', e:'e · es · e · ons · ez · ent', c:'er'},
+  irr:{n:'Verbes irréguliers', e:'à apprendre par cœur', c:'avoir'}
+};
+const ER = ['chanter','jouer','parler','marcher','danser','regarder','aimer','écouter','travailler','arriver','donner','trouver','penser','tomber','rester','dessiner','porter','crier','oublier','manger','nager','ranger','commencer','lancer','avancer','sauter','fermer','préparer','raconter','rentrer'];
+const IR2 = ['finir','choisir','grandir','réussir','obéir','remplir','réfléchir','rougir','applaudir','bondir','salir','nourrir'];
+const DRE = ['vendre','rendre','attendre','entendre','descendre','perdre','répondre','mordre','confondre','fondre','tondre','défendre','pondre','tordre'];
+const T = s => s.split(' ');
+const IRREG = {
+  'être':      {f:T('suis es est sommes êtes sont'), fam:'irr'},
+  'avoir':     {f:T('ai as a avons avez ont'), fam:'irr'},
+  'aller':     {f:T('vais vas va allons allez vont'), fam:'irr'},
+  'faire':     {f:T('fais fais fait faisons faites font'), fam:'sst'},
+  'dire':      {f:T('dis dis dit disons dites disent'), fam:'sst'},
+  'voir':      {f:T('vois vois voit voyons voyez voient'), fam:'sst'},
+  'prévoir':   {f:T('prévois prévois prévoit prévoyons prévoyez prévoient'), fam:'sst'},
+  'croire':    {f:T('crois crois croit croyons croyez croient'), fam:'sst'},
+  'savoir':    {f:T('sais sais sait savons savez savent'), fam:'sst'},
+  'devoir':    {f:T('dois dois doit devons devez doivent'), fam:'sst'},
+  'recevoir':  {f:T('reçois reçois reçoit recevons recevez reçoivent'), fam:'sst'},
+  'décevoir':  {f:T('déçois déçois déçoit décevons décevez déçoivent'), fam:'sst'},
+  'apercevoir':{f:T('aperçois aperçois aperçoit apercevons apercevez aperçoivent'), fam:'sst'},
+  'pouvoir':   {f:T('peux peux peut pouvons pouvez peuvent'), fam:'xxt'},
+  'vouloir':   {f:T('veux veux veut voulons voulez veulent'), fam:'xxt'},
+  'valoir':    {f:T('vaux vaux vaut valons valez valent'), fam:'xxt'},
+  'prendre':   {f:T('prends prends prend prenons prenez prennent'), fam:'dre'},
+  'apprendre': {f:T('apprends apprends apprend apprenons apprenez apprennent'), fam:'dre'},
+  'comprendre':{f:T('comprends comprends comprend comprenons comprenez comprennent'), fam:'dre'},
+  'surprendre':{f:T('surprends surprends surprend surprenons surprenez surprennent'), fam:'dre'},
+  'venir':     {f:T('viens viens vient venons venez viennent'), fam:'sst'},
+  'revenir':   {f:T('reviens reviens revient revenons revenez reviennent'), fam:'sst'},
+  'devenir':   {f:T('deviens deviens devient devenons devenez deviennent'), fam:'sst'},
+  'tenir':     {f:T('tiens tiens tient tenons tenez tiennent'), fam:'sst'},
+  'partir':    {f:T('pars pars part partons partez partent'), fam:'sst'},
+  'sortir':    {f:T('sors sors sort sortons sortez sortent'), fam:'sst'},
+  'dormir':    {f:T('dors dors dort dormons dormez dorment'), fam:'sst'},
+  'courir':    {f:T('cours cours court courons courez courent'), fam:'sst'},
+  'lire':      {f:T('lis lis lit lisons lisez lisent'), fam:'sst'},
+  'écrire':    {f:T('écris écris écrit écrivons écrivez écrivent'), fam:'sst'},
+  'mettre':    {f:T('mets mets met mettons mettez mettent'), fam:'sst'},
+  'battre':    {f:T('bats bats bat battons battez battent'), fam:'sst'},
+  'boire':     {f:T('bois bois boit buvons buvez boivent'), fam:'sst'},
+  'connaître': {f:T('connais connais connaît connaissons connaissez connaissent'), fam:'sst'},
+  'vivre':     {f:T('vis vis vit vivons vivez vivent'), fam:'sst'},
+  'suivre':    {f:T('suis suis suit suivons suivez suivent'), fam:'sst'},
+  'rire':      {f:T('ris ris rit rions riez rient'), fam:'sst'},
+  'peindre':   {f:T('peins peins peint peignons peignez peignent'), fam:'sst'},
+  'éteindre':  {f:T('éteins éteins éteint éteignons éteignez éteignent'), fam:'sst'},
+  'craindre':  {f:T('crains crains craint craignons craignez craignent'), fam:'sst'},
+  'offrir':    {f:T('offre offres offre offrons offrez offrent'), fam:'ees'},
+  'ouvrir':    {f:T('ouvre ouvres ouvre ouvrons ouvrez ouvrent'), fam:'ees'},
+  'couvrir':   {f:T('couvre couvres couvre couvrons couvrez couvrent'), fam:'ees'},
+  'découvrir': {f:T('découvre découvres découvre découvrons découvrez découvrent'), fam:'ees'},
+  'souffrir':  {f:T('souffre souffres souffre souffrons souffrez souffrent'), fam:'ees'},
+  'cueillir':  {f:T('cueille cueilles cueille cueillons cueillez cueillent'), fam:'ees'}
+};
+function verb(inf){
+  if (IRREG[inf]) return {inf, ...IRREG[inf]};
+  if (IR2.includes(inf)) { const r = inf.slice(0,-2); return {inf, fam:'ir2', f:ENDS.ir2.map(e => r+e)}; }
+  if (DRE.includes(inf)) { const r = inf.slice(0,-3); return {inf, fam:'dre', f:ENDS.dre.map(e => r+e)}; }
+  if (inf.endsWith('er') && inf !== 'aller') {
+    const r = inf.slice(0,-2);
+    return {inf, fam:'er', f:ENDS.er.map((e,p) => p===3 && r.endsWith('g') ? r+'eons' : p===3 && r.endsWith('c') ? r.slice(0,-1)+'çons' : r+e)};
+  }
+  return null;
+}
+const PRON = ['je','tu','il','nous','vous','ils'];
+const withPron = (p, f, prn) => { prn = prn || PRON[p]; return prn==='je' && /^[aeiouyéèêâîôûh]/.test(f) ? "j'"+f : prn+' '+f; };
+// découpe « radical + terminaison » quand la forme suit la famille (sinon null)
+function split(v, p){
+  const e = ENDS[v.fam] && ENDS[v.fam][p], f = v.f[p];
+  if (!e || !f.endsWith(e) || f.length <= e.length) return null;
+  // cas « met » / « bat » : le t final fait partie du radical
+  if (v.fam === 'sst' && p === 2 && /(met|bat)$/.test(f)) return null;
+  return {stem: f.slice(0, -e.length), end: e};
+}
+const ALL = [...Object.keys(IRREG), ...ER, ...IR2, ...DRE].sort((a,b)=>a.localeCompare(b));
+const GROUPS = {
+  er:{n:'Verbes en -er', list:ER},
+  ir2:{n:'Verbes comme finir', list:IR2},
+  dre:{n:'Verbes en -dre', list:[...DRE,'prendre','apprendre','comprendre']},
+  oir:{n:'Verbes en -oir', list:['voir','prévoir','savoir','devoir','recevoir','décevoir','apercevoir','pouvoir','vouloir','valoir']},
+  autres:{n:'Autres verbes (s, s, t…)', list:['faire','dire','croire','venir','revenir','devenir','tenir','partir','sortir','dormir','courir','lire','écrire','mettre','boire','connaître','vivre','suivre','rire','peindre','éteindre','offrir','ouvrir','découvrir','cueillir']},
+  ea:{n:'Être, avoir, aller', list:['être','avoir','aller']}
+};
+
+/* ============ conjugueur ============ */
+$('cjList').innerHTML = ALL.map(v => `<option value="${v}">`).join('');
+function tableHtml(v, hl){
+  return `<div class="mini">${v.f.map((f,p) => { const s = split(v,p); const txt = s ? `${esc(s.stem)}<b style="color:var(--dre)">${esc(s.end)}</b>` : `<b>${esc(f)}</b>`;
+    const pr = withPron(p, f).replace(f, '');
+    return `<span${p===hl?' style="background:#fff3bf;border-radius:4px"':''}>${esc(pr)}${txt}</span>`; }).join('')}</div>`;
+}
+function showConj(){
+  const v = verb($('cjIn').value.trim().toLowerCase());
+  if (!v) { $('cjOut').innerHTML = `<p class="tip">Je ne connais pas ce verbe. Essaie un verbe de la liste.</p>`; return; }
+  const F = FAM[v.fam];
+  $('cjOut').innerHTML = `<p><b>${esc(v.inf)}</b> · <span class="fam" style="background:var(--${F.c}-s);color:var(--${F.c})">${F.n} : ${F.e}</span></p>
+    <div class="fb ok" style="display:block">${tableHtml(v)}</div>`;
+}
+$('cjGo').onclick = showConj; $('cjIn').onkeydown = e => { if (e.key==='Enter') showConj(); };
+
+/* ============ onglets ============ */
+const SETUP = {};
+document.querySelectorAll('#tabs button').forEach(b => b.onclick = () => {
+  document.querySelectorAll('#tabs button').forEach(x => x.classList.toggle('on', x===b));
+  ['regles','term','conj','famille','choix','textes'].forEach(id => $(id).classList.toggle('hide', id!==b.dataset.tab));
+  const s = SETUP[b.dataset.tab]; if (s && !s.done) { s.done = true; s(); }
+  window.scrollTo({top:0});
+});
+function selector(id){
+  return `<div class="sel" id="${id}">${Object.entries(GROUPS).map(([k,g]) => `<label class="on"><input type="checkbox" value="${k}" checked>${g.n}</label>`).join('')}</div>`;
+}
+function bindSel(id){
+  document.querySelectorAll(`#${id} label`).forEach(l => l.onclick = e => {
+    e.preventDefault(); const c = l.querySelector('input');
+    if (c.checked && document.querySelectorAll(`#${id} input:checked`).length===1) return;
+    c.checked = !c.checked; l.classList.toggle('on', c.checked);
+  });
+}
+const chosen = id => [...document.querySelectorAll(`#${id} input:checked`)].map(c => c.value);
+const SUBJ = [['je'],['tu'],['il','elle','on','Léo','Ma sœur','Le chat','La maîtresse'],['nous'],['vous'],['ils','elles','Les enfants','Mes parents','Les oiseaux']];
+function endScreen(box, title, score, total, key, wrong, again, intro){
+  const old = parseInt(store.get(key))||0, best = Math.max(old, score); store.set(key, best);
+  LevelUp.save(key, score, total);
+  const pct = score/total;
+  const msg = pct===1 ? 'Parfait ! 🏆' : pct>=0.8 ? 'Très bien ! 🌟' : pct>=0.5 ? 'Pas mal, continue ! 💪' : 'Relis la leçon et réessaie 📘';
+  box.innerHTML = `<h2>${title} — terminé</h2>
+    <div class="score">${score} / ${total}</div><p><b>${msg}</b><br>Meilleur score : ${best} / ${total}</p>
+    ${wrong.length ? `<h3>À revoir (recopie-les)</h3><ul class="review">${wrong.map(w=>`<li>${w}</li>`).join('')}</ul>` : ''}
+    <div class="row"><button class="btn" id="eAgain">Nouvelle série</button>${intro ? '<button class="btn alt" id="eChg">Changer les verbes</button>' : ''}</div>`;
+  $('eAgain').onclick = again; if (intro) $('eChg').onclick = intro;
+}
+// tire n questions {v, p, prn} dans les groupes choisis, sans doublon
+function draw(groups, n, filter){
+  const verbs = [...new Set(groups.flatMap(g => GROUPS[g].list))].map(verb);
+  const pool = []; verbs.forEach(v => { for (let p=0;p<6;p++) if (!filter || filter(v,p)) pool.push([v,p]); });
+  return shuffle(pool).slice(0, n).map(([v,p]) => ({v, p, prn: pick(SUBJ[p]), ans: v.f[p]}));
+}
+const subjText = q => q.prn==='je' && /^[aeiouyéèêâîôûh]/.test(q.ans) ? "J'" : q.prn.charAt(0).toUpperCase() + q.prn.slice(1) + ' ';
+
+/* =====================================================
+   1. TERMINAISONS (comme dans le cahier : « Il doi… »)
+   ===================================================== */
+const NB_TERM = 20;
+SETUP.term = function(){
+  const box = $('termBox'); let qs, i, score, wrong, locked, groups;
+  function intro(){
+    box.innerHTML = `<h2>Complète les terminaisons</h2>
+      <p>Comme dans ton cahier : <b>Il doi<span class="blank">t</span></b>, <b>Tu appren<span class="blank">ds</span></b>… Écris seulement la <b>terminaison</b>. Séries de ${NB_TERM}.</p>
+      <p class="hint">Verbes :</p>${selector('tS')}
+      <p class="hint">Meilleur score : ${parseInt(store.get('term'))||0} / ${NB_TERM}</p>
+      <div class="row"><button class="btn" id="tGo">C'est parti !</button></div>`;
+    bindSel('tS'); $('tGo').onclick = () => { groups = chosen('tS'); start(); };
+  }
+  function start(){ qs = draw(groups, NB_TERM, (v,p) => !!split(v,p) && (p<3 || Math.random()<.35)); i = 0; score = 0; wrong = []; LevelUp.reset(); show(); }
+  function show(){
+    locked = false; const q = qs[i], s = split(q.v, q.p);
+    box.innerHTML = `<div class="q-top"><span>Question ${i+1} / ${qs.length}</span><span>Score : ${score}</span></div>
+      <div class="bar"><i style="width:${i/qs.length*100}%"></i></div>
+      <div class="prompt">${esc(subjText(q))}<span class="stem">${esc(s.stem)}</span><span class="blank">?</span> <span class="inf">(${esc(q.v.inf)})</span></div>
+      <form class="answer" id="tF"><input class="short" id="tIn" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="Terminaison"><button class="btn">Valider</button></form>
+      <div class="fb" id="tFb"></div>
+      <div class="row hide" id="tNx"><button class="btn">${i+1<qs.length?'Suivant →':'Voir mon score'}</button></div>`;
+    const inp = $('tIn'); inp.focus();
+    $('tNx').querySelector('button').onclick = next;
+    $('tF').onsubmit = e => { e.preventDefault(); if (locked) return next();
+      let v = norm(inp.value); if (!v) return;
+      if (v.startsWith(norm(s.stem)) && v.length > s.stem.length) v = v.slice(s.stem.length);   // a tapé le mot entier
+      v = v.replace(/^-/,'');
+      const ok = v === s.end; locked = true; inp.readOnly = true; inp.classList.add(ok?'good':'bad');
+      const F = FAM[q.v.fam];
+      if (ok) score++; else { wrong.push(`${esc(subjText(q))}${esc(s.stem)}<b>${esc(s.end)}</b> (${esc(q.v.inf)})`); LevelUp.err(`${subjText(q)}${s.stem}… (${q.v.inf})`, s.end, inp.value); }
+      const fb = $('tFb'); fb.className = 'fb ' + (ok?'ok':'ko');
+      fb.innerHTML = (ok ? '✔ <b>Bravo !</b>' : `✘ Il fallait : <b>${esc(s.stem)}<u>${esc(s.end)}</u></b>`) +
+        `<br><span class="fam" style="background:var(--${F.c}-s);color:var(--${F.c})">${F.n} : ${F.e}</span>${tableHtml(q.v, q.p)}`;
+      $('tNx').classList.remove('hide'); $('tNx').querySelector('button').focus();
+    };
+  }
+  function next(){ i++; i<qs.length ? show() : endScreen(box,'Terminaisons',score,qs.length,'term',wrong,start,intro); }
+  intro();
+};
+
+/* =====================================================
+   2. CONJUGUER (forme entière)
+   ===================================================== */
+const NB_CONJ = 20;
+SETUP.conj = function(){
+  const box = $('conjBox'); let qs, i, score, wrong, locked, groups;
+  function intro(){
+    box.innerHTML = `<h2>Conjuguer au présent</h2>
+      <p>Un verbe, une personne : écris le verbe conjugué en entier. Pense à le prononcer dans ta tête : le radical peut changer (je vois, nous voyons) !</p>
+      <p class="hint">Verbes :</p>${selector('cS')}
+      <p class="hint">Meilleur score : ${parseInt(store.get('conj'))||0} / ${NB_CONJ}</p>
+      <div class="row"><button class="btn" id="cGo">C'est parti !</button></div>`;
+    bindSel('cS'); $('cGo').onclick = () => { groups = chosen('cS'); start(); };
+  }
+  function start(){ qs = draw(groups, NB_CONJ); i = 0; score = 0; wrong = []; LevelUp.reset(); show(); }
+  function show(){
+    locked = false; const q = qs[i];
+    box.innerHTML = `<div class="q-top"><span>Question ${i+1} / ${qs.length}</span><span>Score : ${score}</span></div>
+      <div class="bar"><i style="width:${i/qs.length*100}%"></i></div>
+      <div class="prompt"><b>${esc(q.v.inf)}</b> <span class="inf">au présent</span></div>
+      <form class="answer" id="cF"><span style="font-size:24px;font-weight:700">${q.prn==='je'?"je / j'":esc(q.prn)}</span>
+        <input id="cIn" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="Verbe conjugué"><button class="btn">Valider</button></form>
+      <div class="fb" id="cFb"></div>
+      <div class="row hide" id="cNx"><button class="btn">${i+1<qs.length?'Suivant →':'Voir mon score'}</button></div>`;
+    const inp = $('cIn'); inp.focus();
+    $('cNx').querySelector('button').onclick = next;
+    $('cF').onsubmit = e => { e.preventDefault(); if (locked) return next();
+      let v = norm(inp.value); if (!v) return;
+      v = v.replace(/^(je |j'|tu |il |elle |on |nous |vous |ils |elles )/,'');
+      const ok = v === q.ans; locked = true; inp.readOnly = true; inp.classList.add(ok?'good':'bad');
+      if (ok) score++; else { wrong.push(`${esc(q.v.inf)} : <b>${esc(withPron(q.p, q.ans, q.prn))}</b>`); LevelUp.err(`${q.v.inf} · ${q.prn}`, q.ans, inp.value); }
+      const fb = $('cFb'); fb.className = 'fb ' + (ok?'ok':'ko');
+      fb.innerHTML = (ok ? '✔ <b>Bravo !</b>' : `✘ La bonne réponse : <b>${esc(withPron(q.p, q.ans, q.prn))}</b>`) + tableHtml(q.v, q.p);
+      $('cNx').classList.remove('hide'); $('cNx').querySelector('button').focus();
+    };
+  }
+  function next(){ i++; i<qs.length ? show() : endScreen(box,'Conjuguer',score,qs.length,'conj',wrong,start,intro); }
+  intro();
+};
+
+/* =====================================================
+   3. QUELLE FAMILLE ? (quelles terminaisons pour ce verbe ?)
+   ===================================================== */
+const NB_FAM = 12;
+const FAM_CHOICES = ['er','sst','ir2','dre','xxt'];
+SETUP.famille = function(){
+  const box = $('famBox'); let qs, i, score, wrong;
+  function start(){
+    const vs = shuffle(ALL.map(verb).filter(v => v.fam !== 'irr'));
+    // varier : pas plus de 3 verbes en -er
+    const out = []; let er = 0;
+    for (const v of vs) { if (v.fam==='er' && er>=3) continue; if (v.fam==='er') er++; out.push(v); if (out.length===NB_FAM) break; }
+    qs = out; i = 0; score = 0; wrong = []; LevelUp.reset(); show();
+  }
+  function show(){
+    const v = qs[i];
+    const ans = v.fam === 'ees' ? 'er' : v.fam;   // offrir/ouvrir : mêmes terminaisons que les verbes en -er
+    box.innerHTML = `<div class="q-top"><span>Verbe ${i+1} / ${qs.length}</span><span>Score : ${score}</span></div>
+      <div class="bar"><i style="width:${i/qs.length*100}%"></i></div>
+      <p class="hint" style="margin-top:0">Quelles sont les terminaisons de ce verbe au présent (je, tu, il, nous, vous, ils) ?</p>
+      <div class="prompt" style="text-align:center;font-size:30px"><b>${esc(v.inf)}</b></div>
+      <div class="opts">${FAM_CHOICES.map(k => `<button data-k="${k}">${ENDS[k].join(' · ')}</button>`).join('')}</div>
+      <div class="fb" id="fFb"></div>
+      <div class="row hide" id="fNx"><button class="btn">${i+1<qs.length?'Suivant →':'Voir mon score'}</button></div>`;
+    box.querySelectorAll('.opts button').forEach(b => b.onclick = () => {
+      box.querySelectorAll('.opts button').forEach(x => x.disabled = true);
+      const ok = b.dataset.k === ans;
+      box.querySelector(`.opts button[data-k="${ans}"]`).classList.add('good'); if (!ok) b.classList.add('bad');
+      if (ok) score++; else { wrong.push(`${esc(v.inf)} → <b>${ENDS[ans].join(', ')}</b>`); LevelUp.err(`Famille de « ${v.inf} »`, ENDS[ans].join(' '), ENDS[b.dataset.k].join(' ')); }
+      const F = FAM[v.fam];
+      const extra = v.fam==='ees' ? ' Attention : offrir, ouvrir, cueillir… se conjuguent comme les verbes en -er !'
+        : /indre$/.test(v.inf) ? ' Attention : les verbes en -indre font s, s, t (pas de d).' : '';
+      const fb = $('fFb'); fb.className = 'fb ' + (ok?'ok':'ko');
+      fb.innerHTML = (ok ? '✔ <b>Bravo !</b> ' : '✘ <b>Pas tout à fait…</b> ') + `${F.n}.${extra}` + tableHtml(v);
+      $('fNx').classList.remove('hide'); $('fNx').querySelector('button').focus();
+    });
+    $('fNx').querySelector('button').onclick = () => { i++; i<qs.length ? show() : endScreen(box,'Quelle famille ?',score,qs.length,'famille',wrong,start); };
+  }
+  start();
+};
+
+/* =====================================================
+   4. LE BON VERBE (choisir entre des formes qui se prononcent pareil)
+   ===================================================== */
+const NB_CHOIX = 15;
+SETUP.choix = function(){
+  const box = $('choixBox'); let qs, i, score, wrong;
+  function start(){
+    // on garde les cas où il existe au moins 2 autres formes écrites différemment du même verbe
+    qs = draw(Object.keys(GROUPS), 200).filter(q => new Set(q.v.f).size >= 4).slice(0, NB_CHOIX);
+    i = 0; score = 0; wrong = []; LevelUp.reset(); show();
+  }
+  function show(){
+    const q = qs[i];
+    // pièges : formes du même verbe + une faute courante (t ↔ s, d ↔ t…)
+    const traps = new Set(q.v.f.filter(f => f !== q.ans));
+    if (/s$/.test(q.ans) && !['er','ees','irr'].includes(q.v.fam)) traps.add(q.ans.replace(/s$/,'t'));
+    if (/t$/.test(q.ans) && q.p===2) traps.add(q.ans + 's');
+    if (/d$/.test(q.ans)) traps.add(q.ans.replace(/d$/,'t'));
+    if (/x$/.test(q.ans)) traps.add(q.ans.replace(/x$/,'s'));
+    traps.delete(q.ans);
+    const opts = shuffle([q.ans, ...shuffle([...traps]).slice(0,3)]);
+    box.innerHTML = `<div class="q-top"><span>Question ${i+1} / ${qs.length}</span><span>Score : ${score}</span></div>
+      <div class="bar"><i style="width:${i/qs.length*100}%"></i></div>
+      <p class="hint" style="margin-top:0">Choisis la bonne orthographe du verbe au présent.</p>
+      <div class="prompt">${esc(subjText(q))}<span class="blank">…</span> <span class="inf">(${esc(q.v.inf)})</span></div>
+      <div class="opts">${opts.map(o => `<button>${esc(o)}</button>`).join('')}</div>
+      <div class="fb" id="chFb"></div>
+      <div class="row hide" id="chNx"><button class="btn">${i+1<qs.length?'Suivant →':'Voir mon score'}</button></div>`;
+    box.querySelectorAll('.opts button').forEach((b,k) => b.onclick = () => {
+      box.querySelectorAll('.opts button').forEach(x => x.disabled = true);
+      const ok = opts[k] === q.ans;
+      box.querySelectorAll('.opts button').forEach((x,j) => { if (opts[j]===q.ans) x.classList.add('good'); else if (j===k) x.classList.add('bad'); });
+      if (ok) score++; else { wrong.push(`${esc(subjText(q))}<b>${esc(q.ans)}</b> (${esc(q.v.inf)})`); LevelUp.err(`${subjText(q)}… (${q.v.inf})`, q.ans, opts[k]); }
+      const fb = $('chFb'); fb.className = 'fb ' + (ok?'ok':'ko');
+      fb.innerHTML = (ok ? '✔ <b>Bravo !</b> ' : '✘ <b>Pas tout à fait…</b> ') + `${esc(subjText(q))}<b>${esc(q.ans)}</b>` + tableHtml(q.v, q.p);
+      $('chNx').classList.remove('hide'); $('chNx').querySelector('button').focus();
+    });
+    $('chNx').querySelector('button').onclick = () => { i++; i<qs.length ? show() : endScreen(box,'Le bon verbe',score,qs.length,'choix',wrong,start); };
+  }
+  start();
+};
+
+/* =====================================================
+   5. TEXTES À CORRIGER : [faux|juste|explication]
+   ===================================================== */
+const TEXTES = [
+  {t:'À la piscine', s:"Chaque samedi, je [prend|prends|prendre : je prends (ds).] le bus avec ma sœur. Nous [allont|allons|aller : nous allons.] à la piscine. Ma sœur [veux|veut|vouloir : il/elle veut (x, x, t).] toujours plonger la première. Moi, je [peut|peux|pouvoir : je peux (x).] rester des heures dans l'eau. Les maîtres-nageurs nous [surveilles|surveillent|Verbe en -er : ils/elles → -ent.]. À midi, nous [finisons|finissons|Comme finir : 2 s pour faire le son [s].] nos sandwichs, puis nous [rentront|rentrons|Avec nous → -ons.] à la maison."},
+  {t:'Au marché', s:"Le dimanche, le fermier [vent|vend|vendre : il vend (d).] ses légumes sur la place. Je [voit|vois|voir : je vois (s).] des tomates et des salades. Le marchand me [dis|dit|dire : il dit (t).] bonjour. Ma mère [prends|prend|prendre : elle prend (d).] des pommes. Les clients [attende|attendent|attendre : ils attendent (-ent).] leur tour. Vous [voyer|voyez|voir : vous voyez (-ez).] le stand de fromages ? Mon frère [ouvert|ouvre|ouvrir : il ouvre (e, es, e).] son porte-monnaie."},
+  {t:'Le soir', s:"Le soir, mon chien [cour|court|courir : il court (t).] dans le jardin. Il [revien|revient|revenir : il revient (t).] quand je l'appelle. Ensuite, nous [lison|lisons|lire : nous lisons (-ons).] une histoire. Mes parents [éteind|éteignent|éteindre : ils éteignent. Les verbes en -indre font s, s, t au singulier.] la lumière et je [m'endor|m'endors|s'endormir : je m'endors (s).] vite. Dehors, les étoiles [brille|brillent|Verbe en -er : elles brillent (-ent).] dans le ciel."},
+  {t:'En classe', s:"Ce matin, la maîtresse [écrie|écrit|écrire : elle écrit (t).] la date au tableau. Nous [sortont|sortons|sortir : nous sortons.] nos cahiers. Tu [répond|réponds|répondre : tu réponds (ds).] à la question. Les élèves [réfléchisent|réfléchissent|Comme finir : ils réfléchissent (2 s).] en silence. Je [fait|fais|faire : je fais (s).] attention à mes terminaisons. Vous [faisez|faites|faire : vous faites (comme vous êtes, vous dites).] de beaux progrès !"}
+];
+SETUP.textes = function(){
+  let cur = 0, tFound, tMiss, tTotal, saved;
+  function tabs(){
+    $('txtTabs').innerHTML = TEXTES.map((x,k)=>`<button class="${k===cur?'on':''}">${k+1}. ${x.t}</button>`).join('');
+    $('txtTabs').querySelectorAll('button').forEach((b,k) => b.onclick = () => { cur = k; build(); });
+  }
+  function build(){
+    tabs(); tFound = 0; tMiss = 0; tTotal = 0; saved = false;
+    const T = TEXTES[cur], txt = $('txt'); txt.innerHTML = ''; $('why').textContent = 'Clique sur les verbes mal écrits…';
+    const re = /\[([^|\]]+)\|([^|\]]+)\|([^\]]+)\]/g; let last = 0, m;
+    const addPlain = str => str.split(/(\s+)/).forEach(tok => {
+      if (!tok) return;
+      if (/^\s+$/.test(tok) || /^[.,;:!?«»]+$/.test(tok)) { txt.appendChild(document.createTextNode(tok)); return; }
+      const s = document.createElement('span'); s.className = 'w'; s.textContent = tok;
+      s.onclick = () => { tMiss++; upd(); s.classList.remove('miss'); void s.offsetWidth; s.classList.add('miss'); setTimeout(()=>s.classList.remove('miss'),600); };
+      txt.appendChild(s);
+    });
+    while ((m = re.exec(T.s))) {
+      addPlain(T.s.slice(last, m.index));
+      const s = document.createElement('span'); s.className = 'w err'; s.textContent = m[1];
+      s.dataset.bad = m[1]; s.dataset.ok = m[2]; s.dataset.why = m[3];
+      s.onclick = () => { if (s.dataset.done) return;
+        s.dataset.done = 1; s.textContent = s.dataset.ok; s.classList.add('found'); tFound++;
+        $('why').innerHTML = `✔ <b>${esc(s.dataset.bad)} → ${esc(s.dataset.ok)}</b> : ${esc(s.dataset.why)}`; upd(); };
+      txt.appendChild(s); tTotal++; last = re.lastIndex;
+    }
+    addPlain(T.s.slice(last));
+    $('tTotal').textContent = tTotal; upd();
+  }
+  function upd(){
+    $('tFound').textContent = tFound; $('tMiss').textContent = tMiss;
+    if (tFound === tTotal && tTotal && !saved) {
+      saved = true; LevelUp.reset(); LevelUp.save('texte-' + (cur+1), tTotal, tTotal + tMiss);
+      $('why').innerHTML = `🎉 Toutes les fautes sont trouvées ! (${tMiss} clic${tMiss>1?'s':''} sur des mots justes)<br>✍️ Recopie le texte corrigé dans ton cahier, puis passe au texte suivant.`;
+    }
+  }
+  $('tShow').onclick = () => {
+    const list = [];
+    document.querySelectorAll('#txt .err').forEach(s => {
+      list.push(`<li><b>${esc(s.dataset.bad)} → ${esc(s.dataset.ok)}</b> : ${esc(s.dataset.why)}</li>`);
+      if (s.dataset.done) return; s.dataset.done = 1;
+      s.innerHTML = `<s>${esc(s.dataset.bad)}</s>${esc(s.dataset.ok)}`; s.classList.add('shown');
+    });
+    $('why').innerHTML = `<b>Corrections :</b><ul class="review">${list.join('')}</ul>`;
+  };
+  $('tReset').onclick = build;
+  $('tNext').onclick = () => { cur = (cur+1) % TEXTES.length; build(); };
+  build();
+};
+</script>
+</body>
+</html>

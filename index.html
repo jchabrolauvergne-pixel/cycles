@@ -249,9 +249,12 @@ const CATALOGUE = [
   {file:'imparfait_passe_simple.html', id:'imp-ps-4e', title:'Imparfait et passé simple',
    desc:"Conjuguer, choisir le bon temps, transformer un récit (subjonctif signalé), corriger des textes et écrire la suite d'une histoire.",
    themes:['conjugaison','imparfait','passé simple','subjonctif','écriture','4e']},
+  {file:'present_cm2.html', id:'present-cm2', title:'Le présent des verbes',
+   desc:"Être, avoir, verbes en -er, verbes courants (s, s, t), -dre (ds, ds, d), pouvoir/vouloir (x, x, t), finir (2 s) : carte mentale, terminaisons, conjugaison, choix et textes à corriger.",
+   themes:['conjugaison','présent','CM2'], isNew:true},
   {file:'waste_cm2.html', id:'waste-cm2', title:'Waste — les déchets en anglais',
    desc:"Science in English : les matériaux des déchets, le tri, combien de temps ils restent dans la nature, leur traitement en France. Avec prononciation, dictée et texte à corriger.",
-   themes:['anglais','sciences','waste','déchets','CM2'], isNew:true}
+   themes:['anglais','sciences','waste','déchets','CM2']}
 ];
 
 const $ = id => document.getElementById(id);
@@ -266,7 +269,7 @@ const LS = {
 const SUBJ = { fr:{n:'Français', i:'✒️'}, ma:{n:'Maths', i:'📐'}, hi:{n:'Histoire', i:'🏛️'}, en:{n:'Anglais', i:'🇬🇧'} };
 const subjectOf = q => q.themes.includes('anglais') ? 'en' : q.themes.includes('maths') ? 'ma' : q.themes.includes('histoire') ? 'hi' : 'fr';
 const levelsOf = q => ['CM2','4e'].filter(l => q.themes.includes(l));
-const ICONS = [['waste','♻️'],['tables','✖️'],['romain','🏛️'],['frise','⏳'],['passé simple','⏱️'],['imparfait','⏱️'],['conjugaison','🔁'],['accords','🔗'],['son é','🔊'],['dictée','📝'],['homophones','👯'],['écriture','✍️']];
+const ICONS = [['waste','♻️'],['présent','⏳'],['tables','✖️'],['romain','🏛️'],['frise','⏳'],['passé simple','⏱️'],['imparfait','⏱️'],['conjugaison','🔁'],['accords','🔗'],['son é','🔊'],['dictée','📝'],['homophones','👯'],['écriture','✍️']];
 const iconOf = q => (ICONS.find(([k]) => q.themes.some(t => t.includes(k))) || [0, SUBJ[subjectOf(q)].i])[1];
 
 /* ===== XP : calculés à partir des meilleurs scores enregistrés par chaque quiz ===== */

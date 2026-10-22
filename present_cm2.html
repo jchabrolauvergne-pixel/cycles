@@ -201,17 +201,18 @@ const norm = s => s.toLowerCase().replace(/[’`]/g,"'").replace(/\s+/g,' ').rep
    ===================================================== */
 const ENDS = {
   er:['e','es','e','ons','ez','ent'], ees:['e','es','e','ons','ez','ent'], sst:['s','s','t','ons','ez','ent'],
-  dre:['ds','ds','d','ons','ez','ent'], xxt:['x','x','t','ons','ez','ent'], ir2:['is','is','it','issons','issez','issent']
+  dre:['ds','ds','d','ons','ez','ent'], xxt:['x','x','t','ons','ez','ent']
 };
 const FAM = {
   er:{n:'Verbes en -er', e:'e · es · e · ons · ez · ent', c:'er'},
   sst:{n:'Verbes courants', e:'s · s · t · ons · ez · ent', c:'sst'},
-  ir2:{n:'Verbes comme finir', e:'is · is · it · issons · issez · issent', c:'sst'},
   dre:{n:'Verbes en -dre', e:'ds · ds · d · ons · ez · ent', c:'dre'},
   xxt:{n:'Pouvoir, vouloir', e:'x · x · t · ons · ez · ent', c:'dre'},
   ees:{n:'Offrir, ouvrir…', e:'e · es · e · ons · ez · ent', c:'er'},
   irr:{n:'Verbes irréguliers', e:'à apprendre par cœur', c:'avoir'}
 };
+// nom affiché de la famille (finir : s, s, t avec 2 s au pluriel)
+const famInfo = v => v.finir ? {n:'Verbes comme finir', e:'s · s · t · (ss)ons · (ss)ez · (ss)ent', c:'sst'} : FAM[v.fam];
 const ER = ['chanter','jouer','parler','marcher','danser','regarder','aimer','écouter','travailler','arriver','donner','trouver','penser','tomber','rester','dessiner','porter','crier','oublier','manger','nager','ranger','commencer','lancer','avancer','sauter','fermer','préparer','raconter','rentrer'];
 const IR2 = ['finir','choisir','grandir','réussir','obéir','remplir','réfléchir','rougir','applaudir','bondir','salir','nourrir'];
 const DRE = ['vendre','rendre','attendre','entendre','descendre','perdre','répondre','mordre','confondre','fondre','tondre','défendre','pondre','tordre'];
@@ -266,8 +267,10 @@ const IRREG = {
 };
 function verb(inf){
   if (IRREG[inf]) return {inf, ...IRREG[inf]};
-  if (IR2.includes(inf)) { const r = inf.slice(0,-2); return {inf, fam:'ir2', f:ENDS.ir2.map(e => r+e)}; }
-  if (DRE.includes(inf)) { const r = inf.slice(0,-3); return {inf, fam:'dre', f:ENDS.dre.map(e => r+e)}; }
+  if (IR2.includes(inf)) { const r = inf.slice(0,-1), rs = inf.slice(0,-1) + 'ss';   // fini-s / finiss-ons
+    return {inf, fam:'sst', finir:true, f:[r+'s', r+'s', r+'t', rs+'ons', rs+'ez', rs+'ent']}; }
+  if (DRE.includes(inf)) { const r = inf.slice(0,-3), rd = inf.slice(0,-2);   // répon-ds / répond-ons
+    return {inf, fam:'dre', f:[r+'ds', r+'ds', r+'d', rd+'ons', rd+'ez', rd+'ent']}; }
   if (inf.endsWith('er') && inf !== 'aller') {
     const r = inf.slice(0,-2);
     return {inf, fam:'er', f:ENDS.er.map((e,p) => p===3 && r.endsWith('g') ? r+'eons' : p===3 && r.endsWith('c') ? r.slice(0,-1)+'çons' : r+e)};
@@ -304,7 +307,7 @@ function tableHtml(v, hl){
 function showConj(){
   const v = verb($('cjIn').value.trim().toLowerCase());
   if (!v) { $('cjOut').innerHTML = `<p class="tip">Je ne connais pas ce verbe. Essaie un verbe de la liste.</p>`; return; }
-  const F = FAM[v.fam];
+  const F = famInfo(v);
   $('cjOut').innerHTML = `<p><b>${esc(v.inf)}</b> · <span class="fam" style="background:var(--${F.c}-s);color:var(--${F.c})">${F.n} : ${F.e}</span></p>
     <div class="fb ok" style="display:block">${tableHtml(v)}</div>`;
 }
@@ -379,7 +382,7 @@ SETUP.term = function(){
       if (v.startsWith(norm(s.stem)) && v.length > s.stem.length) v = v.slice(s.stem.length);   // a tapé le mot entier
       v = v.replace(/^-/,'');
       const ok = v === s.end; locked = true; inp.readOnly = true; inp.classList.add(ok?'good':'bad');
-      const F = FAM[q.v.fam];
+      const F = famInfo(q.v);
       if (ok) score++; else { wrong.push(`${esc(subjText(q))}${esc(s.stem)}<b>${esc(s.end)}</b> (${esc(q.v.inf)})`); LevelUp.err(`${subjText(q)}${s.stem}… (${q.v.inf})`, s.end, inp.value); }
       const fb = $('tFb'); fb.className = 'fb ' + (ok?'ok':'ko');
       fb.innerHTML = (ok ? '✔ <b>Bravo !</b>' : `✘ Il fallait : <b>${esc(s.stem)}<u>${esc(s.end)}</u></b>`) +
@@ -420,7 +423,7 @@ SETUP.conj = function(){
     $('cF').onsubmit = e => { e.preventDefault(); if (locked) return next();
       let v = norm(inp.value); if (!v) return;
       v = v.replace(/^(je |j'|tu |il |elle |on |nous |vous |ils |elles )/,'');
-      const ok = v === q.ans; locked = true; inp.readOnly = true; inp.classList.add(ok?'good':'bad');
+      const ok = v === q.ans || v === q.ans.replace('î','i'); locked = true; inp.readOnly = true; inp.classList.add(ok?'good':'bad');   // connaît / connait (orthographe rectifiée)
       if (ok) score++; else { wrong.push(`${esc(q.v.inf)} : <b>${esc(withPron(q.p, q.ans, q.prn))}</b>`); LevelUp.err(`${q.v.inf} · ${q.prn}`, q.ans, inp.value); }
       const fb = $('cFb'); fb.className = 'fb ' + (ok?'ok':'ko');
       fb.innerHTML = (ok ? '✔ <b>Bravo !</b>' : `✘ La bonne réponse : <b>${esc(withPron(q.p, q.ans, q.prn))}</b>`) + tableHtml(q.v, q.p);
@@ -435,7 +438,7 @@ SETUP.conj = function(){
    3. QUELLE FAMILLE ? (quelles terminaisons pour ce verbe ?)
    ===================================================== */
 const NB_FAM = 12;
-const FAM_CHOICES = ['er','sst','ir2','dre','xxt'];
+const FAM_CHOICES = ['er','sst','dre','xxt'];
 SETUP.famille = function(){
   const box = $('famBox'); let qs, i, score, wrong;
   function start(){
@@ -460,8 +463,9 @@ SETUP.famille = function(){
       const ok = b.dataset.k === ans;
       box.querySelector(`.opts button[data-k="${ans}"]`).classList.add('good'); if (!ok) b.classList.add('bad');
       if (ok) score++; else { wrong.push(`${esc(v.inf)} → <b>${ENDS[ans].join(', ')}</b>`); LevelUp.err(`Famille de « ${v.inf} »`, ENDS[ans].join(' '), ENDS[b.dataset.k].join(' ')); }
-      const F = FAM[v.fam];
+      const F = famInfo(v);
       const extra = v.fam==='ees' ? ' Attention : offrir, ouvrir, cueillir… se conjuguent comme les verbes en -er !'
+        : v.finir ? ' Les verbes comme finir prennent 2 s au pluriel : nous finissons, ils finissent.'
         : /indre$/.test(v.inf) ? ' Attention : les verbes en -indre font s, s, t (pas de d).' : '';
       const fb = $('fFb'); fb.className = 'fb ' + (ok?'ok':'ko');
       fb.innerHTML = (ok ? '✔ <b>Bravo !</b> ' : '✘ <b>Pas tout à fait…</b> ') + `${F.n}.${extra}` + tableHtml(v);
@@ -487,10 +491,11 @@ SETUP.choix = function(){
     const q = qs[i];
     // pièges : formes du même verbe + une faute courante (t ↔ s, d ↔ t…)
     const traps = new Set(q.v.f.filter(f => f !== q.ans));
-    if (/s$/.test(q.ans) && !['er','ees','irr'].includes(q.v.fam)) traps.add(q.ans.replace(/s$/,'t'));
-    if (/t$/.test(q.ans) && q.p===2) traps.add(q.ans + 's');
-    if (/d$/.test(q.ans)) traps.add(q.ans.replace(/d$/,'t'));
-    if (/x$/.test(q.ans)) traps.add(q.ans.replace(/x$/,'s'));
+    // fautes fréquentes, seulement quand elles sont vraisemblables
+    if (q.p < 2 && /s$/.test(q.ans) && !['er','ees','irr'].includes(q.v.fam)) traps.add(q.ans.replace(/s$/,'t'));   // je dit
+    if (q.p === 2 && /d$/.test(q.ans)) traps.add(q.ans.replace(/d$/,'t'));                                        // il répont
+    if (q.p < 2 && /x$/.test(q.ans)) traps.add(q.ans.replace(/x$/,'s'));                                          // je peus
+    if (q.p === 3 && /ons$/.test(q.ans)) traps.add(q.ans.replace(/ons$/,'ont'));                                  // nous lisont
     traps.delete(q.ans);
     const opts = shuffle([q.ans, ...shuffle([...traps]).slice(0,3)]);
     box.innerHTML = `<div class="q-top"><span>Question ${i+1} / ${qs.length}</span><span>Score : ${score}</span></div>

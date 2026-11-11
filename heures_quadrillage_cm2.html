@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lire l'heure, les durées et le quadrillage (CM2)</title>
+<meta name="description" content="Lire l'heure, convertir et calculer des durées, se repérer et se déplacer dans un quadrillage : leçon, deux quiz avec correction et un quiz mélangé.">
+<meta name="themes" content="maths, heures, durées, quadrillage, coordonnées, CM2">
+<style>
+  :root{
+    --bg:#f3f7f4; --card:#ffffff; --ink:#1f2a27; --muted:#5b6b66;
+    --primary:#1f8a5b; --primary-soft:#e2f5ec; --accent:#e8833a; --accent-soft:#fdeede;
+    --ok:#2e9e5b; --ok-soft:#e3f6ea; --ko:#d14343; --ko-soft:#fbe5e5; --line:#d9e3de;
+    --warn:#a86a00; --warn-soft:#fff6dc; --path:#ffe58a; --cell:#ffffff;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --bg:#121a17; --card:#1b2420; --ink:#e9efec; --muted:#a3b3ad;
+      --primary:#4cc58b; --primary-soft:#173a2a; --accent:#f0a05f; --accent-soft:#3c2817;
+      --ok:#4cc37f; --ok-soft:#173826; --ko:#ff7b6b; --ko-soft:#42201c; --line:#2f3c37;
+      --warn:#f0b84a; --warn-soft:#3d2f12; --path:#6b5a17; --cell:#1f2a26;
+    }
+  }
+  *{box-sizing:border-box}
+  body{margin:0;font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;background:var(--bg);color:var(--ink);font-size:18px;line-height:1.5}
+  header{background:#1f8a5b;color:#fff;padding:18px 16px 0}
+  .wrap{max-width:860px;margin:0 auto}
+  header a.back{color:#d6f2e4;text-decoration:none;font-size:15px}
+  h1{margin:6px 0 4px;font-size:26px}
+  .sub{margin:0 0 14px;color:#d6f2e4;font-size:16px}
+  .badge{display:inline-block;background:var(--accent);color:#fff;border-radius:999px;padding:2px 10px;font-size:14px;font-weight:600;margin-left:6px;vertical-align:middle}
+  nav{display:flex;gap:6px;flex-wrap:wrap}
+  nav button{border:0;background:rgba(255,255,255,.15);color:#fff;padding:10px 14px;border-radius:10px 10px 0 0;font-size:16px;cursor:pointer;font-weight:600}
+  nav button.on{background:var(--bg);color:var(--primary)}
+  main{padding:18px 16px 70px}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px;margin-bottom:16px;box-shadow:0 1px 3px rgba(0,0,0,.04)}
+  h2{margin:0 0 10px;font-size:21px;color:var(--primary)}
+  h3{margin:16px 0 6px;font-size:18px}
+  p{margin:6px 0}
+  ul{margin:6px 0;padding-left:22px}
+  .hint{color:var(--muted);font-size:15px}
+  .tip{background:var(--warn-soft);border-left:5px solid #f0c400;padding:10px 14px;border-radius:8px;margin-top:12px}
+  .rules{background:var(--primary-soft);border-radius:12px;padding:12px 16px;margin:10px 0}
+  .rules ul{margin:4px 0 0}
+  .eq{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0}
+  .eq span{background:var(--primary-soft);border-radius:8px;padding:4px 10px;font-size:16px;font-weight:600}
+  .ex{display:flex;flex-wrap:wrap;gap:18px;align-items:center;justify-content:center;margin:12px 0}
+  .ex figure{margin:0;text-align:center}
+  .ex figcaption{font-size:15px;color:var(--muted);margin-top:4px}
+  kbd{background:var(--primary-soft);border-radius:6px;padding:0 6px;font-family:inherit;font-weight:700}
+
+  /* Questions */
+  .q-top{display:flex;justify-content:space-between;align-items:center;color:var(--muted);font-size:15px;margin-bottom:6px}
+  .bar{height:8px;background:var(--line);border-radius:99px;overflow:hidden;margin-bottom:16px}
+  .bar>i{display:block;height:100%;background:var(--primary);width:0;transition:width .3s}
+  .prompt{font-size:20px;font-weight:700;margin:4px 0 12px}
+  .visual{display:flex;justify-content:center;margin:4px 0 16px}
+  .choices{display:grid;gap:10px}
+  .choice{text-align:left;font:inherit;color:var(--ink);background:var(--card);border:2px solid var(--line);border-radius:12px;padding:12px 14px;cursor:pointer}
+  .choice:hover:not(:disabled){border-color:var(--primary)}
+  .choice:disabled{cursor:default}
+  .choice.good{border-color:var(--ok);background:var(--ok-soft)}
+  .choice.bad{border-color:var(--ko);background:var(--ko-soft)}
+  .choice.arrows{font-size:24px;letter-spacing:.12em;text-align:center}
+  .answer{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+  .answer input{width:170px;font-size:24px;text-align:center;padding:8px;border:3px solid var(--line);border-radius:12px;font-weight:700;background:var(--card);color:var(--ink)}
+  .answer input:focus{outline:none;border-color:var(--primary)}
+  .answer input.good{border-color:var(--ok);background:var(--ok-soft)}
+  .answer input.bad{border-color:var(--ko);background:var(--ko-soft)}
+  .answer .unit{font-weight:600}
+  .shake{animation:shake .35s}
+  @keyframes shake{25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
+  .fb{margin-top:14px;padding:12px 14px;border-radius:10px;display:none}
+  .fb.ok{display:block;background:var(--ok-soft);border-left:5px solid var(--ok)}
+  .fb.ko{display:block;background:var(--ko-soft);border-left:5px solid var(--ko)}
+  .fb.warn{display:block;background:var(--warn-soft);border-left:5px solid var(--warn)}
+  .btn{border:0;background:var(--primary);color:#fff;font-size:17px;font-weight:600;padding:11px 18px;border-radius:10px;cursor:pointer}
+  .btn:disabled{opacity:.45;cursor:default}
+  .btn.alt{background:var(--card);color:var(--primary);border:2px solid var(--primary)}
+  .row{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
+  .center{justify-content:center}
+  .score{font-size:44px;font-weight:800;color:var(--primary);margin:6px 0}
+  .review{padding-left:20px} .review li{margin-bottom:6px}
+  .hide{display:none!important}
+
+  /* Horloge */
+  svg.clock{width:180px;height:180px}
+  .clock .face{fill:var(--card);stroke:var(--ink);stroke-width:4}
+  .clock .tk{stroke:var(--muted);stroke-width:1.4}
+  .clock .tk.big{stroke:var(--ink);stroke-width:3}
+  .clock .num{fill:var(--ink);font:700 17px system-ui,sans-serif;text-anchor:middle;dominant-baseline:central}
+  .clock .hand{stroke:var(--ink);stroke-linecap:round}
+  .clock .hr{stroke:#1f8a5b}
+  .clock .mn{stroke:var(--accent)}
+  .clock .pin{fill:var(--ink)}
+  .legend{display:flex;gap:14px;justify-content:center;font-size:15px;margin-top:4px}
+  .legend i{display:inline-block;width:22px;height:5px;border-radius:3px;vertical-align:middle;margin-right:5px}
+
+  /* Quadrillage */
+  .grid{display:grid;user-select:none;--sz:min(48px, calc((100vw - 110px) / var(--n)))}
+  .grid .cell{width:var(--sz);height:var(--sz);border:1px solid var(--muted);margin:-1px 0 0 -1px;background:var(--cell);
+    display:grid;place-items:center;font-size:calc(var(--sz) * .55);position:relative;padding:0;color:var(--ink);font-family:inherit}
+  .grid button.cell{cursor:pointer}
+  .grid button.cell:hover:not(:disabled){background:var(--primary-soft)}
+  .grid .cell.sel{background:var(--primary-soft);outline:3px solid var(--primary);outline-offset:-3px;z-index:1}
+  .grid .cell.path{background:var(--path)}
+  .grid .cell.good{background:var(--ok-soft);outline:3px solid var(--ok);outline-offset:-3px;z-index:2}
+  .grid .cell.bad{background:var(--ko-soft);outline:3px solid var(--ko);outline-offset:-3px;z-index:2}
+  .grid .cell .step{position:absolute;top:1px;left:3px;font-size:11px;font-weight:800;color:var(--ink)}
+  .grid .lab{display:grid;place-items:center;font-weight:800;color:var(--primary);font-size:16px}
+  .grid .lab.r{width:30px;height:var(--sz)}
+  .grid .lab.c{width:var(--sz);height:30px}
+  svg.nodes{width:232px;height:226px}
+  .nodes .ln{stroke:var(--muted);stroke-width:1.5}
+  .nodes .lb{fill:var(--primary);font:800 16px system-ui,sans-serif;text-anchor:middle;dominant-baseline:central}
+  .nodes .pt{fill:var(--ko)} .nodes .pt.good{fill:var(--ok)}
+  .nodes .pl{fill:var(--ink);font:800 16px system-ui,sans-serif}
+  .moves{font-size:26px;letter-spacing:.14em;font-weight:700;text-align:center;margin:0 0 10px}
+
+  /* Frise des durées */
+  .tl{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin:8px 0 4px}
+  .tl .t{background:var(--card);border:2px solid var(--ink);border-radius:8px;padding:1px 8px;font-weight:800}
+  .tl .j{color:var(--primary);font-weight:700;font-size:15px;white-space:nowrap}
+  .tl .tot{font-weight:800}
+  @media (max-width:600px){body{font-size:17px}.prompt{font-size:18px}}
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <a class="back" href="index.html">← Tous les quiz</a>
+    <h1>L'heure, les durées et le quadrillage <span class="badge">CM2</span></h1>
+    <p class="sub">Révisions maths 1 : lire l'heure, calculer des durées, se repérer sur un plan</p>
+    <nav id="tabs">
+      <button data-tab="lecon" class="on">📘 Leçon</button>
+      <button data-tab="heures">🕒 Heures et durées</button>
+      <button data-tab="quadri">🗺️ Quadrillage</button>
+      <button data-tab="mix">🎯 Tout mélangé</button>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <!-- ============ LEÇON ============ -->
+  <section id="lecon">
+    <div class="card">
+      <h2>1. Lire l'heure</h2>
+      <p>Sur une horloge, on regarde les deux aiguilles :</p>
+      <ul>
+        <li>la <b>petite aiguille</b> indique les <b>heures</b> ;</li>
+        <li>la <b>grande aiguille</b> indique les <b>minutes</b> : quand elle est sur le 1, c'est 5 min ; sur le 2, 10 min ; sur le 7, 35 min… (on compte de 5 en 5).</li>
+      </ul>
+      <div class="ex"><figure id="lessonClock"></figure></div>
+      <p>Une journée dure 24 heures. <b>Le matin</b> (de minuit à midi), on lit les heures de 0 à 12 : ici, il est <b>1h35</b>. <b>L'après-midi et le soir</b> (de midi à minuit), on ajoute 12 : la même horloge indique <b>13h35</b>.</p>
+      <div class="tip">💡 Si la petite aiguille est <b>entre deux nombres</b>, on prend <b>le plus petit</b> : entre le 9 et le 10, il est 9 h et quelque chose.</div>
+    </div>
+
+    <div class="card">
+      <h2>2. Les unités de durée et les conversions</h2>
+      <p>On choisit l'unité qui convient : les <b>durées courtes</b> se mesurent en secondes, minutes, heures, jours ; les <b>durées longues</b> en semaines, mois, années, siècles.</p>
+      <div class="eq"><span>1 min = 60 s</span><span>1 h = 60 min</span><span>1 jour = 24 h</span><span>1 semaine = 7 jours</span><span>1 an = 12 mois</span><span>1 an = 365 jours</span><span>1 siècle = 100 ans</span></div>
+      <p>Pour convertir, on <b>multiplie</b> : 4 h = 4 × 60 min = <b>240 min</b> ; 2 jours = 2 × 24 h = <b>48 h</b> ; 5 ans = 5 × 12 mois = <b>60 mois</b>.</p>
+      <p>Dans l'autre sens, on <b>divise</b> (ou on cherche « combien de fois ») : 72 h = 3 × 24 h = <b>3 jours</b>.</p>
+    </div>
+
+    <div class="card">
+      <h2>3. Calculer une durée</h2>
+      <p>On trace une ligne. On place <b>l'heure de début</b> à gauche et <b>l'heure de fin</b> à droite. Puis on fait des « sauts » :</p>
+      <ol>
+        <li>du début jusqu'à <b>l'heure entière qui suit</b> ;</li>
+        <li>de cette heure entière jusqu'à <b>l'heure entière qui précède la fin</b> ;</li>
+        <li>de cette heure entière jusqu'à <b>la fin</b>.</li>
+      </ol>
+      <p>On additionne les sauts. Exemple : entre 23h30 et 3h20 (on passe minuit) :</p>
+      <div id="lessonTl"></div>
+    </div>
+
+    <div class="card">
+      <h2>4. Se repérer dans un quadrillage</h2>
+      <p>Un plan ou une carte est un dessin simplifié d'un lieu. Avec un <b>quadrillage</b> dont les axes sont codés (des lettres en bas, des chiffres à gauche), on donne la position exacte d'une <b>case</b> ou d'un <b>nœud</b> (croisement de deux lignes).</p>
+      <div class="tip">⚠️ On cite <b>toujours d'abord l'axe horizontal</b> (la lettre), <b>puis l'axe vertical</b> (le chiffre) : on écrit <b>(D ; 4)</b>, jamais (4 ; D).</div>
+      <div class="ex">
+        <figure><div id="lessonGrid"></div><figcaption>Le cœur est dans la case <b>(D ; 4)</b></figcaption></figure>
+        <figure><div id="lessonNodes"></div><figcaption>Le point X est sur le nœud <b>(B ; 1)</b></figcaption></figure>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>5. Se déplacer dans un quadrillage</h2>
+      <p>On se déplace de case en case (ou de nœud en nœud). On <b>code le déplacement avec des flèches</b> : une flèche = un pas d'une case.</p>
+      <div class="ex"><figure><div id="lessonPath"></div><figcaption>Le chien rejoint son os : <b>← ← ← ↓ ↓ ← ←</b></figcaption></figure></div>
+      <p class="hint">Il y a souvent plusieurs chemins possibles : ce qui compte, c'est d'arriver au bon endroit.</p>
+    </div>
+  </section>
+
+  <section id="heures" class="hide"><div class="card" id="heuresBox"></div></section>
+  <section id="quadri" class="hide"><div class="card" id="quadriBox"></div></section>
+  <section id="mix" class="hide"><div class="card" id="mixBox"></div></section>
+
+</main>
+
+<script src="levelup.js" data-quiz="heures-quadrillage-1"></script>
+<script>
+const QUIZ_ID = 'heures-quadrillage-1';
+const $ = id => document.getElementById(id);
+const rnd = n => Math.floor(Math.random()*n);
+const between = (a,b) => a + rnd(b-a+1);
+const pick = a => a[rnd(a.length)];
+const shuffle = a => { a = a.slice(); for (let i=a.length-1;i>0;i--){const j=rnd(i+1);[a[i],a[j]]=[a[j],a[i]];} return a; };
+const bestKey = k => `quizBest_${QUIZ_ID}_${k}`;
+function getBest(k){ try{ return parseInt(localStorage.getItem(bestKey(k)))||0; }catch(e){ return 0; } }
+function setBest(k,v){ try{ localStorage.setItem(bestKey(k), v); }catch(e){} }
+const strip = s => String(s).replace(/<[^>]*>/g,' ').replace(/\s+/g,' ').trim();
+
+/* =====================================================================
+   OUTILS : heures et durées
+   ===================================================================== */
+const fmtTime = t => { t = ((t % 1440) + 1440) % 1440; return `${Math.floor(t/60)}h${String(t%60).padStart(2,'0')}`; };
+const fmtDur = d => { const h = Math.floor(d/60), m = d % 60; return h && m ? `${h} h ${m} min` : h ? `${h} h` : `${m} min`; };
+/* lit « 8h05 », « 8 h 5 », « 8:05 », « 2h30min », « 150 min », « 150 » */
+function parseHM(s){
+  s = String(s).toLowerCase().replace(/\s+/g,'').replace(/heures?/g,'h').replace(/minutes?|mn|min/g,'m');
+  let m;
+  if ((m = s.match(/^(\d{1,3})h(\d{1,2})?m?$/))) return +(m[2]||0) < 60 ? {min:+m[1]*60 + +(m[2]||0), h:true} : null;
+  if ((m = s.match(/^(\d{1,2})[:.](\d{2})$/))) return +m[2] < 60 ? {min:+m[1]*60 + +m[2], h:true} : null;
+  if ((m = s.match(/^(\d+)m$/))) return {min:+m[1], h:false};
+  if ((m = s.match(/^(\d+)$/))) return {num:+m[1]};
+  return null;
+}
+/* frise de la méthode des « sauts » */
+function timeline(s, e){
+  if (e <= s) e += 1440;
+  const h1 = Math.ceil(s/60)*60, h2 = Math.floor(e/60)*60, pts = [s];
+  if (h1 < h2) { if (h1 > s) pts.push(h1); pts.push(h2); }
+  if (pts[pts.length-1] < e) pts.push(e);
+  let html = `<span class="t">${fmtTime(pts[0])}</span>`;
+  for (let k=1;k<pts.length;k++) html += `<span class="j">— +${fmtDur(pts[k]-pts[k-1])} →</span><span class="t">${fmtTime(pts[k])}</span>`;
+  const jumps = pts.slice(1).map((p,k) => fmtDur(p - pts[k]));
+  return `<div class="tl">${html}</div><p class="tl tot">${jumps.join(' + ')} = ${fmtDur(e-s)}</p>`;
+}
+function clockSVG(h, m, legend){
+  const c = 100, ang = d => (d-90) * Math.PI/180;
+  let s = `<svg class="clock" viewBox="0 0 200 200" role="img" aria-label="Horloge"><circle class="face" cx="100" cy="100" r="94"/>`;
+  for (let k=0;k<60;k++){
+    const big = k%5===0, r1 = big ? 80 : 85, a = ang(k*6);
+    s += `<line class="tk${big?' big':''}" x1="${c+r1*Math.cos(a)}" y1="${c+r1*Math.sin(a)}" x2="${c+89*Math.cos(a)}" y2="${c+89*Math.sin(a)}"/>`;
+  }
+  for (let n=1;n<=12;n++){ const a = ang(n*30); s += `<text class="num" x="${c+66*Math.cos(a)}" y="${c+66*Math.sin(a)}">${n}</text>`; }
+  const ah = ang(((h%12) + m/60) * 30), am = ang(m*6);
+  s += `<line class="hand hr" stroke-width="8" x1="${c}" y1="${c}" x2="${c+44*Math.cos(ah)}" y2="${c+44*Math.sin(ah)}"/>`;
+  s += `<line class="hand mn" stroke-width="4.5" x1="${c}" y1="${c}" x2="${c+74*Math.cos(am)}" y2="${c+74*Math.sin(am)}"/>`;
+  s += `<circle class="pin" cx="100" cy="100" r="6"/></svg>`;
+  if (legend) s = `<div>${s}<div class="legend"><span><i style="background:#1f8a5b"></i>heures</span><span><i style="background:var(--accent)"></i>minutes</span></div></div>`;
+  return s;
+}
+function clockExplain(h, m){
+  const hh = h % 12 || 12;
+  const small = m === 0 ? `est <b>sur le ${hh}</b>` : `est <b>entre le ${hh} et le ${hh%12+1}</b>`;
+  const big = m === 0 ? `est <b>sur le 12</b> → 0 min` : `est <b>sur le ${m/5}</b> → ${m/5} × 5 = <b>${m} min</b>`;
+  return `La petite aiguille ${small} → <b>${hh} h</b>. La grande aiguille ${big}.`;
+}
+
+/* =====================================================================
+   OUTILS : quadrillage
+   ===================================================================== */
+const LET = 'ABCDEF';
+const cellOf = (x, y) => LET[x] + (y+1);                 // x = colonne (0 = A), y = ligne (0 = ligne 1, en bas)
+const posOf = c => ({x: LET.indexOf(c[0]), y: +c.slice(1) - 1});
+const coordTxt = c => `(${c[0]} ; ${c.slice(1)})`;
+const ARROW = {R:'→', L:'←', U:'↑', D:'↓'};
+const DXY = {R:[1,0], L:[-1,0], U:[0,1], D:[0,-1]};
+function walk(start, moves){ let {x,y} = posOf(start); const cells = []; for (const mv of moves){ x += DXY[mv][0]; y += DXY[mv][1]; cells.push(cellOf(x,y)); } return cells; }
+const arrows = moves => moves.map(m => ARROW[m]).join(' ');
+/* opts : n (taille), items {cellule: emoji}, click (bool), path [cellules], good, bad */
+function gridHTML(o){
+  const n = o.n || 5, items = o.items || {}, path = o.path || [];
+  let h = `<div class="grid" style="--n:${n};grid-template-columns:30px repeat(${n}, var(--sz))">`;
+  for (let y=n-1;y>=0;y--){
+    h += `<div class="lab r">${y+1}</div>`;
+    for (let x=0;x<n;x++){
+      const c = cellOf(x,y), k = path.indexOf(c);
+      const cls = ['cell', k>=0?'path':'', o.good===c?'good':'', o.bad===c?'bad':''].join(' ').trim();
+      const inner = (k>=0 ? `<span class="step">${k+1}</span>` : '') + (items[c] || '');
+      h += o.click ? `<button type="button" class="${cls}" data-c="${c}" aria-label="case ${coordTxt(c)}">${inner}</button>` : `<div class="${cls}">${inner}</div>`;
+    }
+  }
+  h += `<div></div>` + Array.from({length:n}, (_,x) => `<div class="lab c">${LET[x]}</div>`).join('') + `</div>`;
+  return h;
+}
+function nodesSVG(node, name, good){
+  const X = i => 36 + i*44, Y = j => 16 + (4-j)*44;
+  let s = `<svg class="nodes" viewBox="0 0 232 226" role="img" aria-label="Quadrillage avec un point sur un nœud">`;
+  for (let i=0;i<5;i++){
+    s += `<line class="ln" x1="${X(i)}" y1="${Y(4)}" x2="${X(i)}" y2="${Y(0)}"/><line class="ln" x1="${X(0)}" y1="${Y(i)}" x2="${X(4)}" y2="${Y(i)}"/>`;
+    s += `<text class="lb" x="${X(i)}" y="${Y(0)+22}">${LET[i]}</text><text class="lb" x="14" y="${Y(i)}">${i+1}</text>`;
+  }
+  const {x,y} = posOf(node);
+  s += `<circle class="pt${good?' good':''}" cx="${X(x)}" cy="${Y(y)}" r="7"/><text class="pl" x="${X(x)+8}" y="${Y(y)-9}">${name}</text></svg>`;
+  return s;
+}
+function parseCoord(s){
+  s = String(s).toUpperCase().replace(/[\s()]/g,'');
+  let m;
+  if ((m = s.match(/^([A-Z])[;,.:\-]?(\d{1,2})$/))) return {c: m[1]+m[2]};
+  if ((m = s.match(/^(\d{1,2})[;,.:\-]?([A-Z])$/))) return {c: m[2]+m[1], reversed:true};
+  return null;
+}
+const swapped = c => { const {x,y} = posOf(c); return (y < LET.length) ? cellOf(y, x) : null; };
+
+/* =====================================================================
+   BANQUE DE QUESTIONS — HEURES ET DURÉES
+   Chaque question : kind (qcm | time | duration | number | coord | click),
+   prompt, visual, answer, explain, recap.
+   ===================================================================== */
+function qClockRead(pm){
+  const h = between(1,11), m = rnd(12)*5, ans = (pm ? h+12 : h)*60 + m;
+  return {kind:'time', prompt: pm ? `C'est <b>l'après-midi</b>. Quelle heure indique l'horloge ?` : `C'est <b>le matin</b>. Quelle heure indique l'horloge ?`,
+    visual: clockSVG(h, m, true), answer: ans, pm,
+    explain: clockExplain(h, m) + (pm ? ` C'est l'après-midi : on ajoute 12 h → ${h} + 12 = ${h+12}. Il est <b>${fmtTime(ans)}</b>.` : ` Il est <b>${fmtTime(ans)}</b>.`),
+    recap: `Horloge (${pm?'après-midi':'matin'}) : ${fmtTime(ans)}`};
+}
+function qConvert(idx){
+  const k = between(2,5);
+  const c = [
+    {p:`${k} jours = … heures`, u:'heures', a:24*k, e:`1 jour = 24 h, donc ${k} jours = ${k} × 24 = <b>${24*k} h</b>.`},
+    {p:`${k} h = … minutes`, u:'min', a:60*k, e:`1 h = 60 min, donc ${k} h = ${k} × 60 = <b>${60*k} min</b>.`},
+    {p:`${k} min = … secondes`, u:'s', a:60*k, e:`1 min = 60 s, donc ${k} min = ${k} × 60 = <b>${60*k} s</b>.`},
+    {p:`${k} ans = … mois`, u:'mois', a:12*k, e:`1 an = 12 mois, donc ${k} ans = ${k} × 12 = <b>${12*k} mois</b>.`},
+    {p:`${k} semaines = … jours`, u:'jours', a:7*k, e:`1 semaine = 7 jours, donc ${k} semaines = ${k} × 7 = <b>${7*k} jours</b>.`},
+    {p:`${60*k} min = … heures`, u:'h', a:k, e:`1 h = 60 min. Dans ${60*k}, il y a ${k} fois 60 (${k} × 60 = ${60*k}), donc <b>${k} h</b>.`},
+    {p:`${24*k} h = … jours`, u:'jours', a:k, e:`1 jour = 24 h. Dans ${24*k}, il y a ${k} fois 24 (${k} × 24 = ${24*k}), donc <b>${k} jours</b>.`},
+  ][idx];
+  return {kind:'number', prompt:`Complète : <b>${c.p}</b>`, unit:c.u, answer:c.a, explain:c.e, recap:c.p.replace('…', c.a)};
+}
+function qUnit(){
+  const c = pick([
+    ['la durée d\'une récréation', 'minutes', ['secondes','mois','siècles']],
+    ['l\'âge d\'un château fort', 'siècles', ['minutes','heures','semaines']],
+    ['le temps pour lacer ses chaussures', 'secondes', ['heures','jours','années']],
+    ['la durée des grandes vacances', 'semaines', ['secondes','minutes','siècles']],
+    ['un trajet en train de Paris à Marseille', 'heures', ['secondes','mois','siècles']],
+  ]);
+  return {kind:'qcm', prompt:`Quelle unité choisir pour exprimer <b>${c[0]}</b> ?`, choices:[c[1], ...c[2]], answer:c[1],
+    explain:`Il faut une unité adaptée : ni trop petite, ni trop grande. Pour ${c[0]}, on parle en <b>${c[1]}</b>.`, recap:`${c[0]} → ${c[1]}`};
+}
+function qDuration(night){
+  let s, d;
+  if (night) { s = between(21,23)*60 + between(1,11)*5; do { d = between(14,60)*5; } while ((s+d)%60 === 0 || s+d <= 1440 || s+d > 1440+235); }
+  else { s = between(7,17)*60 + between(1,11)*5; do { d = between(8,50)*5; } while ((s+d)%60 === 0 || Math.floor((s+d)/60) === Math.floor(s/60)); }
+  const e = s + d;
+  const ctx = night ? pick([`Un train part à <b>${fmtTime(s)}</b> et arrive à <b>${fmtTime(e)}</b>. Combien de temps dure le trajet ?`,
+                            `Une fête commence à <b>${fmtTime(s)}</b> et se termine à <b>${fmtTime(e)}</b>. Combien de temps dure-t-elle ?`])
+                    : pick([`Un cours commence à <b>${fmtTime(s)}</b> et se termine à <b>${fmtTime(e)}</b>. Combien de temps dure-t-il ?`,
+                            `Calcule la durée écoulée entre <b>${fmtTime(s)}</b> et <b>${fmtTime(e)}</b>.`,
+                            `Une randonnée part à <b>${fmtTime(s)}</b> et revient à <b>${fmtTime(e)}</b>. Combien de temps a-t-elle duré ?`]);
+  return {kind:'duration', prompt:ctx, answer:d, explain:`On fait des sauts jusqu'aux heures entières :` + timeline(s, e),
+    recap:`De ${fmtTime(s)} à ${fmtTime(e)} : ${fmtDur(d)}`};
+}
+function qFixedDuration(){
+  const s = 20*60+45, e = 23*60+15;
+  return {kind:'duration', prompt:`Calcule la durée écoulée entre <b>20h45</b> et <b>23h15</b>.`, answer:150,
+    explain:`On fait des sauts jusqu'aux heures entières :` + timeline(s, e), recap:`De 20h45 à 23h15 : 2 h 30 min`};
+}
+function qEndTime(){
+  const s = between(8,19)*60 + between(1,11)*5; let d; do { d = between(7,30)*5; } while ((s+d)%60 === 0);
+  const e = s + d, toNext = 60 - s%60;
+  const what = pick(['Un film', 'Un match', 'Un spectacle']);
+  const ex = d > toNext
+    ? `${fmtTime(s)} + ${toNext} min = ${fmtTime(s+toNext)}. Il reste ${fmtDur(d)} − ${toNext} min = ${fmtDur(d-toNext)}. ${fmtTime(s+toNext)} + ${fmtDur(d-toNext)} = <b>${fmtTime(e)}</b>.`
+    : `${fmtTime(s)} + ${fmtDur(d)} = <b>${fmtTime(e)}</b>.`;
+  return {kind:'time', prompt:`${what} commence à <b>${fmtTime(s)}</b> et dure <b>${fmtDur(d)}</b>. À quelle heure se termine-t-il ?`,
+    answer:e, explain:ex, recap:`${fmtTime(s)} + ${fmtDur(d)} = ${fmtTime(e)}`};
+}
+function qMinToH(){
+  let n; do { n = between(13,35)*5; } while (n % 60 === 0);
+  const h = Math.floor(n/60), r = n % 60;
+  return {kind:'duration', needH:true, prompt:`Convertis en heures et minutes : <b>${n} min = ?</b>`, answer:n,
+    explain:`Dans ${n} min, on enlève des paquets de 60 min (= 1 h) : ${h} × 60 = ${h*60}, il reste ${n} − ${h*60} = ${r}. Donc ${n} min = <b>${fmtDur(n)}</b>.`,
+    recap:`${n} min = ${fmtDur(n)}`};
+}
+const HEURES = () => { const [c1, c2] = shuffle([0,1,2,3,4,5,6]); return [
+  {kind:'qcm', prompt:'Quelle aiguille indique les <b>heures</b> ?', choices:['La petite aiguille','La grande aiguille','Les deux aiguilles'], answer:'La petite aiguille',
+   explain:'La <b>petite</b> aiguille indique les heures, la <b>grande</b> aiguille indique les minutes.', recap:'Petite aiguille = heures, grande aiguille = minutes'},
+  qClockRead(false),
+  {kind:'qcm', prompt:'Quelle heure indique cette horloge (le matin) ?', visual:clockSVG(9,45,true), choices:['9h45','10h45','9h09','8h45'], answer:'9h45',
+   explain:`La petite aiguille est presque sur le 10, mais <b>pas encore</b> : il n'est pas encore 10 h → <b>9 h</b>. La grande aiguille est sur le 9 → 9 × 5 = <b>45 min</b>. Il est <b>9h45</b>.`, recap:'Horloge : 9h45 (pas 10h45 !)'},
+  qClockRead(true),
+  {kind:'qcm', prompt:'Il est <b>14h</b>. Où se trouve la petite aiguille ?', choices:['Sur le 2','Sur le 14','Sur le 12','Sur le 4'], answer:'Sur le 2',
+   explain:`Le cadran ne va que jusqu'à 12. L'après-midi, on enlève 12 : 14 − 12 = <b>2</b>. La petite aiguille est sur le 2.`, recap:'14h → petite aiguille sur le 2'},
+  {kind:'number', prompt:'Combien y a-t-il d\'<b>heures</b> dans un jour ?', unit:'h', answer:24, explain:'1 jour = <b>24 h</b>.', recap:'1 jour = 24 h'},
+  {kind:'number', prompt:'Combien y a-t-il de <b>minutes</b> dans une heure ?', unit:'min', answer:60, explain:'1 h = <b>60 min</b>.', recap:'1 h = 60 min'},
+  {kind:'number', prompt:'Combien y a-t-il d\'<b>heures</b> dans une semaine ?', unit:'h', answer:168,
+   explain:'1 semaine = 7 jours et 1 jour = 24 h, donc 7 × 24 = <b>168 h</b>.', recap:'1 semaine = 7 × 24 = 168 h'},
+  qConvert(c1), qConvert(c2), qUnit(),
+  qFixedDuration(), qDuration(false), qDuration(true), qEndTime(), qMinToH()
+]; };
+
+/* =====================================================================
+   BANQUE DE QUESTIONS — QUADRILLAGE
+   ===================================================================== */
+const OBJ = [['❤️','le cœur'],['⭐','l\'étoile'],['🍎','la pomme'],['⚽','le ballon'],['🎁','le cadeau'],['🐱','le chat'],['🚗','la voiture']];
+const rndCell = (n=5) => cellOf(rnd(n), rnd(n));
+function qCoordOf(){
+  const [emo, name] = pick(OBJ), c = rndCell();
+  return {kind:'coord', prompt:`Quelles sont les coordonnées de ${name} ${emo} ?`, visual:gridHTML({items:{[c]:emo}}), answer:c,
+    explain:`On lit d'abord la lettre en bas (axe horizontal) : <b>${c[0]}</b>, puis le chiffre à gauche (axe vertical) : <b>${c.slice(1)}</b>. Les coordonnées sont <b>${coordTxt(c)}</b>.`,
+    recap:`${name} ${emo} : ${coordTxt(c)}`, show:{items:{[c]:emo}}};
+}
+function qClick(){
+  let c; do { c = rndCell(); } while (c === swapped(c));
+  return {kind:'click', prompt:`Clique sur la case <b>${coordTxt(c)}</b>.`, grid:{}, answer:c,
+    explain:`On cherche la colonne <b>${c[0]}</b> en bas, puis on monte jusqu'à la ligne <b>${c.slice(1)}</b>.`, recap:`Case ${coordTxt(c)}`};
+}
+function qWrongOrder(){
+  let c; do { c = rndCell(); } while (c === swapped(c));
+  const L = c[0], n = c.slice(1);
+  return {kind:'qcm', prompt:`Lucas a écrit les coordonnées de l'étoile ⭐ : <b>(${n} ; ${L})</b>. Que penses-tu ?`, visual:gridHTML({items:{[c]:'⭐'}}),
+    choices:[`Il s'est trompé : il faut écrire (${L} ; ${n})`, 'C\'est juste', `Il faut écrire (${n} ; ${n})`, `Il faut écrire (${L} ; ${L})`], answer:`Il s'est trompé : il faut écrire (${L} ; ${n})`,
+    explain:`On cite <b>d'abord</b> l'axe horizontal (la lettre), <b>puis</b> l'axe vertical (le chiffre) : <b>(${L} ; ${n})</b>.`, recap:`L'étoile : (${L} ; ${n}), jamais (${n} ; ${L})`};
+}
+function qWhichObject(){
+  const objs = shuffle(OBJ).slice(0,4); let target, decoy;
+  do { target = rndCell(); decoy = swapped(target); } while (decoy === target);
+  const used = new Set([target, decoy]), items = {[target]:objs[0][0], [decoy]:objs[1][0]};
+  for (const o of objs.slice(2)) { let c; do { c = rndCell(); } while (used.has(c)); used.add(c); items[c] = o[0]; }
+  return {kind:'qcm', prompt:`Quel objet se trouve dans la case <b>${coordTxt(target)}</b> ?`, visual:gridHTML({items}),
+    choices: objs.map(o => `${o[1]} ${o[0]}`), answer:`${objs[0][1]} ${objs[0][0]}`,
+    explain:`Colonne <b>${target[0]}</b>, ligne <b>${target.slice(1)}</b> : c'est ${objs[0][1]} ${objs[0][0]}. Attention : ${objs[1][1]} ${objs[1][0]} est en ${coordTxt(decoy)} (on a inversé lettre et chiffre).`,
+    recap:`En ${coordTxt(target)} : ${objs[0][1]}`, show:{items, good:target}};
+}
+function qNode(){
+  const c = rndCell(), name = pick(['M','P','R','T']);
+  return {kind:'coord', prompt:`Le point <b>${name}</b> est sur un nœud. Quelles sont ses coordonnées ?`, visual:nodesSVG(c, name), answer:c,
+    explain:`Le point est au croisement de la ligne verticale <b>${c[0]}</b> et de la ligne horizontale <b>${c.slice(1)}</b> : ${name} <b>${coordTxt(c)}</b>.`,
+    recap:`Point ${name} : ${coordTxt(c)}`, nodeName:name};
+}
+function randomPath(n=6){
+  for (;;){
+    let x = rnd(n), y = rnd(n); const start = cellOf(x,y), moves = []; let horiz = Math.random() < .5;
+    const segs = between(2,3);
+    for (let s=0;s<segs;s++){
+      const dirs = horiz ? ['R','L'] : ['U','D'];
+      const ok = dirs.filter(d => { const nx = x + DXY[d][0], ny = y + DXY[d][1]; return nx>=0 && nx<n && ny>=0 && ny<n; });
+      if (!ok.length) break;
+      const d = pick(ok); let len = between(1,3);
+      while (len > 0){ const nx = x + DXY[d][0], ny = y + DXY[d][1]; if (nx<0||nx>=n||ny<0||ny>=n) break; x = nx; y = ny; moves.push(d); len--; }
+      horiz = !horiz;
+    }
+    if (moves.length >= 4 && moves.length <= 7 && cellOf(x,y) !== start) return {start, moves, end:cellOf(x,y)};
+  }
+}
+function qFollow(){
+  const p = randomPath(), [emo] = pick([['🤖'],['🐱'],['🐞']]);
+  return {kind:'click', prompt:`${emo} part de la case ${coordTxt(p.start)} et suit ce chemin. Clique sur la case où il arrive.`,
+    above:`<p class="moves">${arrows(p.moves)}</p>`, grid:{n:6, items:{[p.start]:emo}}, answer:p.end,
+    explain:`On avance d'une case par flèche, dans l'ordre (les cases jaunes sont numérotées). ${emo} arrive en <b>${coordTxt(p.end)}</b>.`,
+    recap:`${coordTxt(p.start)} puis ${arrows(p.moves)} → ${coordTxt(p.end)}`, showPath:{start:p.start, moves:p.moves}};
+}
+function qCodePath(){
+  let s, dx, dy;
+  do { s = rndCell(6); dx = between(-3,3); dy = between(-3,3); const {x,y} = posOf(s); if (dx && dy && x+dx>=0 && x+dx<6 && y+dy>=0 && y+dy<6) break; } while (true);
+  const {x,y} = posOf(s), goal = cellOf(x+dx, y+dy);
+  const H = n => Array(Math.abs(n)).fill(n>0?'R':'L'), V = n => Array(Math.abs(n)).fill(n>0?'U':'D');
+  const good = [...H(dx), ...V(dy)];
+  const wrong = [[...H(-dx), ...V(dy)], [...H(dx), ...V(-dy)], [...H(dx + (Math.abs(dx)<3 ? Math.sign(dx) : -Math.sign(dx))), ...V(dy)]];
+  return {kind:'qcm', arrows:true, prompt:`Quel chemin le chien 🐶 doit-il suivre pour rejoindre son os 🦴 ?`,
+    visual:gridHTML({n:6, items:{[s]:'🐶', [goal]:'🦴'}}), choices:[arrows(good), ...wrong.map(arrows)], answer:arrows(good),
+    explain:`Il faut aller de <b>${Math.abs(dx)} case${Math.abs(dx)>1?'s':''} ${dx>0?'à droite →':'à gauche ←'}</b> et de <b>${Math.abs(dy)} case${Math.abs(dy)>1?'s':''} ${dy>0?'vers le haut ↑':'vers le bas ↓'}</b>. D'autres ordres seraient possibles, mais un seul des chemins proposés arrive à l'os.`,
+    recap:`Chien ${coordTxt(s)} → os ${coordTxt(goal)} : ${arrows(good)}`, showPath:{start:s, moves:good, items:{[s]:'🐶', [goal]:'🦴'}}};
+}
+const QUADRI = () => [
+  {kind:'qcm', prompt:'Qu\'est-ce qui permet de se repérer facilement sur une carte ou un plan ?',
+   choices:['Un quadrillage dont les axes sont codés','La couleur du dessin','La taille du papier','Le nom de l\'auteur'], answer:'Un quadrillage dont les axes sont codés',
+   explain:'Grâce au <b>quadrillage</b> et au <b>codage de ses axes</b> (lettres et chiffres), on donne la position exacte d\'une case ou d\'un nœud.', recap:'On se repère grâce à un quadrillage aux axes codés'},
+  {kind:'qcm', prompt:'Quel repère cite-t-on <b>en premier</b> ?', choices:['Celui de l\'axe horizontal (la lettre)','Celui de l\'axe vertical (le chiffre)','Peu importe'], answer:'Celui de l\'axe horizontal (la lettre)',
+   explain:'On cite <b>toujours</b> l\'axe horizontal d\'abord, puis l\'axe vertical : (D ; 4).', recap:'D\'abord l\'axe horizontal, puis l\'axe vertical'},
+  qCoordOf(), qClick(), qWrongOrder(), qWhichObject(), qClick(), qNode(), qFollow(), qCodePath(), qFollow(), qCoordOf()
+];
+const MIX = () => shuffle([...shuffle(HEURES()).slice(0,6), ...shuffle(QUADRI()).slice(0,6)]);
+
+/* =====================================================================
+   MOTEUR DE QUIZ
+   ===================================================================== */
+function makeQuiz(boxId, mode, title, build, rules){
+  const box = $(boxId);
+  let qs, i, score, wrong, locked, sel;
+  function intro(){
+    box.dataset.ready = 1;
+    const n = build().length;
+    box.innerHTML = `<h2>${title}</h2>
+      <div class="rules"><b>📋 Règles du jeu</b><ul>${rules.map(r => `<li>${r}</li>`).join('')}</ul></div>
+      <p class="hint">${n} questions · Meilleur score : ${getBest(mode)} / ${n}</p>
+      <div class="row"><button class="btn" id="${boxId}-go">C'est parti !</button><button class="btn alt" data-goto="lecon">Relire la leçon</button></div>`;
+    $(`${boxId}-go`).onclick = start;
+    wireGoto();
+  }
+  function start(){ qs = build(); i = 0; score = 0; wrong = []; LevelUp.reset(); show(); }
+  function show(){
+    locked = false; sel = null;
+    const q = qs[i];
+    let vis = q.visual || '';
+    if (q.kind === 'click') vis = gridHTML({...q.grid, click:true});
+    box.innerHTML = `<h2>${title}</h2>
+      <div class="q-top"><span>Question ${i+1} / ${qs.length}</span><span>Score : ${score}</span></div>
+      <div class="bar"><i style="width:${i/qs.length*100}%"></i></div>
+      <p class="prompt">${q.prompt}</p>
+      ${q.above || ''}
+      ${vis ? `<div class="visual" id="${boxId}-vis">${vis}</div>` : ''}
+      <div id="${boxId}-ans">${answerUI(q)}</div>
+      <div class="fb" id="${boxId}-fb"></div>
+      <div class="row center hide" id="${boxId}-next"><button class="btn">${i+1<qs.length ? 'Question suivante →' : 'Voir mon score'}</button></div>`;
+    $(`${boxId}-next`).querySelector('button').onclick = next;
+    if (q.kind === 'qcm'){
+      box.querySelectorAll('.choice').forEach(b => b.onclick = () => { if (!locked) grade(b.dataset.v, b); });
+    } else if (q.kind === 'click'){
+      const vbtn = $(`${boxId}-val`);
+      box.querySelectorAll('.grid button.cell').forEach(b => b.onclick = () => {
+        if (locked) return;
+        box.querySelectorAll('.grid .cell.sel').forEach(x => x.classList.remove('sel'));
+        b.classList.add('sel'); sel = b.dataset.c; vbtn.disabled = false;
+      });
+      vbtn.onclick = () => { if (!locked && sel) grade(sel); };
+    } else {
+      const inp = $(`${boxId}-in`); inp.focus();
+      $(`${boxId}-f`).onsubmit = e => { e.preventDefault(); if (locked) { next(); return; } if (inp.value.trim()) grade(inp.value.trim(), inp); };
+    }
+  }
+  function answerUI(q){
+    if (q.kind === 'qcm') return `<div class="choices">${shuffle(q.choices).map(c => `<button class="choice${q.arrows?' arrows':''}" data-v="${c.replace(/"/g,'&quot;')}">${c}</button>`).join('')}</div>`;
+    if (q.kind === 'click') return `<div class="row center"><button class="btn" id="${boxId}-val" disabled>Valider</button></div>`;
+    const ph = {time:'ex. 14h30', duration: q.needH ? 'ex. 1h20' : 'ex. 2h15', number:'', coord:'ex. (C;4)'}[q.kind];
+    const hint = {time:'Écris l\'heure comme ceci : <kbd>14h30</kbd>', duration: q.needH ? 'Écris en heures et minutes : <kbd>1h20</kbd>' : 'Écris par exemple <kbd>2h15</kbd> ou <kbd>135 min</kbd>',
+                  number:'', coord:'Écris par exemple <kbd>(C;4)</kbd> ou <kbd>C4</kbd>'}[q.kind];
+    return `<form class="answer" id="${boxId}-f"><input id="${boxId}-in" type="text" ${q.kind==='number'?'inputmode="numeric"':''} autocomplete="off" autocapitalize="characters" spellcheck="false" placeholder="${ph}" aria-label="Ta réponse">${q.unit?`<span class="unit">${q.unit}</span>`:''}<button class="btn">Valider</button></form>${hint?`<p class="hint">${hint}</p>`:''}`;
+  }
+  /* renvoie {ok, msg} ou {invalid: message} */
+  function judge(q, v){
+    if (q.kind === 'qcm') return {ok: v === q.answer};
+    if (q.kind === 'number'){ const n = parseFloat(v.replace(',', '.')); return isNaN(n) ? {invalid:'Écris un nombre.'} : {ok: n === q.answer}; }
+    if (q.kind === 'time'){
+      const p = parseHM(v); if (!p || !p.h) return {invalid:'Écris l\'heure avec un « h », par exemple 14h30.'};
+      const t = p.min % 1440;
+      if (t === q.answer % 1440) return {ok:true};
+      if (q.pm && t + 720 === q.answer) return {ok:false, msg:'Presque ! Mais c\'est l\'après-midi : il faut ajouter 12 h.'};
+      if (q.pm === false && t === q.answer + 720) return {ok:false, msg:'Presque ! Mais c\'est le matin : pas besoin d\'ajouter 12 h.'};
+      return {ok:false};
+    }
+    if (q.kind === 'duration'){
+      const p = parseHM(v); if (!p || p.num !== undefined) return {invalid:'Précise l\'unité : par exemple 2h15 ou 135 min.'};
+      if (q.needH && !p.h) return {invalid:'Écris le résultat en heures et minutes, par exemple 1h20.'};
+      return {ok: p.min === q.answer};
+    }
+    if (q.kind === 'coord'){
+      const p = parseCoord(v); if (!p) return {invalid:'Écris une lettre et un chiffre, par exemple (C;4).'};
+      if (p.c === q.answer) return p.reversed ? {ok:false, msg:'Tu as trouvé la bonne case, mais tu as inversé : on écrit <b>d\'abord la lettre</b>, puis le chiffre.'} : {ok:true};
+      if (p.c === swapped(q.answer)) return {ok:false, msg:'Attention, tu as peut-être confondu les deux axes.'};
+      return {ok:false};
+    }
+    if (q.kind === 'click'){
+      if (v === q.answer) return {ok:true};
+      if (v === swapped(q.answer)) return {ok:false, msg:'Tu as inversé les axes : la lettre se lit <b>en bas</b>, le chiffre <b>à gauche</b>.'};
+      return {ok:false};
+    }
+  }
+  function grade(v, el){
+    const q = qs[i], r = judge(q, v), fb = $(`${boxId}-fb`);
+    if (r.invalid){ fb.className = 'fb warn'; fb.innerHTML = '✋ ' + r.invalid; if (el){ el.classList.remove('shake'); void el.offsetWidth; el.classList.add('shake'); } return; }
+    locked = true;
+    const shown = q.kind === 'click' ? coordTxt(v) : v;
+    const expected = {qcm:() => q.answer, number:() => `${q.answer} ${q.unit||''}`, time:() => fmtTime(q.answer), duration:() => fmtDur(q.answer), coord:() => coordTxt(q.answer), click:() => coordTxt(q.answer)}[q.kind]();
+    if (r.ok) score++; else { wrong.push(q.recap); LevelUp.err(strip(q.prompt), expected, shown); }
+    // marquer la réponse
+    if (q.kind === 'qcm') box.querySelectorAll('.choice').forEach(b => { b.disabled = true; if (b.dataset.v === q.answer) b.classList.add('good'); else if (b === el) b.classList.add('bad'); });
+    else if (q.kind !== 'click'){ el.readOnly = true; el.classList.add(r.ok ? 'good' : 'bad'); }
+    // visuel de correction
+    const vis = $(`${boxId}-vis`);
+    if (vis){
+      if (q.kind === 'click') vis.innerHTML = gridHTML({...q.grid, good:q.answer, bad: r.ok ? null : v, path: q.showPath ? walk(q.showPath.start, q.showPath.moves) : []});
+      else if (q.showPath) vis.innerHTML = gridHTML({n:6, items:q.showPath.items, path:walk(q.showPath.start, q.showPath.moves).slice(0,-1)});
+      else if (q.show) vis.innerHTML = gridHTML({...q.show, good: q.show.good || q.answer});
+      else if (q.nodeName) vis.innerHTML = nodesSVG(q.answer, q.nodeName, true);
+    }
+    if (q.kind === 'click') $(`${boxId}-val`).classList.add('hide');
+    fb.className = 'fb ' + (r.ok ? 'ok' : 'ko');
+    fb.innerHTML = (r.ok ? '✔ <b>Bravo !</b> ' : `✘ <b>Pas tout à fait.</b> ${r.msg ? r.msg + ' ' : ''}La bonne réponse : <b>${expected}</b>.<br>`) + `<span>${q.explain}</span>`;
+    $(`${boxId}-next`).classList.remove('hide');
+    $(`${boxId}-next`).querySelector('button').focus({preventScroll:true});
+  }
+  function next(){ i++; i < qs.length ? show() : end(); }
+  function end(){
+    const best = Math.max(getBest(mode), score); setBest(mode, best); LevelUp.save(mode, score, qs.length);
+    const pct = score / qs.length;
+    const msg = pct === 1 ? 'Parfait ! 🏆' : pct >= .8 ? 'Très bien ! 🌟' : pct >= .5 ? 'Pas mal, continue ! 💪' : 'Relis la leçon et réessaie 📘';
+    box.innerHTML = `<h2>${title} — terminé</h2>
+      <div class="score">${score} / ${qs.length}</div><p><b>${msg}</b><br>Meilleur score : ${best} / ${qs.length}</p>
+      ${wrong.length ? `<h3>À revoir</h3><ul class="review">${wrong.map(w => `<li>${w}</li>`).join('')}</ul>` : ''}
+      <div class="row"><button class="btn" id="${boxId}-again">Rejouer (nouvelles questions)</button><button class="btn alt" data-goto="lecon">Relire la leçon</button></div>`;
+    $(`${boxId}-again`).onclick = start;
+    wireGoto();
+  }
+  return intro;
+}
+
+/* ---------- Leçon : illustrations ---------- */
+$('lessonClock').innerHTML = clockSVG(1, 35, true);
+$('lessonTl').innerHTML = timeline(23*60+30, 3*60+20);
+$('lessonGrid').innerHTML = gridHTML({items:{D4:'❤️'}});
+$('lessonNodes').innerHTML = nodesSVG('B1', 'X');
+(() => { const moves = ['L','L','L','D','D','L','L']; $('lessonPath').innerHTML = gridHTML({n:6, items:{F4:'🐶', A2:'🦴'}, path:walk('F4', moves).slice(0,-1)}); })();
+
+/* ---------- Onglets ---------- */
+function goTab(t){
+  document.querySelectorAll('#tabs button').forEach(x => x.classList.toggle('on', x.dataset.tab === t));
+  ['lecon','heures','quadri','mix'].forEach(id => $(id).classList.toggle('hide', id !== t));
+  const box = {heures:'heuresBox', quadri:'quadriBox', mix:'mixBox'}[t];
+  if (box && !$(box).dataset.ready) setups[t]();
+  window.scrollTo({top:0, behavior:'smooth'});
+}
+function wireGoto(){ document.querySelectorAll('[data-goto]').forEach(b => b.onclick = () => goTab(b.dataset.goto)); }
+document.querySelectorAll('#tabs button').forEach(b => b.onclick = () => goTab(b.dataset.tab));
+
+const RULES_COMMON = ['Lis bien la question, puis réponds : clique sur une proposition, tape ta réponse ou clique dans le quadrillage.',
+  'Après chaque réponse, la <b>correction</b> s\'affiche : prends le temps de la lire !',
+  'Une bonne réponse = 1 point. À la fin, tu vois ton score et les questions à revoir.',
+  'Les questions changent à chaque partie : rejoue pour battre ton record.'];
+const setups = {
+  heures: makeQuiz('heuresBox', 'heures', 'Heures et durées', HEURES,
+    [...RULES_COMMON, 'Pour écrire une heure : <kbd>14h30</kbd>. Pour une durée : <kbd>2h15</kbd> ou <kbd>135 min</kbd>.']),
+  quadri: makeQuiz('quadriBox', 'quadri', 'Se repérer dans un quadrillage', QUADRI,
+    [...RULES_COMMON, 'Pour écrire des coordonnées : <kbd>(C;4)</kbd> ou <kbd>C4</kbd> — toujours la lettre d\'abord !']),
+  mix: makeQuiz('mixBox', 'mix', 'Tout mélangé', MIX,
+    [...RULES_COMMON, 'Heures, durées et quadrillage sont mélangés : 12 questions pour vérifier que tout est su.'])
+};
+</script>
+</body>
+</html>

@@ -240,6 +240,9 @@ const CATALOGUE = [
   {file:'tables_6_10.html', id:'tables-6-10', title:'Tables de multiplication de 6 à 10',
    desc:'Apprendre et réviser les tables de 6, 7, 8, 9 et 10 : astuces, quiz, facteur manquant et défi chrono.',
    themes:['maths','tables de multiplication','CM2']},
+  {file:'heures_quadrillage_cm2.html', id:'heures-quadrillage-1', title:"L'heure, les durées et le quadrillage",
+   desc:"Lire l'heure, convertir et calculer des durées, se repérer et se déplacer dans un quadrillage : leçon, deux quiz avec correction et un quiz mélangé.",
+   themes:['maths','heures','durées','quadrillage','coordonnées','CM2'], isNew:true},
   {file:'histoire_temps_romains.html', id:'histoire-temps-1', title:'Se repérer dans le temps + chiffres romains',
    desc:'La frise chronologique, les 5 grandes périodes, avant/après J.-C., les siècles et les chiffres romains.',
    themes:['histoire','frise','chiffres romains','CM2']},
@@ -269,7 +272,7 @@ const LS = {
 const SUBJ = { fr:{n:'Français', i:'✒️'}, ma:{n:'Maths', i:'📐'}, hi:{n:'Histoire', i:'🏛️'}, en:{n:'Anglais', i:'🇬🇧'} };
 const subjectOf = q => q.themes.includes('anglais') ? 'en' : q.themes.includes('maths') ? 'ma' : q.themes.includes('histoire') ? 'hi' : 'fr';
 const levelsOf = q => ['CM2','4e'].filter(l => q.themes.includes(l));
-const ICONS = [['waste','♻️'],['présent','⏳'],['tables','✖️'],['romain','🏛️'],['frise','⏳'],['passé simple','⏱️'],['imparfait','⏱️'],['conjugaison','🔁'],['accords','🔗'],['son é','🔊'],['dictée','📝'],['homophones','👯'],['écriture','✍️']];
+const ICONS = [['heures','🕒'],['waste','♻️'],['présent','⏳'],['tables','✖️'],['romain','🏛️'],['frise','⏳'],['passé simple','⏱️'],['imparfait','⏱️'],['conjugaison','🔁'],['accords','🔗'],['son é','🔊'],['dictée','📝'],['homophones','👯'],['écriture','✍️']];
 const iconOf = q => (ICONS.find(([k]) => q.themes.some(t => t.includes(k))) || [0, SUBJ[subjectOf(q)].i])[1];
 
 /* ===== XP : calculés à partir des meilleurs scores enregistrés par chaque quiz ===== */
@@ -350,7 +353,7 @@ function render(){
     .filter(q => !term || (q.title+' '+(q.desc||'')+' '+q.themes.join(' ')).toLowerCase().includes(term));
   const order = ['fr','ma','hi','en'];
   const groups = order.map(s => [s, list.filter(q => subjectOf(q)===s)]).filter(([,l]) => l.length);
-  const notes = {fr:'orthographe, grammaire, conjugaison', ma:'calcul et tables', hi:'repères et dates', en:'vocabulaire et sciences en anglais'};
+  const notes = {fr:'orthographe, grammaire, conjugaison', ma:'calcul, mesures et géométrie', hi:'repères et dates', en:'vocabulaire et sciences en anglais'};
   let k = 0;
   $('sections').innerHTML = groups.map(([s,l]) => `
     <div class="section-title"><h2>${SUBJ[s].i} ${SUBJ[s].n}</h2><span class="hand">${notes[s]} · ${l.length} quiz</span></div>

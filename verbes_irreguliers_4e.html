@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Les verbes irréguliers anglais — learn à write (4e)</title>
+<meta name="description" content="Réviser les verbes irréguliers anglais de learn à write : base verbale, prétérit, participe passé et sens. Liste avec astuces, quiz, écrire les formes, familles de verbes et défi chrono.">
+<meta name="themes" content="anglais, verbes irréguliers, prétérit, participe passé, 4e">
+<style>
+  :root{
+    --bg:#f6f3fa; --card:#ffffff; --ink:#241f2b; --muted:#625a6d;
+    --primary:#7a3ea8; --primary-soft:#f0e6f7; --accent:#e8833a; --accent-soft:#fdeede;
+    --ok:#2e9e5b; --ok-soft:#e3f6ea; --ko:#d14343; --ko-soft:#fbe5e5; --line:#e2dae9;
+    --warn:#a86a00; --warn-soft:#fff6dc; --zebra:#faf7fc;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --bg:#17131c; --card:#211b28; --ink:#eee9f3; --muted:#b0a6bc;
+      --primary:#c79bf0; --primary-soft:#2e1f3d; --accent:#f0a05f; --accent-soft:#3c2817;
+      --ok:#4cc37f; --ok-soft:#173826; --ko:#ff7b6b; --ko-soft:#42201c; --line:#382f43;
+      --warn:#f0b84a; --warn-soft:#3d2f12; --zebra:#261f2e;
+    }
+  }
+  *{box-sizing:border-box}
+  body{margin:0;font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;background:var(--bg);color:var(--ink);font-size:18px;line-height:1.5}
+  header{background:#7a3ea8;color:#fff;padding:18px 16px 0}
+  .wrap{max-width:860px;margin:0 auto}
+  header a.back{color:#eadcf5;text-decoration:none;font-size:15px}
+  h1{margin:6px 0 4px;font-size:26px}
+  .sub{margin:0 0 14px;color:#eadcf5;font-size:16px}
+  .badge{display:inline-block;background:var(--accent);color:#fff;border-radius:999px;padding:2px 10px;font-size:14px;font-weight:600;margin-left:6px;vertical-align:middle}
+  nav{display:flex;gap:6px;flex-wrap:wrap}
+  nav button{border:0;background:rgba(255,255,255,.15);color:#fff;padding:10px 14px;border-radius:10px 10px 0 0;font-size:16px;cursor:pointer;font-weight:600}
+  nav button.on{background:var(--bg);color:var(--primary)}
+  main{padding:18px 16px 70px}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px;margin-bottom:16px;box-shadow:0 1px 3px rgba(0,0,0,.04)}
+  h2{margin:0 0 10px;font-size:21px;color:var(--primary)}
+  h3{margin:16px 0 6px;font-size:18px}
+  p{margin:6px 0}
+  ul{margin:6px 0;padding-left:22px} li{margin:3px 0}
+  .hint{color:var(--muted);font-size:15px}
+  .tip{background:var(--warn-soft);border-left:5px solid #f0c400;padding:10px 14px;border-radius:8px;margin-top:12px}
+  .rules{background:var(--primary-soft);border-radius:12px;padding:12px 16px;margin:10px 0}
+  .rules ul{margin:4px 0 0}
+  .forms{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:10px 0}
+  .forms div{background:var(--primary-soft);border-radius:10px;padding:8px 10px;text-align:center}
+  .forms b{display:block;color:var(--primary);font-size:15px}
+  .ex{font-style:italic}
+  .fam{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:10px;margin-top:8px}
+  .fam div{border:2px solid var(--line);border-radius:12px;padding:8px 12px;font-size:16px}
+  .fam b{color:var(--primary)}
+  kbd{background:var(--primary-soft);border-radius:6px;padding:0 6px;font-family:inherit;font-weight:700}
+
+  /* Liste */
+  .sel{display:flex;gap:8px;flex-wrap:wrap;margin:6px 0 12px}
+  .sel button{border:2px solid var(--line);background:var(--card);color:var(--ink);border-radius:999px;padding:6px 14px;cursor:pointer;font:600 16px system-ui,sans-serif}
+  .sel button.on{background:var(--primary);border-color:var(--primary);color:#fff}
+  .tblwrap{overflow-x:auto;margin:0 -6px}
+  table.verbs{width:100%;border-collapse:collapse;font-size:17px}
+  .verbs th{text-align:left;font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);padding:6px;border-bottom:2px solid var(--line)}
+  .verbs td{padding:7px 6px;border-bottom:1px solid var(--line)}
+  .verbs tr:nth-child(even) td{background:var(--zebra)}
+  .verbs td.b{font-weight:700}
+  .verbs td.fr{color:var(--muted);font-size:16px}
+  .verbs td.masked{cursor:pointer;color:transparent;background:repeating-linear-gradient(45deg,var(--primary-soft),var(--primary-soft) 6px,var(--card) 6px,var(--card) 12px)!important;border-radius:6px}
+  .verbs td.masked *{visibility:hidden}
+  .verbs span.masked{display:inline-block;min-width:64px;cursor:pointer;color:transparent;border-radius:6px;background:repeating-linear-gradient(45deg,var(--primary-soft),var(--primary-soft) 6px,var(--card) 6px,var(--card) 12px)}
+  .frm{display:none!important}
+  .pron{font-style:italic;color:var(--accent);font-size:14px;font-weight:600}
+  .say{border:0;background:transparent;cursor:pointer;font-size:18px;padding:2px 4px;line-height:1}
+  .star{color:var(--accent);font-weight:800}
+
+  /* Questions */
+  .q-top{display:flex;justify-content:space-between;align-items:center;color:var(--muted);font-size:15px;margin-bottom:6px}
+  .bar{height:8px;background:var(--line);border-radius:99px;overflow:hidden;margin-bottom:16px}
+  .bar>i{display:block;height:100%;background:var(--primary);width:0;transition:width .3s}
+  .prompt{font-size:20px;font-weight:700;margin:4px 0 14px}
+  .prompt .big{display:block;font-size:34px;color:var(--primary);margin-top:4px}
+  .sentence{font-size:21px;background:var(--primary-soft);border-radius:12px;padding:12px 14px;margin:0 0 14px}
+  .sentence .gap{display:inline-block;min-width:80px;border-bottom:3px solid var(--accent);color:var(--accent);text-align:center;font-weight:800}
+  .choices{display:grid;gap:10px;grid-template-columns:1fr 1fr}
+  .choice{text-align:center;font:600 19px system-ui,sans-serif;color:var(--ink);background:var(--card);border:2px solid var(--line);border-radius:12px;padding:12px 10px;cursor:pointer}
+  .choices.long{grid-template-columns:1fr} .choices.long .choice{text-align:left;font-weight:500;font-size:18px}
+  .choice:hover:not(:disabled){border-color:var(--primary)}
+  .choice:disabled{cursor:default}
+  .choice.good{border-color:var(--ok);background:var(--ok-soft)}
+  .choice.bad{border-color:var(--ko);background:var(--ko-soft)}
+  .typing{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px}
+  .typing label{display:block;font-size:14px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;margin-bottom:4px}
+  .typing input{width:100%;font-size:22px;padding:8px 10px;border:3px solid var(--line);border-radius:12px;font-weight:700;background:var(--card);color:var(--ink)}
+  .typing input:focus{outline:none;border-color:var(--primary)}
+  .typing input.good{border-color:var(--ok);background:var(--ok-soft)}
+  .typing input.bad{border-color:var(--ko);background:var(--ko-soft)}
+  .typing .given{font-size:22px;font-weight:800;padding:9px 0;color:var(--primary)}
+  .fb{margin-top:14px;padding:12px 14px;border-radius:10px;display:none}
+  .fb.ok{display:block;background:var(--ok-soft);border-left:5px solid var(--ok)}
+  .fb.ko{display:block;background:var(--ko-soft);border-left:5px solid var(--ko)}
+  .fb.warn{display:block;background:var(--warn-soft);border-left:5px solid var(--warn)}
+  .btn{border:0;background:var(--primary);color:#fff;font-size:17px;font-weight:600;padding:11px 18px;border-radius:10px;cursor:pointer}
+  @media (prefers-color-scheme: dark){ :root:not([data-theme="light"]) .btn{color:#1d1424} }
+  .btn.alt{background:var(--card);color:var(--primary);border:2px solid var(--primary)}
+  .row{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
+  .center{justify-content:center}
+  .score{font-size:44px;font-weight:800;color:var(--primary);margin:6px 0}
+  .review{padding-left:20px} .review li{margin-bottom:6px}
+  .timer{font-size:28px;font-weight:800;color:var(--accent);font-variant-numeric:tabular-nums}
+  .hide{display:none!important}
+  @media (max-width:600px){body{font-size:17px}.prompt{font-size:18px}.prompt .big{font-size:30px}.sentence{font-size:19px}
+    .card{padding:16px 12px}.tblwrap{margin:0}.verbs{font-size:15px}.verbs td{padding:6px 3px}.verbs th{font-size:10.5px;padding:4px 3px;letter-spacing:.03em}
+    .verbs .fr{display:none}.frm{display:block!important;font-weight:400;font-size:13.5px;line-height:1.25;color:var(--muted);margin-top:2px}.verbs span.frm.masked{color:transparent}.say{font-size:16px;padding:0}.sel button{font-size:15px;padding:5px 12px}}
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <a class="back" href="index.html">← Tous les quiz</a>
+    <h1>Les verbes irréguliers <span class="badge">4e</span></h1>
+    <p class="sub">De <b>learn</b> à <b>write</b> : base verbale, prétérit, participe passé</p>
+    <nav id="tabs">
+      <button data-tab="lecon" class="on">📘 Liste et astuces</button>
+      <button data-tab="quiz">✏️ Quiz</button>
+      <button data-tab="ecrire">⌨️ Écrire les formes</button>
+      <button data-tab="familles">🧩 Familles</button>
+      <button data-tab="chrono">⏱️ Défi chrono</button>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <!-- ============ LEÇON ============ -->
+  <section id="lecon">
+    <div class="card">
+      <h2>1. Les trois formes d'un verbe</h2>
+      <div class="forms">
+        <div><b>Base verbale</b>write</div>
+        <div><b>Prétérit</b>wrote</div>
+        <div><b>Participe passé</b>written</div>
+      </div>
+      <ul>
+        <li>Le <b>prétérit</b> raconte une action <b>passée et terminée</b>, souvent datée (<i>yesterday, last week, two days ago</i>) :<br><span class="ex">I <b>wrote</b> a letter yesterday.</span></li>
+        <li>Le <b>participe passé</b> s'emploie après <b>have / has</b> (present perfect) et au <b>passif</b> après <b>be</b> :<br><span class="ex">I have <b>written</b> a letter. — This book was <b>written</b> by Roald Dahl.</span></li>
+      </ul>
+      <p>Les verbes <b>réguliers</b> ajoutent simplement <b>-ed</b> (play → played → played). Les verbes <b>irréguliers</b> ne suivent pas cette règle : <b>il faut les apprendre par cœur</b>.</p>
+    </div>
+
+    <div class="card">
+      <h2>2. Astuces : les verbes qui se ressemblent</h2>
+      <p>On retient mieux les verbes par familles :</p>
+      <div class="fam">
+        <div><b>i → a → u</b><br>sing sang sung · ring rang rung · swim swam swum</div>
+        <div><b>-t au prétérit</b><br>sleep slept · sweep swept · mean meant · lend lent · send sent · spend spent · smell smelt · learn learnt</div>
+        <div><b>-ought / -aught</b><br>think thought · teach taught</div>
+        <div><b>o → o + en</b><br>speak spoke spoken · steal stole stolen · wake woke woken</div>
+        <div><b>-ore → -orn</b><br>tear tore torn · wear wore worn</div>
+        <div><b>participe en -n / -en</b><br>take took taken · shake shook shaken · ride rode ridden · rise rose risen · write wrote written · see saw seen</div>
+        <div><b>-ew / -own</b><br>throw threw thrown · show showed shown</div>
+        <div><b>3 formes identiques</b><br>let · put · set · shut · spread · read</div>
+      </div>
+      <div class="tip">⚠️ <b>Pièges</b>
+        <ul>
+          <li><b>read</b> s'écrit pareil, mais se prononce /ri:d/ au présent et <b>/red/</b> au prétérit et au participe.</li>
+          <li><b>run → ran → run</b> : le participe passé redevient comme la base.</li>
+          <li><b>lie → lay → lain</b> (être allongé) : ne pas confondre avec <i>lay</i> (poser).</li>
+          <li><b>say</b> = dire ; <b>tell</b> = raconter, dire <i>à quelqu'un</i> (<i>tell me</i>).</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>3. La liste à apprendre</h2>
+      <p class="hint">Pour t'entraîner, cache une colonne puis touche une case pour la découvrir. Le 🔊 lit les trois formes à voix haute.</p>
+      <div class="sel" id="listSet"></div>
+      <div class="sel" id="maskSel">
+        <button data-m="none" class="on">Tout voir</button>
+        <button data-m="pp">Cacher prétérit + participe</button>
+        <button data-m="fr">Cacher le français</button>
+        <button data-m="base">Cacher l'anglais</button>
+      </div>
+      <div class="tblwrap"><table class="verbs" id="verbTable"></table></div>
+    </div>
+  </section>
+
+  <section id="quiz" class="hide"><div class="card" id="quizBox"></div></section>
+  <section id="ecrire" class="hide"><div class="card" id="ecrireBox"></div></section>
+  <section id="familles" class="hide"><div class="card" id="famillesBox"></div></section>
+  <section id="chrono" class="hide"><div class="card" id="chronoBox"></div></section>
+
+</main>
+
+<script src="levelup.js" data-quiz="verbes-irreguliers-2"></script>
+<script>
+const QUIZ_ID = 'verbes-irreguliers-2';
+const $ = id => document.getElementById(id);
+const rnd = n => Math.floor(Math.random()*n);
+const pick = a => a[rnd(a.length)];
+const shuffle = a => { a = a.slice(); for (let i=a.length-1;i>0;i--){const j=rnd(i+1);[a[i],a[j]]=[a[j],a[i]];} return a; };
+const esc = s => String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+const LS = { get(k){ try{ return localStorage.getItem(k); }catch(e){ return null; } }, set(k,v){ try{ localStorage.setItem(k,v); }catch(e){} } };
+const bestKey = k => `quizBest_${QUIZ_ID}_${k}`;
+const getBest = k => parseInt(LS.get(bestKey(k))) || 0;
+const setBest = (k,v) => LS.set(bestKey(k), v);
+
+/* =====================================================================
+   LA FICHE : base, prétérit, participe passé, français, phrase d'exemple
+   Dans la phrase, ___ = le trou ; P = il faut le prétérit, PP = le participe.
+   ===================================================================== */
+const DATA = [
+  ['learn','learnt / learned','learnt / learned','apprendre', 'P', 'Last year, I ___ (learn) to swim.'],
+  ['leave','left','left','quitter / partir', 'PP', 'Hurry up! The train has already ___ (leave).'],
+  ['lend','lent','lent','prêter', 'P', 'My friend ___ (lend) me his bike yesterday.'],
+  ['let','let','let','laisser / permettre', 'P', 'Mum ___ (let) us watch a film last night.'],
+  ['lie','lay','lain','être allongé', 'P', 'Yesterday, the dog ___ (lie) in the sun all afternoon.'],
+  ['light','lit','lit','allumer / éclairer', 'P', 'Dad ___ (light) the candles on the cake.'],
+  ['lose','lost','lost','perdre', 'PP', 'Oh no! I have ___ (lose) my keys.'],
+  ['make','made','made','fabriquer / faire', 'P', 'She ___ (make) a cake for my birthday last Sunday.'],
+  ['mean','meant','meant','signifier', 'P', 'I didn\'t understand what he ___ (mean).'],
+  ['meet','met','met','rencontrer', 'PP', 'Have you ever ___ (meet) a famous person?'],
+  ['pay','paid','paid','payer', 'P', 'We ___ (pay) for the tickets yesterday.'],
+  ['put','put','put','mettre', 'PP', 'Where have you ___ (put) my phone?'],
+  ['read','read','read','lire', 'PP', 'I have ___ (read) all the Harry Potter books.'],
+  ['ride','rode','ridden','monter (à vélo, à cheval)', 'PP', 'Have you ever ___ (ride) a horse?'],
+  ['ring','rang','rung','sonner', 'P', 'The bell ___ (ring) at 8 o\'clock this morning.'],
+  ['rise','rose','risen','se lever / augmenter', 'P', 'The sun ___ (rise) at 7 this morning.'],
+  ['run','ran','run','courir', 'PP', 'Tom has ___ (run) ten kilometres today.'],
+  ['say','said','said','dire', 'P', 'She ___ (say) hello to everybody.'],
+  ['see','saw','seen','voir', 'PP', 'I have never ___ (see) the sea.'],
+  ['sell','sold','sold','vendre', 'P', 'They ___ (sell) their house last month.'],
+  ['send','sent','sent','envoyer', 'P', 'I ___ (send) you an e-mail two days ago.'],
+  ['set','set','set','poser / fixer', 'P', 'We ___ (set) the table before dinner last night.'],
+  ['sit','sat','sat','s\'asseoir', 'P', 'The teacher ___ (sit) down at her desk.'],
+  ['shake','shook','shaken','secouer', 'PP', 'The town was ___ (shake) by the earthquake.'],
+  ['shine','shone','shone','briller', 'P', 'The sun ___ (shine) all day yesterday.'],
+  ['shoot','shot','shot','tirer / tourner un film', 'PP', 'This film was ___ (shoot) in New York.'],
+  ['show','showed','shown','montrer', 'PP', 'Have you ___ (show) your drawing to your mum?'],
+  ['shut','shut','shut','fermer', 'P', 'Somebody ___ (shut) the door five minutes ago.'],
+  ['sing','sang','sung','chanter', 'P', 'We ___ (sing) Happy Birthday to Grandma last night.'],
+  ['sleep','slept','slept','dormir', 'P', 'I ___ (sleep) badly last night.'],
+  ['smell','smelt','smelt','sentir', 'P', 'The kitchen ___ (smell) of chocolate yesterday.'],
+  ['speak','spoke','spoken','parler', 'PP', 'Have you ___ (speak) to your teacher?'],
+  ['spend','spent','spent','dépenser / passer du temps', 'P', 'We ___ (spend) our holidays in Scotland last summer.'],
+  ['spread','spread','spread','étaler / répandre', 'P', 'This morning, she ___ (spread) butter on her toast.'],
+  ['stand','stood','stood','se tenir debout', 'PP', 'We have ___ (stand) in the queue for an hour!'],
+  ['steal','stole','stolen','voler (dérober)', 'PP', 'My bike was ___ (steal) last week.'],
+  ['swim','swam','swum','nager', 'PP', 'Have you ever ___ (swim) in the ocean?'],
+  ['sweep','swept','swept','balayer', 'P', 'He ___ (sweep) the floor after lunch.'],
+  ['take','took','taken','prendre', 'PP', 'Who has ___ (take) my pen?'],
+  ['throw','threw','thrown','jeter', 'P', 'He ___ (throw) the ball to his dog.'],
+  ['teach','taught','taught','enseigner', 'P', 'Mrs Smith ___ (teach) us English last year.'],
+  ['tear','tore','torn','déchirer', 'PP', 'Oops! I have ___ (tear) my jeans.'],
+  ['tell','told','told','raconter / dire', 'P', 'Grandpa ___ (tell) us a funny story yesterday.'],
+  ['think','thought','thought','penser', 'P', 'I ___ (think) about you yesterday.'],
+  ['understand','understood','understood','comprendre', 'PP', 'Have you ___ (understand) the lesson?'],
+  ['wake up','woke','woken','se réveiller', 'P', 'I ___ (wake) up at 6 this morning.'],
+  ['wear','wore','worn','porter (un vêtement)', 'PP', 'She has ___ (wear) her new dress only once.'],
+  ['win','won','won','gagner', 'P', 'Our team ___ (win) the match last Saturday.'],
+  ['write','wrote','written','écrire', 'PP', 'This book was ___ (write) by Roald Dahl.'],
+];
+const PRON = {read: '/red/'};                                  // prononciation à signaler (prétérit et participe)
+const ALSO = {smell: {pret:['smelled'], pp:['smelled']}, light: {pret:['lighted'], pp:['lighted']}};   // aussi justes, acceptés à l'écrit
+const VERBS = DATA.map((d,k) => ({base:d[0], pret:d[1], pp:d[2], fr:d[3], need:d[4], sent:d[5], part: k < 21 ? 'a' : 'b', key:d[0].replace(' up','')}));
+const FORM_NAME = {base:'base verbale', pret:'prétérit', pp:'participe passé'};
+
+const norm = s => String(s).toLowerCase().replace(/[’`]/g,"'").replace(/\s+/g,' ').trim().replace(/^to /,'').replace(/ up$/,'');
+const options = (v, f) => [...v[f].split('/').map(norm), ...((ALSO[v.key] || {})[f] || [])];
+const isRight = (v, f, s) => options(v, f).includes(norm(s));
+const first = (v, f) => v[f].split('/')[0].trim();
+const show = (v, f) => esc(v[f]) + (f !== 'base' && PRON[v.base] ? ` <span class="pron">${PRON[v.base]}</span>` : '');
+const three = v => `${esc(v.base)} – ${show(v,'pret')} – ${show(v,'pp')}`;
+const sayBtn = v => `<button class="say" type="button" data-say="${esc(v.base)}" aria-label="Écouter ${esc(v.base)}">🔊</button>`;
+
+/* lecture à voix haute (voix anglaise si disponible) */
+let VOICE = null;
+function loadVoice(){ try { const vs = speechSynthesis.getVoices(); VOICE = vs.find(x => /en-GB/i.test(x.lang)) || vs.find(x => /^en/i.test(x.lang)) || null; } catch(e){} }
+try { loadVoice(); speechSynthesis.onvoiceschanged = loadVoice; } catch(e){}
+function say(base){
+  const v = VERBS.find(x => x.base === base); if (!v) return;
+  const txt = v.base === 'read' ? 'read, red, red' : `${v.base}, ${first(v,'pret')}, ${first(v,'pp')}`;
+  try { speechSynthesis.cancel(); const u = new SpeechSynthesisUtterance(txt); u.lang = 'en-GB'; if (VOICE) u.voice = VOICE; u.rate = .85; speechSynthesis.speak(u); } catch(e){}
+}
+document.addEventListener('click', e => { const b = e.target.closest('[data-say]'); if (b) say(b.dataset.say); });
+
+/* ---------- choix de la partie de la fiche (commun à tous les onglets) ---------- */
+const SETS = {all:['Toute la fiche', () => VERBS], a:['learn → send', () => VERBS.filter(v => v.part==='a')], b:['set → write', () => VERBS.filter(v => v.part==='b')]};
+let SET = SETS[LS.get('lu_vi2_set')] ? LS.get('lu_vi2_set') : 'all';
+const pool = () => SETS[SET][1]();
+function setChips(){ return Object.entries(SETS).map(([k,[n,f]]) => `<button type="button" data-set="${k}" class="${k===SET?'on':''}">${n} (${f().length})</button>`).join(''); }
+function bindChips(root, after){
+  root.querySelectorAll('[data-set]').forEach(b => b.onclick = () => {
+    SET = b.dataset.set; LS.set('lu_vi2_set', SET);
+    document.querySelectorAll('[data-set]').forEach(x => x.classList.toggle('on', x.dataset.set === SET));
+    renderTable(); if (after) after();
+  });
+}
+
+/* ---------- tableau de la leçon ---------- */
+let MASK = 'none';
+function renderTable(){
+  const m = c => (MASK==='pp' && (c==='pret'||c==='pp')) || (MASK==='fr' && c==='fr') || (MASK==='base' && (c==='base'||c==='pret'||c==='pp')) ? ' masked' : '';
+  $('verbTable').innerHTML = `<tr><th>Base</th><th>Prétérit</th><th>Participe passé</th><th class="fr">Français</th><th></th></tr>` +
+    pool().map(v => `<tr><td class="b"><span class="w${m('base')}">${esc(v.base)}</span><span class="frm${m('fr')}">${esc(v.fr)}</span></td><td class="${m('pret')}"><span>${show(v,'pret')}</span></td><td class="${m('pp')}"><span>${show(v,'pp')}</span></td><td class="fr${m('fr')}"><span>${esc(v.fr)}</span></td><td>${sayBtn(v)}</td></tr>`).join('');
+  $('verbTable').querySelectorAll('.masked').forEach(el => el.onclick = e => { e.stopPropagation(); el.classList.remove('masked'); });
+}
+$('listSet').innerHTML = setChips(); bindChips($('listSet'));
+$('maskSel').querySelectorAll('button').forEach(b => b.onclick = () => {
+  MASK = b.dataset.m; $('maskSel').querySelectorAll('button').forEach(x => x.classList.toggle('on', x===b)); renderTable();
+});
+renderTable();
+
+/* =====================================================================
+   FAUSSES RÉPONSES CRÉDIBLES
+   ===================================================================== */
+function regular(base){
+  const b = base.replace(' up','');
+  if (/e$/.test(b)) return b + 'd';
+  if (/[^aeiou]y$/.test(b)) return b.slice(0,-1) + 'ied';
+  if (/^[^aeiou]*[aeiou][^aeiouwxy]$/.test(b)) return b + b.slice(-1) + 'ed';     // put → putted, win → winned
+  return b + 'ed';
+}
+function enForm(base){ const b = base.replace(' up',''); return /e$/.test(b) ? b + 'n' : b + 'en'; }
+/* 4 propositions pour la forme f du verbe v : la bonne + 3 erreurs typiques */
+function formChoices(v, f){
+  const good = first(v, f), others = VERBS.filter(x => x !== v);
+  const cand = f === 'pret' ? [first(v,'pp'), regular(v.base), v.base.replace(' up',''), enForm(v.base)]
+                            : [first(v,'pret') !== good ? first(v,'pret') : enForm(v.base), regular(v.base), v.base.replace(' up',''), enForm(v.base)];
+  const out = [];
+  for (const c of [...cand, ...shuffle(others).map(o => first(o, f))]){
+    if (out.length === 3) break;
+    if (!c || isRight(v, f, c) || out.includes(c)) continue;
+    out.push(c);
+  }
+  return [good, ...out];
+}
+
+/* =====================================================================
+   BANQUE DE QUESTIONS DU QUIZ
+   ===================================================================== */
+function qMeaning(v){
+  const wrong = shuffle(VERBS.filter(x => x.fr !== v.fr)).slice(0,3).map(x => x.fr);
+  return {prompt:`Que signifie ce verbe ?<span class="big">${esc(v.base)}</span>`, choices:[v.fr, ...wrong], answer:v.fr, long:true,
+    explain:`<b>${esc(v.base)}</b> = ${esc(v.fr)}. ${three(v)} ${sayBtn(v)}`, recap:`${esc(v.base)} = ${esc(v.fr)}`, v};
+}
+function qToEnglish(v){
+  const wrong = shuffle(VERBS.filter(x => x.base !== v.base && x.fr !== v.fr)).slice(0,3).map(x => x.base);
+  return {prompt:`Comment dit-on en anglais ?<span class="big">${esc(v.fr)}</span>`, choices:[v.base, ...wrong], answer:v.base,
+    explain:`${esc(v.fr)} = <b>${esc(v.base)}</b> : ${three(v)} ${sayBtn(v)}`, recap:`${esc(v.fr)} = ${esc(v.base)}`, v};
+}
+function qForm(v, f){
+  const c = formChoices(v, f);
+  return {prompt:`Quel est le <b>${FORM_NAME[f]}</b> de ce verbe ?<span class="big">${esc(v.base)}</span>`, choices:c, answer:c[0],
+    explain:`${three(v)} ${sayBtn(v)}${f==='pp' && v.base==='run' ? '<br>Attention : le participe passé de run redevient <b>run</b>.' : ''}${v.base==='read' ? '<br>Même orthographe, mais on prononce <b>/red/</b>.' : ''}`,
+    recap:`${esc(v.base)} → ${FORM_NAME[f]} : <b>${show(v,f)}</b>`, v, f};
+}
+function qSentence(v){
+  const f = v.need === 'P' ? 'pret' : 'pp', c = formChoices(v, f);
+  const why = f === 'pret' ? 'L\'action est passée, terminée et datée : on met le <b>prétérit</b>.' : 'Après <b>have / has</b> ou au passif après <b>be</b>, on met le <b>participe passé</b>.';
+  return {prompt:'Complète la phrase avec la bonne forme du verbe.', sentence:esc(v.sent).replace('___','<span class="gap">?</span>'), choices:c, answer:c[0],
+    explain:`${why}<br><i>${esc(v.sent).replace('___', `<b>${esc(first(v,f))}</b>`).replace(/ \(\w+\)/,'')}</i>${PRON[v.base] ? ` <span class="pron">(${PRON[v.base]})</span>` : ''} ${sayBtn(v)}`,
+    recap:`${esc(v.sent).replace('___', `<b>${esc(first(v,f))}</b>`).replace(/ \(\w+\)/,'')}`, v, f};
+}
+function buildQuiz(){
+  const vs = shuffle(pool()).slice(0, 16);
+  const kinds = shuffle(['meaning','meaning','en','en','pret','pret','pret','pret','pp','pp','pp','pp','sent','sent','sent','sent']);
+  return vs.map((v,k) => ({meaning:qMeaning, en:qToEnglish, pret:x => qForm(x,'pret'), pp:x => qForm(x,'pp'), sent:qSentence}[kinds[k]])(v));
+}
+const PATTERN = {AAA:'A A A — les 3 formes s\'écrivent pareil', ABB:'A B B — prétérit = participe passé', ABC:'A B C — 3 formes différentes', ABA:'A B A — participe passé = base'};
+function patternOf(v){ const a = v.base.replace(' up',''), b = first(v,'pret'), c = first(v,'pp'); return a===b && b===c ? 'AAA' : b===c ? 'ABB' : a===c ? 'ABA' : 'ABC'; }
+function buildFamilies(){
+  // on s'assure d'avoir des verbes de chaque famille quand c'est possible
+  const all = shuffle(pool()), out = [];
+  for (const p of ['AAA','ABC','ABA']) { const v = all.find(x => patternOf(x)===p && !out.includes(x)); if (v) out.push(v); }
+  for (const v of all) { if (out.length >= 12) break; if (!out.includes(v)) out.push(v); }
+  return shuffle(out).map(v => {
+    const p = patternOf(v);
+    return {prompt:`À quelle famille appartient ce verbe ?<span class="big" style="font-size:26px">${three(v)}</span>`, choices:Object.values(PATTERN), answer:PATTERN[p], long:true, keepOrder:true,
+      explain:`${three(v)} ${sayBtn(v)} → famille <b>${p}</b>.${v.base==='read' ? ' (À l\'écrit c\'est AAA, mais on prononce /red/ au prétérit et au participe.)' : ''}`,
+      recap:`${three(v)} : ${p}`, v};
+  });
+}
+
+/* =====================================================================
+   MOTEUR QCM (quiz et familles)
+   ===================================================================== */
+function makeQcm(boxId, mode, title, build, rules){
+  const box = $(boxId);
+  let qs, i, score, wrong, locked;
+  function intro(){
+    box.dataset.ready = 1;
+    box.innerHTML = `<h2>${title}</h2>
+      <div class="rules"><b>📋 Règles du jeu</b><ul>${rules.map(r => `<li>${r}</li>`).join('')}</ul></div>
+      <p class="hint">Quels verbes ?</p><div class="sel">${setChips()}</div>
+      <p class="hint">Meilleur score : ${getBest(mode)} / ${build().length}</p>
+      <div class="row"><button class="btn" id="${boxId}-go">C'est parti !</button><button class="btn alt" data-goto="lecon">Revoir la liste</button></div>`;
+    bindChips(box, intro);
+    $(`${boxId}-go`).onclick = start; wireGoto();
+  }
+  function start(){ qs = build(); i = 0; score = 0; wrong = []; LevelUp.reset(); showQ(); }
+  function showQ(){
+    locked = false; const q = qs[i];
+    const ch = q.keepOrder ? q.choices : shuffle(q.choices);
+    box.innerHTML = `<h2>${title}</h2>
+      <div class="q-top"><span>Question ${i+1} / ${qs.length}</span><span>Score : ${score}</span></div>
+      <div class="bar"><i style="width:${i/qs.length*100}%"></i></div>
+      <p class="prompt">${q.prompt}</p>
+      ${q.sentence ? `<p class="sentence">${q.sentence}</p>` : ''}
+      <div class="choices${q.long ? ' long' : ''}">${ch.map(c => `<button class="choice" data-v="${esc(c)}">${esc(c)}</button>`).join('')}</div>
+      <div class="fb" id="${boxId}-fb"></div>
+      <div class="row center hide" id="${boxId}-next"><button class="btn">${i+1<qs.length ? 'Question suivante →' : 'Voir mon score'}</button></div>`;
+    box.querySelectorAll('.choice').forEach(b => b.onclick = () => { if (!locked) grade(b); });
+    $(`${boxId}-next`).querySelector('button').onclick = next;
+  }
+  function grade(b){
+    locked = true; const q = qs[i], ok = b.dataset.v === q.answer;
+    box.querySelectorAll('.choice').forEach(x => { x.disabled = true; if (x.dataset.v === q.answer) x.classList.add('good'); else if (x === b) x.classList.add('bad'); });
+    if (ok) score++; else { wrong.push(q.recap); LevelUp.err(q.sentence ? q.sentence.replace(/<[^>]*>/g,'___') : q.prompt, q.answer, b.dataset.v); }
+    const fb = $(`${boxId}-fb`); fb.className = 'fb ' + (ok ? 'ok' : 'ko');
+    fb.innerHTML = (ok ? '✔ <b>Bravo !</b> ' : `✘ <b>Pas tout à fait.</b> La bonne réponse : <b>${esc(q.answer)}</b>.<br>`) + q.explain;
+    $(`${boxId}-next`).classList.remove('hide'); $(`${boxId}-next`).querySelector('button').focus({preventScroll:true});
+  }
+  function next(){ i++; i < qs.length ? showQ() : end(); }
+  function end(){
+    const best = Math.max(getBest(mode), score); setBest(mode, best); LevelUp.save(mode, score, qs.length);
+    box.innerHTML = endHTML(title, score, qs.length, best, wrong, boxId);
+    $(`${boxId}-again`).onclick = start; $(`${boxId}-chg`).onclick = intro; wireGoto();
+  }
+  return intro;
+}
+function endHTML(title, score, total, best, wrong, boxId){
+  const pct = score / total;
+  const msg = pct === 1 ? 'Perfect! 🏆' : pct >= .8 ? 'Very good! 🌟' : pct >= .5 ? 'Pas mal, continue ! 💪' : 'Revois la liste et réessaie 📘';
+  return `<h2>${title} — terminé</h2>
+    <div class="score">${score} / ${total}</div><p><b>${msg}</b><br>Meilleur score : ${best} / ${total}</p>
+    ${wrong.length ? `<h3>À revoir (recopie-les 3 fois !)</h3><ul class="review">${wrong.map(w => `<li>${w}</li>`).join('')}</ul>` : ''}
+    <div class="row"><button class="btn" id="${boxId}-again">Rejouer</button><button class="btn alt" id="${boxId}-chg">Changer de verbes</button><button class="btn alt" data-goto="lecon">Revoir la liste</button></div>`;
+}
+
+/* =====================================================================
+   ÉCRIRE LES FORMES (niveau 1 : on donne la base ; niveau 2 : on donne le français)
+   ===================================================================== */
+function setupWrite(){
+  const box = $('ecrireBox'), N = 10;
+  let lvl = 1, qs, i, score, total, wrong, locked;
+  function intro(){
+    box.dataset.ready = 1;
+    box.innerHTML = `<h2>Écrire les formes</h2>
+      <div class="rules"><b>📋 Règles du jeu</b><ul>
+        <li><b>Niveau 1</b> : on te donne la base verbale, écris le <b>prétérit</b> et le <b>participe passé</b>.</li>
+        <li><b>Niveau 2</b> : on te donne le <b>français</b>, écris les <b>trois formes</b>.</li>
+        <li>Touche <kbd>Entrée</kbd> pour passer à la case suivante, puis pour valider.</li>
+        <li>Chaque forme juste rapporte 1 point. Attention à l'orthographe !</li>
+        <li>Quand la fiche donne deux formes (learnt / learned), les deux sont acceptées.</li></ul></div>
+      <p class="hint">Quels verbes ?</p><div class="sel">${setChips()}</div>
+      <p class="hint">Niveau</p>
+      <div class="sel" id="lvlSel"><button type="button" data-l="1" class="${lvl===1?'on':''}">Niveau 1 : base donnée</button><button type="button" data-l="2" class="${lvl===2?'on':''}">Niveau 2 : français donné</button></div>
+      <p class="hint">Meilleur score : niveau 1 : ${getBest('ecrire-1')} / ${2*N} · niveau 2 : ${getBest('ecrire-2')} / ${3*N}</p>
+      <div class="row"><button class="btn" id="wr-go">C'est parti !</button><button class="btn alt" data-goto="lecon">Revoir la liste</button></div>`;
+    bindChips(box, intro);
+    box.querySelectorAll('#lvlSel button').forEach(b => b.onclick = () => { lvl = +b.dataset.l; intro(); });
+    $('wr-go').onclick = start; wireGoto();
+  }
+  const fields = () => lvl === 1 ? ['pret','pp'] : ['base','pret','pp'];
+  function start(){ qs = shuffle(pool()).slice(0, N); i = 0; score = 0; total = 0; wrong = []; LevelUp.reset(); showQ(); }
+  function showQ(){
+    locked = false; const v = qs[i];
+    box.innerHTML = `<h2>Écrire les formes — niveau ${lvl}</h2>
+      <div class="q-top"><span>Verbe ${i+1} / ${qs.length}</span><span>Score : ${score} / ${total}</span></div>
+      <div class="bar"><i style="width:${i/qs.length*100}%"></i></div>
+      <p class="prompt">${lvl === 1 ? `Écris le prétérit et le participe passé de :<span class="big">${esc(v.base)}</span><span class="hint">(${esc(v.fr)})</span>`
+                                    : `Écris les trois formes du verbe qui veut dire :<span class="big">${esc(v.fr)}</span>`}</p>
+      <form id="wr-f" autocomplete="off"><div class="typing">
+        ${fields().map(f => `<div><label for="wr-${f}">${FORM_NAME[f]}</label><input id="wr-${f}" data-f="${f}" autocapitalize="off" autocorrect="off" spellcheck="false"></div>`).join('')}
+      </div><div class="row"><button class="btn" id="wr-val">Valider</button></div></form>
+      <div class="fb" id="wr-fb"></div>
+      <div class="row center hide" id="wr-next"><button class="btn">${i+1<qs.length ? 'Verbe suivant →' : 'Voir mon score'}</button></div>`;
+    const ins = [...box.querySelectorAll('.typing input')]; ins[0].focus();
+    ins.forEach((inp,k) => inp.addEventListener('keydown', e => { if (e.key === 'Enter' && !locked && k < ins.length-1 && !ins[k+1].value){ e.preventDefault(); ins[k+1].focus(); } }));
+    $('wr-f').onsubmit = e => { e.preventDefault(); if (locked) { next(); return; } grade(ins); };
+    $('wr-next').querySelector('button').onclick = next;
+  }
+  function grade(ins){
+    const empty = ins.find(x => !x.value.trim());
+    if (empty){ const fb = $('wr-fb'); fb.className = 'fb warn'; fb.innerHTML = '✋ Remplis toutes les cases (même si tu n\'es pas sûr !).'; empty.focus(); return; }
+    locked = true; const v = qs[i]; let pts = 0, errs = [];
+    ins.forEach(inp => {
+      const f = inp.dataset.f, ok = isRight(v, f, inp.value);
+      inp.readOnly = true; inp.classList.add(ok ? 'good' : 'bad');
+      if (ok) pts++; else { errs.push(`${FORM_NAME[f]} : <b>${esc(first(v,f))}</b> (pas <s>${esc(inp.value.trim())}</s>)`); LevelUp.err(`${lvl===1 ? v.base : v.fr} → ${FORM_NAME[f]}`, v[f], inp.value); }
+    });
+    score += pts; total += ins.length;
+    $('wr-val').classList.add('hide');
+    if (errs.length) wrong.push(`${three(v)} (${esc(v.fr)})`);
+    const fb = $('wr-fb'); fb.className = 'fb ' + (errs.length ? 'ko' : 'ok');
+    fb.innerHTML = (errs.length ? `✘ <b>${pts} / ${ins.length}.</b> ${errs.join(' · ')}<br>` : '✔ <b>Parfait !</b> ') + `${three(v)} = ${esc(v.fr)} ${sayBtn(v)}`;
+    $('wr-next').classList.remove('hide'); $('wr-next').querySelector('button').focus({preventScroll:true});
+  }
+  function next(){ i++; i < qs.length ? showQ() : end(); }
+  function end(){
+    const key = 'ecrire-' + lvl, best = Math.max(getBest(key), score); setBest(key, best); LevelUp.save(key, score, total);
+    box.innerHTML = endHTML(`Écrire les formes — niveau ${lvl}`, score, total, best, wrong, 'wr');
+    $('wr-again').onclick = start; $('wr-chg').onclick = intro; wireGoto();
+  }
+  intro();
+}
+
+/* =====================================================================
+   DÉFI CHRONO : 60 secondes de prétérits et de participes
+   ===================================================================== */
+function setupChrono(){
+  const box = $('chronoBox'), DUREE = 60;
+  let timer = null, left, score, wrong, cur;
+  function intro(){
+    box.dataset.ready = 1;
+    box.innerHTML = `<h2>Défi chrono</h2>
+      <div class="rules"><b>📋 Règles du jeu</b><ul>
+        <li>Tu as <b>${DUREE} secondes</b> pour trouver le plus possible de prétérits et de participes passés.</li>
+        <li>Touche la bonne réponse : la question suivante arrive tout de suite.</li>
+        <li>Une erreur ne fait pas perdre de point, mais fait perdre du temps !</li></ul></div>
+      <p class="hint">Quels verbes ?</p><div class="sel">${setChips()}</div>
+      <p class="hint">Record : ${getBest('chrono')} bonnes réponses</p>
+      <div class="row"><button class="btn" id="chr-go">Démarrer ⏱️</button></div>`;
+    bindChips(box, intro);
+    $('chr-go').onclick = start;
+  }
+  function start(){
+    score = 0; wrong = []; left = DUREE; LevelUp.reset();
+    box.innerHTML = `<h2>Défi chrono</h2>
+      <div class="q-top"><span class="timer" id="chr-t">${left}</span><span>Bonnes réponses : <b id="chr-s">0</b></span></div>
+      <div class="bar"><i id="chr-bar" style="width:100%"></i></div>
+      <p class="prompt" id="chr-q"></p><div class="choices" id="chr-c"></div>`;
+    nextQ();
+    timer = setInterval(() => { left--; $('chr-t').textContent = left; $('chr-bar').style.width = (left/DUREE*100)+'%'; if (left <= 0) end(); }, 1000);
+  }
+  function nextQ(){
+    let v; do { v = pick(pool()); } while (cur && v === cur.v && pool().length > 1);
+    const f = Math.random() < .5 ? 'pret' : 'pp', c = formChoices(v, f);
+    cur = {v, f, answer:c[0]};
+    $('chr-q').innerHTML = `${FORM_NAME[f]} de<span class="big">${esc(v.base)}</span>`;
+    $('chr-c').innerHTML = shuffle(c).map(x => `<button class="choice" data-v="${esc(x)}">${esc(x)}</button>`).join('');
+    $('chr-c').querySelectorAll('.choice').forEach(b => b.onclick = () => {
+      if (left <= 0) return;
+      if (b.dataset.v === cur.answer){ score++; $('chr-s').textContent = score; nextQ(); }
+      else {
+        wrong.push(`${esc(cur.v.base)} → ${FORM_NAME[cur.f]} : <b>${show(cur.v, cur.f)}</b>`); LevelUp.err(`${cur.v.base} → ${FORM_NAME[cur.f]}`, cur.answer, b.dataset.v);
+        b.classList.add('bad'); $('chr-c').querySelectorAll('.choice').forEach(x => { x.disabled = true; if (x.dataset.v === cur.answer) x.classList.add('good'); });
+        setTimeout(() => { if (left > 0) nextQ(); }, 900);
+      }
+    });
+  }
+  function end(){
+    clearInterval(timer); timer = null;
+    const old = getBest('chrono'), best = Math.max(old, score); setBest('chrono', best);
+    if (score + wrong.length) LevelUp.save('chrono', score, score + wrong.length);
+    const uniq = [...new Set(wrong)];
+    box.innerHTML = `<h2>Temps écoulé !</h2>
+      <div class="score">${score} bonne${score>1?'s':''} réponse${score>1?'s':''}</div>
+      <p>${score > old && old > 0 ? '🏆 <b>Nouveau record !</b>' : `Record : ${best}`} — ${wrong.length} erreur${wrong.length>1?'s':''}</p>
+      ${uniq.length ? `<h3>À revoir</h3><ul class="review">${uniq.map(w => `<li>${w}</li>`).join('')}</ul>` : ''}
+      <div class="row"><button class="btn" id="chr-again">Rejouer</button><button class="btn alt" id="chr-chg">Changer de verbes</button></div>`;
+    $('chr-again').onclick = start; $('chr-chg').onclick = intro;
+  }
+  // on arrête le chrono si on change d'onglet
+  document.querySelectorAll('#tabs button').forEach(b => b.addEventListener('click', () => { if (b.dataset.tab !== 'chrono' && timer){ clearInterval(timer); timer = null; intro(); } }));
+  intro();
+}
+
+/* ---------- Onglets ---------- */
+const TABS = ['lecon','quiz','ecrire','familles','chrono'];
+function goTab(t){
+  document.querySelectorAll('#tabs button').forEach(x => x.classList.toggle('on', x.dataset.tab === t));
+  TABS.forEach(id => $(id).classList.toggle('hide', id !== t));
+  const box = $(t + 'Box');
+  if (box) { if (!box.dataset.ready) setups[t](); }
+  window.scrollTo({top:0, behavior:'smooth'});
+}
+function wireGoto(){ document.querySelectorAll('[data-goto]').forEach(b => b.onclick = () => goTab(b.dataset.goto)); }
+document.querySelectorAll('#tabs button').forEach(b => b.addEventListener('click', () => goTab(b.dataset.tab)));
+
+const setups = {
+  quiz: makeQcm('quizBox', 'quiz', 'Quiz des verbes irréguliers', buildQuiz, [
+    '16 questions mélangées : le sens du verbe, le prétérit, le participe passé et des phrases à compléter.',
+    'Touche la bonne réponse : la <b>correction</b> s\'affiche tout de suite. Prends le temps de la lire !',
+    'Une bonne réponse = 1 point. À la fin, tu vois les verbes à revoir.',
+    'Les questions changent à chaque partie : rejoue pour battre ton record.']),
+  ecrire: setupWrite,
+  familles: makeQcm('famillesBox', 'familles', 'Les familles de verbes', buildFamilies, [
+    'On classe les verbes selon leurs trois formes : <b>AAA</b> (put – put – put), <b>ABB</b>, <b>ABC</b> ou <b>ABA</b>.',
+    'Regarde bien l\'<b>orthographe</b> des trois formes, puis choisis la famille.',
+    '12 verbes, 1 point par bonne réponse.']),
+  chrono: setupChrono
+};
+</script>
+</body>
+</html>
